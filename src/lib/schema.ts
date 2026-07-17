@@ -1,4 +1,5 @@
 import { faqs } from "@/lib/data";
+import type { ServicePage } from "@/lib/service-pages";
 import { site } from "@/lib/site";
 
 const organizationId = `${site.url}/#organization`;
@@ -120,6 +121,70 @@ export function buildJsonLdGraph() {
         "@type": "FAQPage",
         "@id": `${site.url}/#faq`,
         mainEntity: faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+          },
+        })),
+      },
+    ],
+  };
+}
+
+export function buildServicePageJsonLd(page: ServicePage) {
+  const pageUrl = `${site.url}/${page.slug}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}/#webpage`,
+        url: pageUrl,
+        name: page.metaTitle,
+        description: page.metaDescription,
+        isPartOf: { "@id": websiteId },
+        about: { "@id": organizationId },
+        inLanguage: "pt-BR",
+        breadcrumb: { "@id": `${pageUrl}/#breadcrumb` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}/#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: site.url,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: page.navLabel,
+            item: pageUrl,
+          },
+        ],
+      },
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}/#service`,
+        name: page.navLabel,
+        description: page.metaDescription,
+        url: pageUrl,
+        serviceType: page.navLabel,
+        provider: { "@id": organizationId },
+        areaServed: {
+          "@type": "Country",
+          name: "Brasil",
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}/#faq`,
+        mainEntity: page.faqs.map((faq) => ({
           "@type": "Question",
           name: faq.question,
           acceptedAnswer: {

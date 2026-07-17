@@ -27,10 +27,10 @@ export const links = {
 } as const;
 
 export const nav = [
-  { label: "Serviços", href: "#servicos" },
-  { label: "Diferenciais", href: "#diferenciais" },
-  { label: "Como trabalhamos", href: "#processo" },
-  { label: "Tecnologias", href: "#tecnologias" },
-  { label: "Projetos", href: "#projetos" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Serviços", href: "/#servicos" },
+  { label: "Diferenciais", href: "/#diferenciais" },
+  { label: "Como trabalhamos", href: "/#processo" },
+  { label: "Tecnologias", href: "/#tecnologias" },
+  { label: "Projetos", href: "/#projetos" },
+  { label: "FAQ", href: "/#faq" },
 ] as const;

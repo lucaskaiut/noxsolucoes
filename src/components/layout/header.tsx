@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
@@ -8,8 +9,8 @@ import { links, nav, site } from "@/lib/site";
 
 function Logo() {
   return (
-    <a
-      href="#inicio"
+    <Link
+      href="/"
       className="flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
       aria-label={`${site.name} — voltar ao início`}
     >
@@ -22,7 +23,7 @@ function Logo() {
           Soluções em Tecnologia
         </span>
       </span>
-    </a>
+    </Link>
   );
 }
 

@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { MailIcon, PhoneIcon, WhatsAppIcon } from "@/components/ui/icons";
+import { servicePages } from "@/lib/service-pages";
 import { links, nav, site } from "@/lib/site";
 
 export function Footer() {
@@ -8,7 +10,7 @@ export function Footer() {
   return (
     <footer className="bg-ice-100">
       <Container className="py-14">
-        <div className="grid gap-10 md:grid-cols-3">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2">
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold text-white">
@@ -23,6 +25,24 @@ export function Footer() {
               e inteligência artificial para empresas que querem crescer.
             </p>
           </div>
+
+          <nav aria-label="Serviços">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-900">
+              Serviços
+            </h2>
+            <ul className="mt-4 space-y-2">
+              {servicePages.map((page) => (
+                <li key={page.slug}>
+                  <Link
+                    href={`/${page.slug}`}
+                    className="text-sm text-slate-600 transition-colors hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
+                  >
+                    {page.navLabel}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           <nav aria-label="Links rápidos">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-900">

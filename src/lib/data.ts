@@ -16,6 +16,7 @@ export interface Service {
   title: string;
   description: string;
   tags: string[];
+  href: string;
 }
 
 export const services: Service[] = [
@@ -25,6 +26,7 @@ export const services: Service[] = [
     description:
       "ERPs, CRMs e plataformas SaaS construídos sob medida para o seu negócio, com arquitetura escalável e foco em resultado.",
     tags: ["ERP", "CRM", "SaaS", "Portais"],
+    href: "/desenvolvimento-de-sistemas",
   },
   {
     icon: "smartphone",
@@ -32,6 +34,7 @@ export const services: Service[] = [
     description:
       "Apps nativos e híbridos para Android e iOS, com experiência fluida, publicação nas lojas e evolução contínua.",
     tags: ["Android", "iOS", "React Native"],
+    href: "/aplicativos-mobile",
   },
   {
     icon: "plug",
@@ -39,6 +42,7 @@ export const services: Service[] = [
     description:
       "Conectamos seus sistemas a APIs, WhatsApp, gateways de pagamento e serviços externos com segurança e confiabilidade.",
     tags: ["APIs REST", "WhatsApp", "Pagamentos", "Webhooks"],
+    href: "/integracoes",
   },
   {
     icon: "sparkles",
@@ -46,6 +50,7 @@ export const services: Service[] = [
     description:
       "Automação de processos, agentes de IA e atendimento automatizado que reduzem custos e aceleram sua operação.",
     tags: ["Agentes IA", "Automação", "Chatbots", "OpenAI"],
+    href: "/inteligencia-artificial",
   },
   {
     icon: "compass",
@@ -53,6 +58,7 @@ export const services: Service[] = [
     description:
       "Arquitetura de software, modernização de sistemas legados e planejamento de escalabilidade com visão de negócio.",
     tags: ["Arquitetura", "Modernização", "Escalabilidade"],
+    href: "/consultoria-tecnologica",
   },
 ];
 

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { Icon } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -43,6 +44,13 @@ export function Services() {
                   </li>
                 ))}
               </ul>
+              <Link
+                href={service.href}
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 transition-colors hover:text-brand-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
+                aria-label={`Saiba mais sobre ${service.title}`}
+              >
+                Saiba mais →
+              </Link>
             </article>
           ))}
 

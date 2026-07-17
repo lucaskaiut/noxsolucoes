@@ -29,4 +29,9 @@ Entre em contato pelo WhatsApp (41) 98829-7008 ou pelo e-mail contato@noxtecnolo
 ## Recursos
 
 - [Página inicial](https://noxtecnologias.com.br): apresentação completa da empresa, serviços, diferenciais, processo de trabalho, tecnologias, projetos e FAQ
+- [Desenvolvimento de Sistemas Web](https://noxtecnologias.com.br/desenvolvimento-de-sistemas): ERPs, CRMs e plataformas SaaS sob medida
+- [Aplicativos Mobile](https://noxtecnologias.com.br/aplicativos-mobile): apps para Android e iOS
+- [Integrações](https://noxtecnologias.com.br/integracoes): APIs, WhatsApp e gateways de pagamento
+- [Inteligência Artificial](https://noxtecnologias.com.br/inteligencia-artificial): agentes de IA e atendimento automatizado
+- [Consultoria Tecnológica](https://noxtecnologias.com.br/consultoria-tecnologica): arquitetura, modernização e escalabilidade
 - [Versão detalhada para IA](https://noxtecnologias.com.br/llms-full.txt): informações completas sobre a empresa
