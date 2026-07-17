@@ -8,6 +8,7 @@ import { FinalCta } from "@/components/sections/final-cta";
 import { Hero } from "@/components/sections/hero";
 import { Process } from "@/components/sections/process";
 import { Services } from "@/components/sections/services";
+import { Stats } from "@/components/sections/stats";
 import { Technologies } from "@/components/sections/technologies";
 import { Testimonials } from "@/components/sections/testimonials";
 
@@ -24,6 +25,7 @@ export default function HomePage() {
       <Header />
       <main id="conteudo" className="flex-1">
         <Hero />
+        <Stats />
         <Services />
         <Differentials />
         <Process />
