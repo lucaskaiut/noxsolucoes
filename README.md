@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nox Soluções em Tecnologia — Site Institucional
 
-## Getting Started
+Landing page institucional da **Nox Soluções em Tecnologia**, software house especializada em desenvolvimento de sistemas web, aplicativos mobile, integrações e inteligência artificial.
 
-First, run the development server:
+## Stack
+
+- [Next.js 16](https://nextjs.org) (App Router, Turbopack)
+- [React 19](https://react.dev)
+- [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS 4](https://tailwindcss.com)
+- ESLint 9
+
+## Executando o projeto
+
+### Pré-requisitos
+
+- Node.js 20+
+- npm
+
+### Desenvolvimento
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Produção
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+### Lint
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estrutura do projeto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── layout.tsx        # Layout raiz, metadata global (SEO) e fontes
+│   ├── page.tsx          # Landing page (composição das seções)
+│   ├── globals.css       # Design tokens (Tailwind 4 @theme) e animações
+│   ├── icon.svg          # Favicon
+│   ├── robots.ts         # robots.txt gerado
+│   └── sitemap.ts        # sitemap.xml gerado
+├── components/
+│   ├── layout/           # Header (client) e Footer
+│   ├── sections/         # Hero, Serviços, Diferenciais, Processo,
+│   │                     # Tecnologias, Projetos, Depoimentos, FAQ, CTA final
+│   ├── seo/              # Componente JSON-LD
+│   └── ui/               # Container, ButtonLink, SectionHeading, ícones SVG
+└── lib/
+    ├── site.ts           # Dados da empresa, links e navegação
+    ├── data.ts           # Conteúdo tipado das seções
+    └── schema.ts         # Grafo Schema.org (JSON-LD)
 
-## Deploy on Vercel
+public/
+├── llms.txt              # Resumo estruturado para IAs/LLMs
+└── llms-full.txt         # Versão detalhada para indexação por IA
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## SEO e otimização para IA
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Metadata completa: title, description, keywords, Open Graph, Twitter Cards e canonical
+- Dados estruturados JSON-LD: `Organization`, `ProfessionalService`/`LocalBusiness`, `WebSite`, `WebPage`, `BreadcrumbList` e `FAQPage`
+- `robots.txt` e `sitemap.xml` gerados pelo App Router
+- `llms.txt` e `llms-full.txt` para compreensão por modelos de IA
+- HTML semântico (`header`, `nav`, `main`, `section`, `article`, `footer`) com `h1` único
+- Página 100% estática (SSG) para máxima performance
+
+## Acessibilidade
+
+- Navegação por teclado com estados de foco visíveis
+- Link "pular para o conteúdo"
+- `aria-label`/`aria-labelledby` nas seções e controles
+- FAQ com `<details>/<summary>` nativos (sem JavaScript)
+- Suporte a `prefers-reduced-motion`
+
+## Deploy
+
+O projeto está pronto para deploy na [Vercel](https://vercel.com): basta importar o repositório. Nenhuma variável de ambiente é necessária.
+
+## Contato
+
+- E-mail: [contato@noxtecnologias.com.br](mailto:contato@noxtecnologias.com.br)
+- WhatsApp: (41) 98829-7008
