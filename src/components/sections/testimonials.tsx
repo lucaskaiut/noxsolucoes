@@ -7,7 +7,7 @@ export function Testimonials() {
     <section
       id="depoimentos"
       aria-labelledby="depoimentos-heading"
-      className="scroll-mt-24 bg-zinc-900/50 py-20 sm:py-28"
+      className="scroll-mt-24 bg-ice-100 py-20 sm:py-28"
     >
       <Container>
         <SectionHeading
@@ -21,9 +21,9 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <figure
               key={index}
-              className="flex flex-col justify-between rounded-2xl bg-zinc-900 p-7 shadow-lg shadow-black/30"
+              className="flex flex-col justify-between rounded-2xl bg-white/70 p-7 shadow-md shadow-slate-900/5 backdrop-blur"
             >
-              <blockquote className="text-sm leading-relaxed text-zinc-300">
+              <blockquote className="text-sm leading-relaxed text-slate-600">
                 “{testimonial.quote}”
               </blockquote>
               <figcaption className="mt-6 flex items-center gap-3 pt-5">
@@ -34,17 +34,17 @@ export function Testimonials() {
                   {testimonial.author.charAt(0)}
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-white">
+                  <p className="text-sm font-semibold text-slate-900">
                     {testimonial.author}
                   </p>
-                  <p className="text-xs text-zinc-500">{testimonial.role}</p>
+                  <p className="text-xs text-slate-500">{testimonial.role}</p>
                 </div>
               </figcaption>
             </figure>
           ))}
         </div>
 
-        <p className="mt-8 text-center text-xs text-zinc-500">
+        <p className="mt-8 text-center text-xs text-slate-500">
           * Depoimentos fictícios apresentados apenas como exemplo de layout.
         </p>
       </Container>

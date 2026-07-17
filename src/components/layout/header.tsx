@@ -10,15 +10,15 @@ function Logo() {
   return (
     <a
       href="#inicio"
-      className="flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+      className="flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
       aria-label={`${site.name} — voltar ao início`}
     >
       <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold text-white">
         N
       </span>
-      <span className="text-base font-bold tracking-tight text-white">
+      <span className="text-base font-bold tracking-tight text-slate-900">
         Nox
-        <span className="ml-1.5 hidden text-sm font-medium text-zinc-400 sm:inline">
+        <span className="ml-1.5 hidden text-sm font-medium text-slate-500 sm:inline">
           Soluções em Tecnologia
         </span>
       </span>
@@ -30,7 +30,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-zinc-950/80 shadow-md shadow-black/30 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 bg-white/70 shadow-sm shadow-slate-900/5 backdrop-blur-xl">
       <Container className="flex h-16 items-center justify-between">
         <Logo />
 
@@ -40,7 +40,7 @@ export function Header() {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="text-sm font-medium text-zinc-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                  className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
                 >
                   {item.label}
                 </a>
@@ -61,7 +61,7 @@ export function Header() {
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
-          className="rounded-lg p-2 text-zinc-300 hover:bg-white/5 hover:text-white focus-visible:outline-2 focus-visible:outline-white lg:hidden"
+          className="rounded-lg p-2 text-slate-600 hover:bg-slate-900/5 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-brand-600 lg:hidden"
         >
           {open ? (
             <CloseIcon className="h-6 w-6" />
@@ -75,7 +75,7 @@ export function Header() {
         <nav
           id="mobile-menu"
           aria-label="Navegação móvel"
-          className="bg-zinc-950/95 shadow-lg shadow-black/40 backdrop-blur-xl lg:hidden"
+          className="bg-white/90 shadow-lg shadow-slate-900/10 backdrop-blur-xl lg:hidden"
         >
           <Container className="flex flex-col gap-1 py-4">
             {nav.map((item) => (
@@ -83,7 +83,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-3 text-sm font-medium text-zinc-300 hover:bg-white/5 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
+                className="rounded-lg px-3 py-3 text-sm font-medium text-slate-600 hover:bg-slate-900/5 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-brand-600"
               >
                 {item.label}
               </a>

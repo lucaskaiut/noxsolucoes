@@ -11,7 +11,7 @@ export function FinalCta() {
       className="scroll-mt-24 py-20 sm:py-28"
     >
       <Container>
-        <div className="relative overflow-hidden rounded-3xl bg-zinc-900 px-6 py-16 text-center shadow-2xl shadow-black/50 sm:px-16 sm:py-20">
+        <div className="relative overflow-hidden rounded-3xl bg-slate-900 px-6 py-16 text-center shadow-xl shadow-slate-900/20 sm:px-16 sm:py-20">
           <div className="relative">
             <h2
               id="contato-heading"
@@ -19,7 +19,7 @@ export function FinalCta() {
             >
               Pronto para tirar seu projeto do papel?
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-zinc-300 sm:text-lg">
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
               Fale com a equipe da {site.name} e receba uma proposta sob medida
               para o seu negócio — sem compromisso.
             </p>
@@ -36,12 +36,12 @@ export function FinalCta() {
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto"
               >
-                <WhatsAppIcon className="h-4 w-4 text-emerald-400" />
+                <WhatsAppIcon className="h-4 w-4 text-emerald-600" />
                 Falar no WhatsApp
               </ButtonLink>
             </div>
 
-            <p className="mt-8 text-sm text-zinc-400">
+            <p className="mt-8 text-sm text-slate-400">
               {site.email} · {site.phoneDisplay}
             </p>
           </div>

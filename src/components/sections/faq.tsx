@@ -22,13 +22,13 @@ export function Faq() {
           {faqs.map((faq) => (
             <details
               key={faq.question}
-              className="group rounded-2xl bg-zinc-900 shadow-md shadow-black/25 open:bg-zinc-800/80"
+              className="group rounded-2xl bg-white shadow-md shadow-slate-900/5 open:shadow-lg open:shadow-slate-900/10"
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-semibold text-white [&::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-semibold text-slate-900 [&::-webkit-details-marker]:hidden">
                 {faq.question}
-                <ChevronDownIcon className="h-4 w-4 shrink-0 text-zinc-400 transition-transform duration-200 group-open:rotate-180" />
+                <ChevronDownIcon className="h-4 w-4 shrink-0 text-slate-500 transition-transform duration-200 group-open:rotate-180" />
               </summary>
-              <p className="px-5 pb-5 text-sm leading-relaxed text-zinc-400">
+              <p className="px-5 pb-5 text-sm leading-relaxed text-slate-600">
                 {faq.answer}
               </p>
             </details>

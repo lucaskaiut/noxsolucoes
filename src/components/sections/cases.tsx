@@ -22,7 +22,7 @@ export function Cases() {
           {cases.map((item) => (
             <article
               key={item.title}
-              className="group overflow-hidden rounded-2xl bg-zinc-900 shadow-lg shadow-black/30 transition-colors duration-300 hover:bg-zinc-800/80"
+              className="group overflow-hidden rounded-2xl bg-white shadow-md shadow-slate-900/5 transition-shadow duration-300 hover:shadow-lg hover:shadow-slate-900/10"
             >
               <Image
                 src={item.image}
@@ -34,13 +34,13 @@ export function Cases() {
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
               <div className="p-6">
-                <span className="text-xs font-semibold uppercase tracking-widest text-brand-300">
+                <span className="text-xs font-semibold uppercase tracking-widest text-brand-600">
                   {item.category}
                 </span>
-                <h3 className="mt-2 text-lg font-semibold text-white">
+                <h3 className="mt-2 text-lg font-semibold text-slate-900">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
                   {item.description}
                 </p>
               </div>

@@ -13,6 +13,10 @@
   --color-brand-700: #6d28d9;
   --color-brand-950: #2e1065;
 
+  --color-ice-50: #f6f8fc;
+  --color-ice-100: #eaf0f8;
+  --color-ice-200: #dce6f2;
+
   --animate-fade-up: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-fade-in: fade-in 1.2s ease-out both;
 

@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     description,
     images: [
       {
-        url: "https://placehold.co/1200x630/17102b/a78bfa/png?text=Nox+Solu%C3%A7%C3%B5es+em+Tecnologia",
+        url: "https://placehold.co/1200x630/eaf0f8/7c3aed/png?text=Nox+Solu%C3%A7%C3%B5es+em+Tecnologia",
         width: 1200,
         height: 630,
         alt: site.name,
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     title,
     description,
     images: [
-      "https://placehold.co/1200x630/17102b/a78bfa/png?text=Nox+Solu%C3%A7%C3%B5es+em+Tecnologia",
+      "https://placehold.co/1200x630/eaf0f8/7c3aed/png?text=Nox+Solu%C3%A7%C3%B5es+em+Tecnologia",
     ],
   },
   robots: {
@@ -86,7 +86,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#09090b",
+  themeColor: "#f6f8fc",
 };
 
 export default function RootLayout({
@@ -99,7 +99,7 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-zinc-950 font-sans text-zinc-300">
+      <body className="flex min-h-full flex-col bg-ice-50 font-sans text-slate-600">
         {children}
       </body>
     </html>

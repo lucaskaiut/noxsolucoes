@@ -173,7 +173,7 @@ export const cases: CaseItem[] = [
     description:
       "Plataforma completa de gestão empresarial com módulos financeiro, vendas e estoque.",
     image:
-      "https://placehold.co/600x400/17102b/a78bfa/png?text=Case+SaaS",
+      "https://placehold.co/600x400/eaf0f8/7c3aed/png?text=Case+SaaS",
   },
   {
     title: "Aplicativo de Delivery",
@@ -181,7 +181,7 @@ export const cases: CaseItem[] = [
     description:
       "App Android e iOS com pedidos em tempo real, pagamentos integrados e painel administrativo.",
     image:
-      "https://placehold.co/600x400/17102b/a78bfa/png?text=Case+Mobile",
+      "https://placehold.co/600x400/eaf0f8/7c3aed/png?text=Case+Mobile",
   },
   {
     title: "Agente de IA para Atendimento",
@@ -189,7 +189,7 @@ export const cases: CaseItem[] = [
     description:
       "Atendimento automatizado via WhatsApp com IA, reduzindo o tempo de resposta em 80%.",
     image:
-      "https://placehold.co/600x400/17102b/a78bfa/png?text=Case+IA",
+      "https://placehold.co/600x400/eaf0f8/7c3aed/png?text=Case+IA",
   },
 ];
 

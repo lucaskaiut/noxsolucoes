@@ -10,11 +10,11 @@ interface ButtonLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-brand-600 text-white shadow-lg shadow-black/30 hover:bg-brand-500 focus-visible:outline-brand-400",
+    "bg-brand-600 text-white shadow-md shadow-slate-900/10 hover:bg-brand-700 focus-visible:outline-brand-600",
   secondary:
-    "bg-zinc-800 text-zinc-100 shadow-lg shadow-black/30 hover:bg-zinc-700 focus-visible:outline-white",
+    "bg-white/70 text-slate-700 shadow-md shadow-slate-900/10 backdrop-blur hover:bg-white focus-visible:outline-slate-900",
   ghost:
-    "text-zinc-300 hover:text-white focus-visible:outline-white",
+    "text-slate-600 hover:text-slate-900 focus-visible:outline-slate-900",
 };
 
 export function ButtonLink({

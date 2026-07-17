@@ -7,7 +7,7 @@ export function Technologies() {
     <section
       id="tecnologias"
       aria-labelledby="tecnologias-heading"
-      className="scroll-mt-24 bg-zinc-900/50 py-20 sm:py-28"
+      className="scroll-mt-24 bg-ice-100 py-20 sm:py-28"
     >
       <Container>
         <SectionHeading
@@ -21,7 +21,7 @@ export function Technologies() {
           {technologies.map((tech) => (
             <li
               key={tech}
-              className="flex items-center justify-center rounded-xl bg-zinc-900 px-4 py-5 text-sm font-semibold text-zinc-300 shadow-md shadow-black/25 transition-colors duration-300 hover:bg-zinc-800 hover:text-white"
+              className="flex items-center justify-center rounded-xl bg-white/70 px-4 py-5 text-sm font-semibold text-slate-700 shadow-sm shadow-slate-900/5 backdrop-blur transition-colors duration-300 hover:bg-white hover:text-slate-900"
             >
               {tech}
             </li>
