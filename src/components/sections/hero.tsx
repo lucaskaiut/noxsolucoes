@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { ArrowRightIcon, WhatsAppIcon } from "@/components/ui/icons";
+import { HeroCarousel } from "@/components/sections/hero-carousel";
 import { links, site } from "@/lib/site";
 
 export function Hero() {
@@ -52,17 +52,7 @@ export function Hero() {
         </div>
 
         <div className="animate-fade-up relative mx-auto mt-16 max-w-5xl [animation-delay:400ms] sm:mt-20">
-          <div className="overflow-hidden rounded-2xl bg-white/60 p-2 shadow-xl shadow-slate-900/10 backdrop-blur">
-            <Image
-              src="https://placehold.co/1200x680/eaf0f8/7c3aed/png?text=Plataforma+Nox"
-              alt="Ilustração de uma plataforma de software desenvolvida pela Nox Soluções em Tecnologia"
-              width={1200}
-              height={680}
-              priority
-              className="w-full rounded-xl"
-              sizes="(max-width: 1024px) 100vw, 1024px"
-            />
-          </div>
+          <HeroCarousel />
         </div>
       </Container>
     </section>

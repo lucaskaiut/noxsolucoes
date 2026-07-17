@@ -165,6 +165,51 @@ export const technologies: string[] = [
   "OpenAI",
 ];
 
+export interface HeroProduct {
+  name: string;
+  tagline: string;
+  description: string;
+  image: string;
+}
+
+export const heroProducts: HeroProduct[] = [
+  {
+    name: "Nox Agenda",
+    tagline: "+500 agendamentos realizados",
+    description:
+      "SaaS de agendamento para salões e clínicas com automação via WhatsApp e IA.",
+    image: "/images/nox-agenda.png",
+  },
+  {
+    name: "Toth CRM",
+    tagline: "CRM com IA integrada ao WhatsApp",
+    description:
+      "Gerenciamento de leads com atendimento automatizado por agentes de IA.",
+    image: "/images/toth-crm.png",
+  },
+  {
+    name: "Vulcano",
+    tagline: "Gestão de RH e workflows corporativos",
+    description:
+      "Controle de colaboradores PJ, férias, comissões e aprovações configuráveis.",
+    image: "/images/vulcano.png",
+  },
+  {
+    name: "Atena",
+    tagline: "Projetos e tarefas em um só lugar",
+    description:
+      "Plataforma SaaS multi-tenant com Kanban, Gantt, time tracking e dashboards.",
+    image: "/images/atena.png",
+  },
+  {
+    name: "eMatrícula",
+    tagline: "Matrículas 100% online",
+    description:
+      "Sistema de matrícula digital para instituições de ensino, sem filas e sem papel.",
+    image: "/images/ematricula.png",
+  },
+];
+
 export interface CaseItem {
   title: string;
   category: string;
