@@ -22,18 +22,18 @@ export function Cases() {
           {cases.map((item) => (
             <article
               key={item.title}
-              className="group overflow-hidden rounded-2xl bg-white shadow-md shadow-slate-900/5 transition-shadow duration-300 hover:shadow-lg hover:shadow-slate-900/10"
+              className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-md shadow-slate-900/5 transition-shadow duration-300 hover:shadow-lg hover:shadow-slate-900/10"
             >
               <Image
                 src={item.image}
-                alt={`Imagem ilustrativa do projeto ${item.title}`}
-                width={600}
-                height={400}
+                alt={`Tela do projeto ${item.title}`}
+                width={960}
+                height={456}
                 loading="lazy"
-                className="aspect-[3/2] w-full object-cover"
+                className="aspect-video w-full object-cover object-top"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
-              <div className="p-6">
+              <div className="flex flex-1 flex-col p-6">
                 <span className="text-xs font-semibold uppercase tracking-widest text-brand-600">
                   {item.category}
                 </span>
@@ -43,6 +43,19 @@ export function Cases() {
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
                   {item.description}
                 </p>
+                <ul
+                  className="mt-4 flex flex-wrap gap-2 pt-1"
+                  aria-label="Tecnologias utilizadas"
+                >
+                  {item.technologies.map((technology) => (
+                    <li
+                      key={technology}
+                      className="rounded-full bg-ice-100 px-2.5 py-1 text-xs font-medium text-slate-600"
+                    >
+                      {technology}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </article>
           ))}

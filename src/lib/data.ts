@@ -164,32 +164,73 @@ export interface CaseItem {
   category: string;
   description: string;
   image: string;
+  technologies: string[];
 }
 
 export const cases: CaseItem[] = [
   {
-    title: "Plataforma SaaS de Gestão",
+    title: "Atena",
+    category: "Plataforma SaaS",
+    description:
+      "Plataforma multi-tenant de gerenciamento de tarefas e projetos com Kanban, Gantt, time tracking e dashboards.",
+    image: "/images/atena.png",
+    technologies: ["Next.js", "TypeScript", "Laravel", "MySQL", "Redis"],
+  },
+  {
+    title: "Vulcano",
     category: "Sistema Web",
     description:
-      "Plataforma completa de gestão empresarial com módulos financeiro, vendas e estoque.",
-    image:
-      "https://placehold.co/600x400/eaf0f8/7c3aed/png?text=Case+SaaS",
+      "Sistema de gestão de colaboradores PJ com controle de férias, comissões, custos e aprovações configuráveis.",
+    image: "/images/vulcano.png",
+    technologies: ["React", "TypeScript", "Laravel", "MySQL", "Docker"],
   },
   {
-    title: "Aplicativo de Delivery",
-    category: "Mobile",
-    description:
-      "App Android e iOS com pedidos em tempo real, pagamentos integrados e painel administrativo.",
-    image:
-      "https://placehold.co/600x400/eaf0f8/7c3aed/png?text=Case+Mobile",
-  },
-  {
-    title: "Agente de IA para Atendimento",
+    title: "Nox Agenda",
     category: "Inteligência Artificial",
     description:
-      "Atendimento automatizado via WhatsApp com IA, reduzindo o tempo de resposta em 80%.",
-    image:
-      "https://placehold.co/600x400/eaf0f8/7c3aed/png?text=Case+IA",
+      "Sistema de agendamento de serviços com automação via WhatsApp com Inteligência Artificial.",
+    image: "/images/nox-agenda.png",
+    technologies: ["Next.js", "TypeScript", "React", "Laravel"],
+  },
+  {
+    title: "eMatrícula",
+    category: "Sistema Web",
+    description:
+      "Sistema de matrícula online para instituições de ensino.",
+    image: "/images/ematricula.png",
+    technologies: ["Next.js", "React", "Laravel", "MySQL"],
+  },
+  {
+    title: "Horus",
+    category: "Sistema Web",
+    description:
+      "Sistema de registro e consulta de logs com busca avançada e alta performance.",
+    image: "/images/horus.png",
+    technologies: ["Next.js", "Laravel", "OpenSearch", "Redis"],
+  },
+  {
+    title: "Tasks Automation",
+    category: "Automação",
+    description:
+      "Sistema de automação de tarefas com processamento em tempo real.",
+    image: "/images/tasksautomation.png",
+    technologies: ["Next.js", "Laravel", "Websocket", "Redis"],
+  },
+  {
+    title: "TothCRM",
+    category: "CRM + IA",
+    description:
+      "Sistema de gerenciamento de leads, com integração com WhatsApp e agente de IA.",
+    image: "/images/toth-crm.png",
+    technologies: ["Laravel", "React", "Websocket", "EvolutionAPI"],
+  },
+  {
+    title: "Monensure",
+    category: "Sistema Web",
+    description:
+      "Sistema de gerenciamento financeiro pessoal com controle de receitas e despesas.",
+    image: "/images/monensure.png",
+    technologies: ["React", "Laravel", "MySQL", "Tailwind CSS"],
   },
 ];
 
