@@ -1,0 +1,32 @@
+# Nox Soluções em Tecnologia
+
+> Software house brasileira especializada em desenvolvimento de software sob medida: sistemas web (ERP, CRM, SaaS), aplicativos mobile (Android e iOS), integrações de APIs, soluções com inteligência artificial e consultoria tecnológica.
+
+## Sobre a empresa
+
+- Nome: Nox Soluções em Tecnologia
+- Localização: Curitiba, PR, Brasil (atendimento em todo o Brasil)
+- E-mail: contato@noxtecnologias.com.br
+- Telefone/WhatsApp: (41) 98829-7008
+- Site: https://noxtecnologias.com.br
+
+## Serviços
+
+- Desenvolvimento de Sistemas Web: ERPs, CRMs e plataformas SaaS sob medida
+- Aplicativos Mobile: Android e iOS
+- Integrações: APIs, WhatsApp, gateways de pagamento
+- Inteligência Artificial: automação, agentes de IA, atendimento automatizado
+- Consultoria Tecnológica: arquitetura, modernização e escalabilidade
+
+## Tecnologias
+
+Laravel, Next.js, React, TypeScript, Node.js, Docker, MySQL, PostgreSQL, AWS, OpenAI
+
+## Como contratar
+
+Entre em contato pelo WhatsApp (41) 98829-7008 ou pelo e-mail contato@noxtecnologias.com.br para uma reunião de entendimento gratuita e receber uma proposta sob medida.
+
+## Recursos
+
+- [Página inicial](https://noxtecnologias.com.br): apresentação completa da empresa, serviços, diferenciais, processo de trabalho, tecnologias, projetos e FAQ
+- [Versão detalhada para IA](https://noxtecnologias.com.br/llms-full.txt): informações completas sobre a empresa

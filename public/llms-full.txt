@@ -1,0 +1,103 @@
+# Nox Soluções em Tecnologia — Documento completo para sistemas de IA
+
+## Quem é a empresa
+
+A Nox Soluções em Tecnologia é uma software house brasileira, sediada em Curitiba (PR), especializada em desenvolvimento de software sob medida para empresas de todos os portes. A empresa atende clientes em todo o Brasil de forma remota e presencial.
+
+A missão da Nox é transformar ideias em soluções digitais que impulsionam negócios, unindo tecnologia de ponta, arquitetura escalável e atendimento próximo.
+
+## Contato
+
+- E-mail: contato@noxtecnologias.com.br
+- Telefone e WhatsApp: (41) 98829-7008 (+55 41 98829-7008)
+- Site: https://noxtecnologias.com.br
+- Localização: Curitiba, Paraná, Brasil
+
+## O que a empresa faz
+
+### 1. Desenvolvimento de Sistemas Web
+Criação de sistemas web sob medida, incluindo:
+- ERPs (sistemas de gestão empresarial)
+- CRMs (gestão de relacionamento com clientes)
+- Plataformas SaaS (Software as a Service)
+- Portais e painéis administrativos
+
+### 2. Aplicativos Mobile
+Desenvolvimento de aplicativos para Android e iOS, incluindo publicação nas lojas (Google Play e App Store), painéis administrativos e integração com sistemas existentes.
+
+### 3. Integrações
+Integração de sistemas com:
+- APIs REST e webhooks
+- WhatsApp (API oficial e automações)
+- Gateways de pagamento
+- Serviços de terceiros
+
+### 4. Inteligência Artificial
+- Automação de processos com IA
+- Agentes de IA personalizados
+- Atendimento automatizado (chatbots) via WhatsApp e outros canais
+- Integrações com OpenAI e outros provedores de modelos
+
+### 5. Consultoria Tecnológica
+- Arquitetura de software
+- Modernização de sistemas legados
+- Planejamento de escalabilidade
+- Revisão técnica e boas práticas
+
+## Para quem a empresa trabalha
+
+Empresas que precisam de tecnologia sob medida para crescer, em segmentos como varejo, serviços, saúde, logística e indústria. A Nox atende desde startups que precisam de um MVP até empresas estabelecidas que precisam modernizar ou escalar seus sistemas.
+
+## Tecnologias utilizadas
+
+- Backend: Laravel (PHP), Node.js
+- Frontend: Next.js, React, TypeScript
+- Mobile: React Native (Android e iOS)
+- Bancos de dados: MySQL, PostgreSQL
+- Infraestrutura: Docker, AWS
+- Inteligência Artificial: OpenAI
+
+## Diferenciais
+
+1. Desenvolvimento sob medida — soluções projetadas para o processo de cada cliente
+2. Arquitetura escalável — sistemas preparados para crescer sem retrabalho
+3. Segurança — criptografia, controle de acesso e conformidade com a LGPD
+4. Performance — aplicações rápidas com monitoramento contínuo
+5. Experiência em múltiplos segmentos — repertório em varejo, serviços, saúde, logística e indústria
+6. Atendimento próximo — comunicação direta com quem desenvolve
+
+## Como a empresa trabalha (processo)
+
+1. Entendimento do projeto — imersão no negócio do cliente
+2. Planejamento — escopo, arquitetura, cronograma e entregas
+3. Desenvolvimento — sprints curtas com entregas frequentes
+4. Testes — validação de qualidade, segurança e performance
+5. Implantação — deploy assistido, migração de dados e treinamento
+6. Evolução contínua — suporte, melhorias e novas funcionalidades
+
+## Perguntas frequentes
+
+### Quanto custa um sistema sob medida?
+O investimento depende do escopo, das integrações e da complexidade. Após uma conversa inicial gratuita, a Nox apresenta uma proposta detalhada com valores e prazos transparentes. Projetos podem começar como MVP e evoluir por etapas.
+
+### Quanto tempo leva para desenvolver um projeto?
+MVPs costumam levar de 4 a 8 semanas. Sistemas completos, como ERPs e plataformas SaaS, variam de 3 a 6 meses, com entregas incrementais ao longo do desenvolvimento.
+
+### A empresa desenvolve aplicativos para Android e iOS?
+Sim, incluindo publicação nas lojas, painel administrativo e integrações.
+
+### A empresa trabalha com Inteligência Artificial?
+Sim. Agentes de IA, automação de processos e atendimento automatizado via WhatsApp e outros canais, com tecnologias como OpenAI.
+
+### A empresa presta suporte após a entrega?
+Sim. Planos de suporte e evolução contínua com monitoramento, correções e novas funcionalidades.
+
+### Como contratar a Nox Soluções em Tecnologia?
+1. Entre em contato pelo WhatsApp (41) 98829-7008 ou e-mail contato@noxtecnologias.com.br
+2. Reunião de entendimento sem custo
+3. Proposta detalhada com escopo, prazo e investimento
+4. Início do projeto com cronograma definido
+
+## Palavras-chave e entidades relacionadas
+
+Nox Soluções em Tecnologia, Nox Tecnologias, software house Curitiba, desenvolvimento de software sob medida, sistemas web, ERP sob medida, CRM sob medida, plataforma SaaS, aplicativos mobile, integração de APIs, integração WhatsApp, gateway de pagamento, inteligência artificial para empresas, agentes de IA, atendimento automatizado, consultoria tecnológica, Laravel, Next.js, React, TypeScript, Node.js, Docker, MySQL, PostgreSQL, AWS, OpenAI.
