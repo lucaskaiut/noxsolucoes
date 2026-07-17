@@ -30,7 +30,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-white/70 shadow-sm shadow-slate-900/5 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 bg-white/50 shadow-sm shadow-slate-900/5 backdrop-blur-xl">
       <Container className="flex h-16 items-center justify-between">
         <Logo />
 
