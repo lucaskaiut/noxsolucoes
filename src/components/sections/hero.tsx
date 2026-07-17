@@ -13,16 +13,12 @@ export function Hero() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-      >
-        <div className="absolute -top-40 left-1/2 h-[32rem] w-[52rem] -translate-x-1/2 rounded-full bg-brand-600/20 blur-[128px]" />
-        <div className="absolute top-40 -left-40 h-96 w-96 rounded-full bg-indigo-600/10 blur-[100px]" />
-        <div className="absolute top-64 -right-40 h-96 w-96 rounded-full bg-brand-500/10 blur-[100px]" />
-      </div>
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-violet-950/40 via-transparent to-transparent"
+      />
 
       <Container className="relative">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-brand-300">
+          <p className="animate-fade-up inline-flex items-center gap-2 rounded-full bg-brand-500/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-brand-300">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-400" />
             Software house em {site.locality} — atendimento em todo o Brasil
           </p>
@@ -63,11 +59,7 @@ export function Hero() {
         </div>
 
         <div className="animate-fade-up relative mx-auto mt-16 max-w-5xl [animation-delay:400ms] sm:mt-20">
-          <div
-            aria-hidden="true"
-            className="absolute -inset-x-8 -top-8 h-40 bg-gradient-to-b from-brand-600/20 to-transparent blur-2xl"
-          />
-          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-2 shadow-2xl shadow-brand-950/50 backdrop-blur">
+          <div className="overflow-hidden rounded-2xl bg-zinc-900 p-2 shadow-2xl shadow-black/60">
             <Image
               src="https://placehold.co/1200x680/17102b/a78bfa/png?text=Plataforma+Nox"
               alt="Ilustração de uma plataforma de software desenvolvida pela Nox Soluções em Tecnologia"

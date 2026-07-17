@@ -30,7 +30,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-zinc-950/80 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 bg-zinc-950/80 shadow-md shadow-black/30 backdrop-blur-xl">
       <Container className="flex h-16 items-center justify-between">
         <Logo />
 
@@ -75,7 +75,7 @@ export function Header() {
         <nav
           id="mobile-menu"
           aria-label="Navegação móvel"
-          className="border-t border-white/5 bg-zinc-950/95 backdrop-blur-xl lg:hidden"
+          className="bg-zinc-950/95 shadow-lg shadow-black/40 backdrop-blur-xl lg:hidden"
         >
           <Container className="flex flex-col gap-1 py-4">
             {nav.map((item) => (

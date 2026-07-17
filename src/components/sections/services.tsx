@@ -22,9 +22,9 @@ export function Services() {
           {services.map((service) => (
             <article
               key={service.title}
-              className="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-7 transition-colors duration-300 hover:border-brand-500/40 hover:bg-brand-500/[0.06]"
+              className="group relative rounded-2xl bg-zinc-900 p-7 shadow-lg shadow-black/30 transition-colors duration-300 hover:bg-zinc-800/80"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-brand-500/30 bg-brand-500/10 text-brand-300 transition-colors duration-300 group-hover:bg-brand-500/20">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/15 text-brand-300 shadow-sm shadow-black/20 transition-colors duration-300 group-hover:bg-brand-500/25">
                 <Icon name={service.icon} className="h-5 w-5" />
               </div>
               <h3 className="mt-5 text-lg font-semibold text-white">
@@ -37,7 +37,7 @@ export function Services() {
                 {service.tags.map((tag) => (
                   <li
                     key={tag}
-                    className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium text-zinc-400"
+                    className="rounded-full bg-zinc-800 px-2.5 py-1 text-xs font-medium text-zinc-400"
                   >
                     {tag}
                   </li>
@@ -46,7 +46,7 @@ export function Services() {
             </article>
           ))}
 
-          <article className="relative flex flex-col justify-center overflow-hidden rounded-2xl border border-brand-500/30 bg-gradient-to-br from-brand-600/20 via-brand-600/10 to-indigo-600/10 p-7">
+          <article className="relative flex flex-col justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600/25 via-brand-600/10 to-indigo-600/15 p-7 shadow-lg shadow-black/30">
             <h3 className="text-lg font-semibold text-white">
               Não encontrou o que precisa?
             </h3>

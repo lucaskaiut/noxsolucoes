@@ -18,7 +18,7 @@ export function SectionHeading({
 
   return (
     <div className={`max-w-2xl ${alignment}`}>
-      <span className="inline-flex items-center rounded-full border border-brand-500/30 bg-brand-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-brand-300">
+      <span className="inline-flex items-center rounded-full bg-brand-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-brand-300">
         {eyebrow}
       </span>
       <h2

@@ -22,7 +22,7 @@ export function Faq() {
           {faqs.map((faq) => (
             <details
               key={faq.question}
-              className="group rounded-2xl border border-white/10 bg-white/[0.03] open:border-brand-500/40"
+              className="group rounded-2xl bg-zinc-900 shadow-md shadow-black/25 open:bg-zinc-800/80"
             >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-semibold text-white [&::-webkit-details-marker]:hidden">
                 {faq.question}

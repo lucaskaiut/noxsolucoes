@@ -21,7 +21,7 @@ export function Process() {
           {processSteps.map((step) => (
             <li
               key={step.step}
-              className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-7"
+              className="relative rounded-2xl bg-zinc-900 p-7 shadow-lg shadow-black/30"
             >
               <div className="flex items-center gap-4">
                 <span

@@ -22,7 +22,7 @@ export function Cases() {
           {cases.map((item) => (
             <article
               key={item.title}
-              className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition-colors duration-300 hover:border-brand-500/40"
+              className="group overflow-hidden rounded-2xl bg-zinc-900 shadow-lg shadow-black/30 transition-colors duration-300 hover:bg-zinc-800/80"
             >
               <Image
                 src={item.image}

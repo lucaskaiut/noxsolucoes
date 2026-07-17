@@ -12,7 +12,7 @@ const variants: Record<Variant, string> = {
   primary:
     "bg-brand-600 text-white shadow-lg shadow-brand-600/25 hover:bg-brand-500 focus-visible:outline-brand-400",
   secondary:
-    "border border-white/15 bg-white/5 text-zinc-100 backdrop-blur hover:border-white/30 hover:bg-white/10 focus-visible:outline-white",
+    "bg-zinc-800 text-zinc-100 shadow-lg shadow-black/30 hover:bg-zinc-700 focus-visible:outline-white",
   ghost:
     "text-zinc-300 hover:text-white focus-visible:outline-white",
 };
