@@ -29,7 +29,7 @@ export function Testimonials() {
               <figcaption className="mt-6 flex items-center gap-3 pt-5">
                 <span
                   aria-hidden="true"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-brand-500/40 to-indigo-600/40 text-sm font-semibold text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white"
                 >
                   {testimonial.author.charAt(0)}
                 </span>

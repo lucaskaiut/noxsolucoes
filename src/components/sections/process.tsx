@@ -26,7 +26,7 @@ export function Process() {
               <div className="flex items-center gap-4">
                 <span
                   aria-hidden="true"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-indigo-600 text-sm font-bold text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white"
                 >
                   {step.step}
                 </span>

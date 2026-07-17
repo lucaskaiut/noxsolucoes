@@ -46,7 +46,7 @@ export function Services() {
             </article>
           ))}
 
-          <article className="relative flex flex-col justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600/25 via-brand-600/10 to-indigo-600/15 p-7 shadow-lg shadow-black/30">
+          <article className="relative flex flex-col justify-center overflow-hidden rounded-2xl bg-brand-950 p-7 shadow-lg shadow-black/30">
             <h3 className="text-lg font-semibold text-white">
               Não encontrou o que precisa?
             </h3>

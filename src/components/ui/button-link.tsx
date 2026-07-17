@@ -10,7 +10,7 @@ interface ButtonLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-brand-600 text-white shadow-lg shadow-brand-600/25 hover:bg-brand-500 focus-visible:outline-brand-400",
+    "bg-brand-600 text-white shadow-lg shadow-black/30 hover:bg-brand-500 focus-visible:outline-brand-400",
   secondary:
     "bg-zinc-800 text-zinc-100 shadow-lg shadow-black/30 hover:bg-zinc-700 focus-visible:outline-white",
   ghost:

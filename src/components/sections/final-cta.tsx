@@ -11,7 +11,7 @@ export function FinalCta() {
       className="scroll-mt-24 py-20 sm:py-28"
     >
       <Container>
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-600/30 via-zinc-900 to-indigo-600/25 px-6 py-16 text-center shadow-2xl shadow-black/50 sm:px-16 sm:py-20">
+        <div className="relative overflow-hidden rounded-3xl bg-zinc-900 px-6 py-16 text-center shadow-2xl shadow-black/50 sm:px-16 sm:py-20">
           <div className="relative">
             <h2
               id="contato-heading"

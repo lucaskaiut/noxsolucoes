@@ -11,11 +11,6 @@ export function Hero() {
       aria-labelledby="hero-heading"
       className="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-violet-950/40 via-transparent to-transparent"
-      />
-
       <Container className="relative">
         <div className="mx-auto max-w-3xl text-center">
           <p className="animate-fade-up inline-flex items-center gap-2 rounded-full bg-brand-500/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-brand-300">
@@ -28,7 +23,7 @@ export function Hero() {
             className="animate-fade-up mt-6 text-4xl font-bold tracking-tight text-white [animation-delay:100ms] sm:text-5xl lg:text-6xl"
           >
             Transformamos ideias em{" "}
-            <span className="bg-gradient-to-r from-brand-400 via-brand-300 to-indigo-300 bg-clip-text text-transparent">
+            <span className="text-brand-400">
               soluções digitais
             </span>{" "}
             que impulsionam negócios
