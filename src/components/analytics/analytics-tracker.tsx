@@ -9,6 +9,24 @@ interface TrackedLink {
   payload: AnalyticsPayload;
 }
 
+function resolveExplicitEvent(anchor: HTMLAnchorElement): TrackedLink | null {
+  const event = anchor.getAttribute("data-analytics-event");
+  if (!event) return null;
+  let payload: AnalyticsPayload = {};
+  const rawPayload = anchor.getAttribute("data-analytics-payload");
+  if (rawPayload) {
+    try {
+      const parsed: unknown = JSON.parse(rawPayload);
+      if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+        payload = parsed as AnalyticsPayload;
+      }
+    } catch {
+      payload = {};
+    }
+  }
+  return { event: event as AnalyticsEvent, payload };
+}
+
 function resolveLinkEvent(anchor: HTMLAnchorElement): TrackedLink | null {
   const href = anchor.getAttribute("href") ?? "";
   const label = anchor.textContent?.trim().slice(0, 80) ?? "";
@@ -56,7 +74,7 @@ export function AnalyticsTracker() {
       if (!(event.target instanceof Element)) return;
       const anchor = event.target.closest("a[href]");
       if (!(anchor instanceof HTMLAnchorElement)) return;
-      const tracked = resolveLinkEvent(anchor);
+      const tracked = resolveExplicitEvent(anchor) ?? resolveLinkEvent(anchor);
       if (!tracked) return;
       analytics.track(tracked.event, {
         ...tracked.payload,

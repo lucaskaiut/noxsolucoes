@@ -1,4 +1,5 @@
 import { faqs } from "@/lib/data";
+import type { CaseStudy } from "@/lib/case-studies";
 import type { ServicePage } from "@/lib/service-pages";
 import { site } from "@/lib/site";
 
@@ -192,6 +193,122 @@ export function buildServicePageJsonLd(page: ServicePage) {
             text: faq.answer,
           },
         })),
+      },
+    ],
+  };
+}
+
+export function buildCasesListJsonLd(cases: CaseStudy[]) {
+  const pageUrl = `${site.url}/cases`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${pageUrl}/#webpage`,
+        url: pageUrl,
+        name: "Cases de Sucesso | Nox Soluções em Tecnologia",
+        description:
+          "Projetos reais de software desenvolvidos pela Nox: sistemas web, SaaS, CRMs e soluções com inteligência artificial.",
+        isPartOf: { "@id": websiteId },
+        about: { "@id": organizationId },
+        inLanguage: "pt-BR",
+        breadcrumb: { "@id": `${pageUrl}/#breadcrumb` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}/#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: site.url,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Cases",
+            item: pageUrl,
+          },
+        ],
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${pageUrl}/#lista`,
+        itemListElement: cases.map((caseStudy, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: caseStudy.title,
+          url: `${pageUrl}/${caseStudy.slug}`,
+        })),
+      },
+    ],
+  };
+}
+
+export function buildCaseStudyJsonLd(caseStudy: CaseStudy) {
+  const pageUrl = `${site.url}/cases/${caseStudy.slug}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}/#webpage`,
+        url: pageUrl,
+        name: `Case ${caseStudy.title} | ${caseStudy.tagline}`,
+        description: caseStudy.shortDescription,
+        isPartOf: { "@id": websiteId },
+        about: { "@id": organizationId },
+        inLanguage: "pt-BR",
+        breadcrumb: { "@id": `${pageUrl}/#breadcrumb` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}/#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: site.url,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Cases",
+            item: `${site.url}/cases`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: caseStudy.title,
+            item: pageUrl,
+          },
+        ],
+      },
+      {
+        "@type": "TechArticle",
+        "@id": `${pageUrl}/#article`,
+        headline: `Case ${caseStudy.title}: ${caseStudy.tagline}`,
+        description: caseStudy.shortDescription,
+        image: `${site.url}${caseStudy.coverImage}`,
+        datePublished: caseStudy.publishedAt,
+        dateModified: caseStudy.publishedAt,
+        inLanguage: "pt-BR",
+        keywords: caseStudy.keywords.join(", "),
+        author: { "@id": organizationId },
+        publisher: { "@id": organizationId },
+        mainEntityOfPage: { "@id": `${pageUrl}/#webpage` },
+        about: {
+          "@type": "SoftwareApplication",
+          name: caseStudy.title,
+          description: caseStudy.shortDescription,
+          applicationCategory: "BusinessApplication",
+          operatingSystem: "Web",
+        },
       },
     ],
   };

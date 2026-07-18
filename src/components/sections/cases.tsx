@@ -1,6 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import { cases } from "@/lib/data";
 
 export function Cases() {
@@ -56,6 +58,15 @@ export function Cases() {
                     </li>
                   ))}
                 </ul>
+                {item.slug ? (
+                  <Link
+                    href={`/cases/${item.slug}`}
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 transition-colors hover:text-brand-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
+                  >
+                    Ver case
+                    <ArrowRightIcon className="h-4 w-4" />
+                  </Link>
+                ) : null}
               </div>
             </article>
           ))}

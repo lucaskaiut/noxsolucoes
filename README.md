@@ -83,6 +83,23 @@ public/
 - FAQ com `<details>/<summary>` nativos (sem JavaScript)
 - Suporte a `prefers-reduced-motion`
 
+## Como adicionar um novo case
+
+Todo o conteúdo de cases vive em `src/lib/case-studies.ts`. Para publicar um novo case:
+
+1. Adicione a imagem de capa em `public/images/` (screenshot 1918×912 ou proporção próxima).
+2. Adicione um novo objeto `CaseStudy` ao array `caseStudies` em `src/lib/case-studies.ts`, preenchendo slug, título, tagline, categoria, descrições, desafio, solução, resultados, tecnologias, keywords e `publishedAt`.
+
+Nada mais é necessário. Automaticamente o novo case:
+
+- aparece na **listagem** `/cases` e ganha página própria em `/cases/<slug>` (via `generateStaticParams`);
+- entra no **sitemap** `/sitemap.xml` (o `CasesRoutesProvider` em `src/seo/sitemap/` lê o array);
+- gera **metadata** completa (title, description, keywords, canonical, Open Graph, Twitter) e **JSON-LD** `TechArticle` com breadcrumb (via `generateMetadata` e `buildCaseStudyJsonLd`);
+- dispara os **eventos de analytics**: `view_case` ao abrir a página, `generate_lead` no CTA de orçamento e `contact` no botão de WhatsApp (motor em `src/analytics/`);
+- é **indexável** por buscadores e LLMs (SSG + dados estruturados). Opcional: citar o case em `public/llms.txt`.
+
+Para exibir o card também na home (seção Projetos), adicione `slug` ao item correspondente em `cases` de `src/lib/data.ts`.
+
 ## Deploy
 
 O projeto está pronto para deploy na [Vercel](https://vercel.com): basta importar o repositório. Nenhuma variável de ambiente é necessária.

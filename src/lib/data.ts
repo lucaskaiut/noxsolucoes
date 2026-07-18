@@ -216,6 +216,7 @@ export interface CaseItem {
   description: string;
   image: string;
   technologies: string[];
+  slug?: string;
 }
 
 export const cases: CaseItem[] = [
@@ -226,6 +227,7 @@ export const cases: CaseItem[] = [
       "Plataforma multi-tenant de gerenciamento de tarefas e projetos com Kanban, Gantt, time tracking e dashboards.",
     image: "/images/atena.png",
     technologies: ["Next.js", "TypeScript", "Laravel", "MySQL", "Redis"],
+    slug: "atena",
   },
   {
     title: "Vulcano",
@@ -234,6 +236,7 @@ export const cases: CaseItem[] = [
       "Sistema de gestão de colaboradores PJ com controle de férias, comissões, custos e aprovações configuráveis.",
     image: "/images/vulcano.png",
     technologies: ["React", "TypeScript", "Laravel", "MySQL", "Docker"],
+    slug: "vulcano",
   },
   {
     title: "Nox Agenda",
@@ -242,6 +245,7 @@ export const cases: CaseItem[] = [
       "Sistema de agendamento de serviços com automação via WhatsApp com Inteligência Artificial.",
     image: "/images/nox-agenda.png",
     technologies: ["Next.js", "TypeScript", "React", "Laravel"],
+    slug: "nox-agenda",
   },
   {
     title: "eMatrícula",
@@ -250,6 +254,7 @@ export const cases: CaseItem[] = [
       "Sistema de matrícula online para instituições de ensino.",
     image: "/images/ematricula.png",
     technologies: ["Next.js", "React", "Laravel", "MySQL"],
+    slug: "ematricula",
   },
   {
     title: "Horus",
@@ -274,6 +279,7 @@ export const cases: CaseItem[] = [
       "Sistema de gerenciamento de leads, com integração com WhatsApp e agente de IA.",
     image: "/images/toth-crm.png",
     technologies: ["Laravel", "React", "Websocket", "EvolutionAPI"],
+    slug: "toth-crm",
   },
   {
     title: "Monensure",

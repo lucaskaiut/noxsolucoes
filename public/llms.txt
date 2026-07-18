@@ -22,6 +22,14 @@
 
 Laravel, Next.js, React, TypeScript, Node.js, Docker, MySQL, PostgreSQL, AWS, OpenAI
 
+## Cases de sucesso
+
+- [Nox Agenda](https://noxtecnologias.com.br/cases/nox-agenda): plataforma SaaS multiempresa de agendamentos para salões, barbearias e clínicas, com IA no WhatsApp e pagamentos
+- [Toth CRM](https://noxtecnologias.com.br/cases/toth-crm): CRM com funil Kanban, automações e agentes de IA que atendem leads pelo WhatsApp
+- [Vulcano](https://noxtecnologias.com.br/cases/vulcano): sistema de RH para colaboradores PJ com férias, comissões e workflows de aprovação
+- [Atena](https://noxtecnologias.com.br/cases/atena): plataforma SaaS multi-tenant de gestão de projetos com Kanban, Gantt e time tracking
+- [eMatrícula](https://noxtecnologias.com.br/cases/ematricula): sistema de gestão escolar com matrícula 100% online
+
 ## Como contratar
 
 Entre em contato pelo WhatsApp (41) 98829-7008 ou pelo e-mail contato@noxtecnologias.com.br para uma reunião de entendimento gratuita e receber uma proposta sob medida.
@@ -34,4 +42,5 @@ Entre em contato pelo WhatsApp (41) 98829-7008 ou pelo e-mail contato@noxtecnolo
 - [Integrações](https://noxtecnologias.com.br/integracoes): APIs, WhatsApp e gateways de pagamento
 - [Inteligência Artificial](https://noxtecnologias.com.br/inteligencia-artificial): agentes de IA e atendimento automatizado
 - [Consultoria Tecnológica](https://noxtecnologias.com.br/consultoria-tecnologica): arquitetura, modernização e escalabilidade
+- [Cases de Sucesso](https://noxtecnologias.com.br/cases): projetos reais com desafio, solução, tecnologias e resultados
 - [Versão detalhada para IA](https://noxtecnologias.com.br/llms-full.txt): informações completas sobre a empresa

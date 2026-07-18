@@ -26,6 +26,7 @@ const standardEvents: Partial<Record<string, string>> = {
   [AnalyticsEvent.CLICK_PHONE]: "Contact",
   [AnalyticsEvent.CLICK_EMAIL]: "Contact",
   [AnalyticsEvent.VIEW_SERVICE]: "ViewContent",
+  [AnalyticsEvent.VIEW_CASE]: "ViewContent",
 };
 
 export class MetaPixelProvider implements AnalyticsProvider {
