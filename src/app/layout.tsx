@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 import { AnalyticsTracker } from "@/components/analytics/analytics-tracker";
 import { site } from "@/lib/site";
@@ -7,11 +7,7 @@ import { site } from "@/lib/site";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 const title =
@@ -98,7 +94,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-ice-50 font-sans text-slate-600">
         <AnalyticsTracker />

@@ -20,7 +20,7 @@ export function Hero() {
 
           <h1
             id="hero-heading"
-            className="animate-fade-up mt-6 text-4xl font-bold tracking-tight text-slate-900 [animation-delay:100ms] sm:text-5xl lg:text-6xl"
+            className="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl"
           >
             Transformamos ideias em{" "}
             <span className="text-brand-600">soluções digitais</span> que
@@ -51,7 +51,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="animate-fade-up relative mx-auto mt-16 max-w-5xl [animation-delay:400ms] sm:mt-20">
+        <div className="relative mx-auto mt-16 max-w-5xl sm:mt-20">
           <HeroCarousel />
         </div>
       </Container>

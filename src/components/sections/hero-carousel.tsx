@@ -5,10 +5,22 @@ import { useEffect, useState } from "react";
 import { heroProducts } from "@/lib/data";
 
 const ROTATION_INTERVAL = 5000;
+const WARMUP_DELAY = 2500;
 
 export function HeroCarousel() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [warm, setWarm] = useState(false);
+  const [visited, setVisited] = useState<ReadonlySet<number>>(new Set([0]));
+
+  useEffect(() => {
+    const id = setTimeout(() => setWarm(true), WARMUP_DELAY);
+    return () => clearTimeout(id);
+  }, []);
+
+  if (!visited.has(active)) {
+    setVisited(new Set(visited).add(active));
+  }
 
   useEffect(() => {
     if (paused) return;
@@ -22,6 +34,12 @@ export function HeroCarousel() {
   }, [paused]);
 
   const product = heroProducts[active];
+  const nextIndex = (active + 1) % heroProducts.length;
+
+  function shouldRender(index: number): boolean {
+    if (index === active || visited.has(index)) return true;
+    return warm && index === nextIndex;
+  }
 
   return (
     <div
@@ -58,19 +76,22 @@ export function HeroCarousel() {
 
       <div className="mt-6 overflow-hidden rounded-2xl bg-white/60 p-2 shadow-xl shadow-slate-900/10 backdrop-blur">
         <div className="relative aspect-[1918/912] overflow-hidden rounded-xl">
-          {heroProducts.map((item, index) => (
-            <Image
-              key={item.name}
-              src={item.image}
-              alt={`Tela do ${item.name}`}
-              fill
-              priority={index === 0}
-              className={`object-cover object-top transition-opacity duration-700 ${
-                index === active ? "opacity-100" : "opacity-0"
-              }`}
-              sizes="(max-width: 1024px) 100vw, 1024px"
-            />
-          ))}
+          {heroProducts.map((item, index) =>
+            shouldRender(index) ? (
+              <Image
+                key={item.name}
+                src={item.image}
+                alt={`Tela do ${item.name}`}
+                fill
+                preload={index === 0}
+                fetchPriority={index === 0 ? "high" : undefined}
+                className={`object-cover object-top transition-opacity duration-700 ${
+                  index === active ? "opacity-100" : "opacity-0"
+                }`}
+                sizes="(max-width: 1024px) 100vw, 1024px"
+              />
+            ) : null,
+          )}
 
           <div
             aria-live="polite"
