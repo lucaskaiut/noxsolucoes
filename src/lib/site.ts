@@ -32,5 +32,6 @@ export const nav = [
   { label: "Como trabalhamos", href: "/#processo" },
   { label: "Tecnologias", href: "/#tecnologias" },
   { label: "Cases", href: "/cases" },
+  { label: "Blog", href: "/blog" },
   { label: "FAQ", href: "/#faq" },
 ] as const;
