@@ -2,6 +2,30 @@ import type { BlogCategory, BlogPost } from "../domain/types";
 import type { BlogPostApiResponse } from "../domain/types";
 import { BlogApiClient } from "../infrastructure/blog-api-client";
 
+function resolveAuthor(author: BlogPostApiResponse["author"]): string {
+  if (typeof author === "string") return author;
+  if (author && typeof author === "object" && "name" in author) return author.name;
+  return "";
+}
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function normalizeCategories(categories: BlogCategory[]): BlogCategory[] {
+  return categories.map((cat) => ({
+    id: cat.id,
+    name: cat.name,
+    slug: cat.slug ?? slugify(cat.name),
+    description: cat.description,
+  }));
+}
+
 function mapPost(apiPost: BlogPostApiResponse): BlogPost {
   return {
     id: apiPost.id,
@@ -10,11 +34,11 @@ function mapPost(apiPost: BlogPostApiResponse): BlogPost {
     excerpt: apiPost.excerpt,
     content: apiPost.content,
     featured_image: apiPost.featured_image,
-    author: apiPost.author,
+    author: resolveAuthor(apiPost.author),
     published_at: apiPost.published_at,
     updated_at: apiPost.updated_at,
     reading_time: apiPost.reading_time,
-    categories: apiPost.categories,
+    categories: normalizeCategories(apiPost.categories ?? []),
     meta_title: apiPost.meta_title,
     meta_description: apiPost.meta_description,
     canonical_url: apiPost.canonical_url,

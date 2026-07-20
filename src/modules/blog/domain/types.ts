@@ -1,7 +1,7 @@
 export interface BlogCategory {
   id: number;
   name: string;
-  slug: string;
+  slug?: string;
   description?: string;
 }
 
@@ -28,6 +28,11 @@ export interface BlogPost {
   schema_type: string | null;
 }
 
+export interface AuthorObject {
+  id: number;
+  name: string;
+}
+
 export interface BlogPostApiResponse {
   id: number;
   slug: string;
@@ -35,7 +40,7 @@ export interface BlogPostApiResponse {
   excerpt: string;
   content: string;
   featured_image: string | null;
-  author: string;
+  author: string | AuthorObject;
   published_at: string;
   updated_at: string;
   reading_time: number;
