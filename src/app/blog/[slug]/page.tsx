@@ -1,0 +1,276 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import {
+  ArticleMetadataBuilder,
+  BlogRepository,
+  JsonLdBuilder,
+} from "@/modules/blog";
+import { AnalyticsEvent } from "@/analytics";
+import { TrackEvent } from "@/components/analytics/track-event";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
+import { ButtonLink } from "@/components/ui/button-link";
+import { Container } from "@/components/ui/container";
+import { ArrowRightIcon, WhatsAppIcon } from "@/components/ui/icons";
+import { links, site } from "@/lib/site";
+
+interface PostPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
+  try {
+    const { slug } = await params;
+    const repository = new BlogRepository();
+    const post = await repository.getPostBySlug(slug);
+
+    if (!post) {
+      return {};
+    }
+
+    const metadataBuilder = new ArticleMetadataBuilder();
+    return metadataBuilder.build(post);
+  } catch {
+    return {};
+  }
+}
+
+export default async function PostPage({ params }: PostPageProps) {
+  const { slug } = await params;
+
+  let post;
+  try {
+    const repository = new BlogRepository();
+    post = await repository.getPostBySlug(slug);
+  } catch (error) {
+    console.error("Failed to fetch post:", error);
+  }
+
+  if (!post) {
+    notFound();
+  }
+
+  const jsonLdBuilder = new JsonLdBuilder();
+  const jsonLd = jsonLdBuilder.build(post);
+
+  const leadPayload = JSON.stringify({
+    source: "blog",
+    postSlug: post.slug,
+  });
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <TrackEvent
+        event={AnalyticsEvent.VIEW_POST}
+        payload={{
+          postId: String(post.id),
+          slug: post.slug,
+          title: post.title,
+          category: post.categories[0]?.name ?? "",
+        }}
+      />
+      <a
+        href="#conteudo"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-lg focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+      >
+        Pular para o conteúdo
+      </a>
+      <Header />
+      <main id="conteudo" className="flex-1">
+        <article className="pt-32 sm:pt-40">
+          <Container>
+            <nav aria-label="Trilha de navegação" className="text-sm">
+              <ol className="flex items-center gap-2 text-slate-500">
+                <li>
+                  <Link
+                    href="/"
+                    className="transition-colors hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
+                  >
+                    Início
+                  </Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                <li>
+                  <Link
+                    href="/blog"
+                    className="transition-colors hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
+                  >
+                    Blog
+                  </Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                {post.categories.length > 0 && (
+                  <>
+                    <li>
+                      <Link
+                        href={`/blog/categoria/${post.categories[0].slug}`}
+                        className="transition-colors hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
+                      >
+                        {post.categories[0].name}
+                      </Link>
+                    </li>
+                    <li aria-hidden="true">/</li>
+                  </>
+                )}
+                <li aria-current="page" className="font-medium text-slate-700">
+                  {post.title}
+                </li>
+              </ol>
+            </nav>
+          </Container>
+
+          <Container>
+            <div className="mt-10 max-w-3xl">
+              {post.categories.length > 0 && (
+                <div className="mb-3 flex flex-wrap gap-2">
+                  {post.categories.map((cat) => (
+                    <Link
+                      key={cat.slug}
+                      href={`/blog/categoria/${cat.slug}`}
+                      className="text-xs font-semibold uppercase tracking-widest text-brand-600 transition-colors hover:text-brand-700"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+              <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+                {post.title}
+              </h1>
+              <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-slate-500">
+                <span className="font-medium text-slate-700">
+                  {post.author}
+                </span>
+                <span aria-hidden="true">·</span>
+                <time dateTime={post.published_at}>
+                  {new Date(post.published_at).toLocaleDateString("pt-BR", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </time>
+                <span aria-hidden="true">·</span>
+                <span>{post.reading_time} min de leitura</span>
+              </div>
+              {post.excerpt && (
+                <p className="mt-5 text-lg leading-relaxed text-slate-600">
+                  {post.excerpt}
+                </p>
+              )}
+            </div>
+          </Container>
+
+          {post.featured_image && (
+            <Container>
+              <div className="mt-10 overflow-hidden rounded-2xl bg-white p-2 shadow-lg shadow-slate-900/5">
+                <Image
+                  src={post.featured_image}
+                  alt={post.title}
+                  width={1200}
+                  height={630}
+                  priority
+                  className="w-full rounded-xl object-cover"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                />
+              </div>
+            </Container>
+          )}
+
+          <Container>
+            <div
+              className="prose prose-slate mx-auto mt-12 max-w-3xl pb-16 sm:pb-20
+                prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-slate-900
+                prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+                prose-p:leading-relaxed prose-p:text-slate-600
+                prose-a:text-brand-600 prose-a:no-underline hover:prose-a:text-brand-700
+                prose-img:rounded-xl prose-img:shadow-md
+                prose-pre:rounded-xl prose-pre:bg-slate-900 prose-pre:text-sm
+                prose-code:rounded-md prose-code:bg-ice-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-medium prose-code:text-brand-700
+                prose-li:text-slate-600 prose-li:leading-relaxed
+                prose-blockquote:border-l-brand-500 prose-blockquote:bg-white prose-blockquote:py-3 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-slate-600 prose-blockquote:shadow-sm
+                prose-strong:text-slate-900"
+              dangerouslySetInnerHTML={{
+                __html: sanitizeHtml(post.content),
+              }}
+            />
+
+            <div className="mx-auto mt-12 max-w-3xl rounded-2xl bg-ice-100 p-8">
+              <h2 className="text-lg font-semibold text-slate-900">
+                Sobre a {site.name}
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                {site.description}
+              </p>
+            </div>
+          </Container>
+        </article>
+
+        <section
+          aria-labelledby="post-cta-heading"
+          className="bg-brand-600 py-16 sm:py-20"
+        >
+          <Container>
+            <div className="text-center">
+              <h2
+                id="post-cta-heading"
+                className="text-2xl font-bold tracking-tight text-white sm:text-3xl"
+              >
+                Vamos construir algo juntos?
+              </h2>
+              <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-brand-100">
+                Entre em contato e receba uma proposta sob medida para o seu
+                projeto de software.
+              </p>
+              <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <ButtonLink
+                  href={links.email}
+                  data-analytics-event="generate_lead"
+                  data-analytics-payload={leadPayload}
+                  className="bg-white text-brand-700 hover:bg-brand-50"
+                >
+                  Solicitar orçamento
+                  <ArrowRightIcon className="h-4 w-4" />
+                </ButtonLink>
+                <ButtonLink
+                  href={links.whatsapp}
+                  variant="secondary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-analytics-event="contact"
+                  data-analytics-payload={leadPayload}
+                  className="border-white/30 text-white hover:bg-white/10"
+                >
+                  <WhatsAppIcon className="h-4 w-4 text-emerald-400" />
+                  Falar no WhatsApp
+                </ButtonLink>
+              </div>
+            </div>
+          </Container>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+function sanitizeHtml(html: string): string {
+  if (!html) return "";
+
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+    .replace(/on\w+\s*=\s*"[^"]*"/gi, "")
+    .replace(/on\w+\s*=\s*'[^']*'/gi, "")
+    .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, "")
+    .replace(/javascript\s*:/gi, "blocked:");
+}

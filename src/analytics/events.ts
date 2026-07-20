@@ -7,5 +7,6 @@ export enum AnalyticsEvent {
   CLICK_EMAIL = "click_email",
   VIEW_SERVICE = "view_service",
   VIEW_CASE = "view_case",
+  VIEW_POST = "view_post",
   SCROLL_90 = "scroll_90",
 }
