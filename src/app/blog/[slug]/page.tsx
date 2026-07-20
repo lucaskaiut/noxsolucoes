@@ -188,18 +188,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
           <Container>
             <div
-              className="prose prose-slate mx-auto mt-12 max-w-3xl pb-16 sm:pb-20
-                prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-slate-900
-                prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                prose-p:leading-relaxed prose-p:text-slate-600
-                prose-a:text-brand-600 prose-a:no-underline hover:prose-a:text-brand-700
-                prose-img:rounded-xl prose-img:shadow-md
-                prose-pre:rounded-xl prose-pre:bg-slate-900 prose-pre:text-sm
-                prose-code:rounded-md prose-code:bg-ice-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-medium prose-code:text-brand-700
-                prose-li:text-slate-600 prose-li:leading-relaxed
-                prose-blockquote:border-l-brand-500 prose-blockquote:bg-white prose-blockquote:py-3 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-slate-600 prose-blockquote:shadow-sm
-                prose-strong:text-slate-900"
+              className="blog-content mt-12 pb-16 sm:pb-20"
               dangerouslySetInnerHTML={{
                 __html: sanitizeHtml(post.content),
               }}
