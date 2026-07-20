@@ -167,6 +167,28 @@ export default async function PostPage({ params }: PostPageProps) {
                   {post.excerpt}
                 </p>
               )}
+
+              <div className="mt-6 rounded-xl border border-ice-200 bg-ice-50 px-5 py-4">
+                <a
+                  href={getChatGptTldrUrl(post.title, post.slug)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start gap-3 text-sm text-slate-600 transition-colors hover:text-slate-900"
+                >
+                  <span
+                    className="mt-0.5 shrink-0 text-lg"
+                    aria-hidden="true"
+                  >
+                    ⚡
+                  </span>
+                  <span>
+                    <span className="font-semibold text-slate-800 transition-colors group-hover:text-brand-700">
+                      Preguiça de ler?
+                    </span>{" "}
+                    Clique aqui para um resumo com IA
+                  </span>
+                </a>
+              </div>
             </div>
           </Container>
 
@@ -251,6 +273,22 @@ export default async function PostPage({ params }: PostPageProps) {
       <Footer />
     </>
   );
+}
+
+function getChatGptTldrUrl(title: string, slug: string): string {
+  const postUrl = `${site.url}/blog/${slug}`;
+  const prompt = `Leia o artigo abaixo e gere um resumo objetivo.
+
+URL: ${postUrl}
+
+Requisitos:
+- Explique o tema em linguagem simples.
+- Liste os principais pontos em tópicos.
+- Destaque conclusões importantes.
+- Informe para quem o artigo é indicado.
+- Gere um TL;DR de no máximo 5 linhas.`;
+
+  return `https://chatgpt.com/?q=${encodeURIComponent(prompt)}`;
 }
 
 function sanitizeHtml(html: string): string {
