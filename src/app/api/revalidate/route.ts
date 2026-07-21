@@ -62,7 +62,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     try {
       const body = await request.json();
       secret = body.secret ?? null;
-      tag = body.tag ?? body.slug ? `blog-post-${body.slug}` : null;
+      tag = body.tag ?? (body.slug ? `blog-post-${body.slug}` : null);
     } catch {
       return NextResponse.json(
         { ok: false, error: "Invalid JSON body" },
