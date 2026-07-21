@@ -1,6 +1,7 @@
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { JsonLd } from "@/components/seo/json-ld";
+import { BlogPosts } from "@/components/sections/blog-posts";
 import { Cases } from "@/components/sections/cases";
 import { Differentials } from "@/components/sections/differentials";
 import { Faq } from "@/components/sections/faq";
@@ -32,6 +33,7 @@ export default function HomePage() {
         <Technologies />
         <Cases />
         {/* <Testimonials /> */}
+        <BlogPosts />
         <Faq />
         <FinalCta />
       </main>
