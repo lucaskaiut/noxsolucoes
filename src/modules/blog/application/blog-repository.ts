@@ -79,6 +79,14 @@ export class BlogRepository {
   async getPostBySlug(slug: string): Promise<BlogPost | null> {
     const apiPost = await this.client.getPostBySlug(slug);
     if (!apiPost) return null;
+
+    if (apiPost.slug !== slug) {
+      console.warn(
+        `[BlogRepository] Slug mismatch: requested "${slug}" but CMS returned "${apiPost.slug}". Falling back to 404.`,
+      );
+      return null;
+    }
+
     return mapPost(apiPost);
   }
 
