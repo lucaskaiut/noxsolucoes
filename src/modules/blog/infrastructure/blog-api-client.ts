@@ -79,12 +79,22 @@ export class BlogApiClient {
     params.set("slug", slug);
     params.set("per_page", "1");
 
+    console.log(`[BlogApiClient] Buscando post: slug="${slug}"`);
+
     const result = await this.fetchFromCms<PaginatedResponse<BlogPostApiResponse>>(
       `/api/posts?${params.toString()}`,
       { revalidate: 3600, tags: [`blog-post-${slug}`] },
     );
 
-    return result.data[0] ?? null;
+    const post = result.data[0] ?? null;
+
+    if (post) {
+      console.log(`[BlogApiClient] Post retornado: slug="${post.slug}" | id=${post.id} | title="${post.title}"`);
+    } else {
+      console.log(`[BlogApiClient] Nenhum post encontrado para slug="${slug}"`);
+    }
+
+    return post;
   }
 
   async getCategories(): Promise<BlogCategory[]> {

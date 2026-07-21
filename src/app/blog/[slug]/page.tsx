@@ -47,6 +47,8 @@ export async function generateMetadata({
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
 
+  console.log(`[PostPage] Renderizando post com slug="${slug}"`);
+
   let post;
   const repository = new BlogRepository();
   try {
