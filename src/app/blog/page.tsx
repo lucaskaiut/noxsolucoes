@@ -214,17 +214,17 @@ export default async function BlogPage({
 
         <section
           aria-labelledby="blog-cta-heading"
-          className="bg-brand-600 py-16 sm:py-20"
+          className="bg-ice-50 py-16 sm:py-20"
         >
           <Container>
             <div className="text-center">
               <h2
                 id="blog-cta-heading"
-                className="text-2xl font-bold tracking-tight text-white sm:text-3xl"
+                className="text-2xl font-bold tracking-tight text-brand-600 sm:text-3xl"
               >
                 Precisa de um software sob medida?
               </h2>
-              <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-brand-100">
+              <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-slate-600">
                 Conte o desafio do seu negócio e receba uma proposta personalizada,
                 sem compromisso.
               </p>
@@ -233,7 +233,7 @@ export default async function BlogPage({
                   href={links.email}
                   data-analytics-event="generate_lead"
                   data-analytics-payload={JSON.stringify({ source: "blog_list" })}
-                  className="bg-white text-brand-700 hover:bg-brand-50"
+                  className="bg-brand-600 text-white hover:bg-brand-700"
                 >
                   Solicitar orçamento
                   <ArrowRightIcon className="h-4 w-4" />
