@@ -120,6 +120,21 @@ export class BlogApiClient {
     return allPosts;
   }
 
+  async getAllPublishedPosts(): Promise<BlogPostApiResponse[]> {
+    const params = new URLSearchParams();
+    params.set("status", "published");
+    params.set("per_page", "100");
+
+    const result = await this.fetchFromCms<
+      PaginatedResponse<BlogPostApiResponse>
+    >(`/api/posts?${params.toString()}`, {
+      revalidate: 3600,
+      tags: ["blog-posts"],
+    });
+
+    return result.data;
+  }
+
   async getFeaturedPosts(limit: number = 3): Promise<BlogPostApiResponse[]> {
     const params = new URLSearchParams();
     params.set("per_page", String(limit));

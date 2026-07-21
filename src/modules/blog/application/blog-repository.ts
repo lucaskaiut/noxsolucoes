@@ -120,4 +120,25 @@ export class BlogRepository {
       total: result.meta.total,
     };
   }
+
+  async getAdjacentPosts(
+    slug: string,
+  ): Promise<{ prev: BlogPost | null; next: BlogPost | null }> {
+    const allPosts = await this.client.getAllPublishedPosts();
+    const mappedPosts = allPosts.map(mapPost);
+
+    const currentIndex = mappedPosts.findIndex((p) => p.slug === slug);
+
+    if (currentIndex === -1) {
+      return { prev: null, next: null };
+    }
+
+    return {
+      prev: currentIndex > 0 ? mappedPosts[currentIndex - 1] : null,
+      next:
+        currentIndex < mappedPosts.length - 1
+          ? mappedPosts[currentIndex + 1]
+          : null,
+    };
+  }
 }
