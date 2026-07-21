@@ -292,17 +292,17 @@ export default async function PostPage({ params }: PostPageProps) {
 
         <section
           aria-labelledby="post-cta-heading"
-          className="bg-brand-600 py-16 sm:py-20"
+          className="bg-ice-50 py-16 sm:py-20"
         >
           <Container>
             <div className="text-center">
               <h2
                 id="post-cta-heading"
-                className="text-2xl font-bold tracking-tight text-white sm:text-3xl"
+                className="text-2xl font-bold tracking-tight text-brand-600 sm:text-3xl"
               >
                 Vamos construir algo juntos?
               </h2>
-              <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-brand-100">
+              <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-slate-600">
                 Entre em contato e receba uma proposta sob medida para o seu
                 projeto de software.
               </p>
@@ -311,7 +311,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   href={links.email}
                   data-analytics-event="generate_lead"
                   data-analytics-payload={leadPayload}
-                  className="bg-white text-brand-700 hover:bg-brand-50"
+                  className="bg-brand-600 text-white hover:bg-brand-700"
                 >
                   Solicitar orçamento
                   <ArrowRightIcon className="h-4 w-4" />
@@ -323,9 +323,9 @@ export default async function PostPage({ params }: PostPageProps) {
                   rel="noopener noreferrer"
                   data-analytics-event="contact"
                   data-analytics-payload={leadPayload}
-                  className="border-white/30 text-white hover:bg-white/10"
+                  className="border-brand-300 text-brand-700 hover:bg-brand-50"
                 >
-                  <WhatsAppIcon className="h-4 w-4 text-emerald-400" />
+                  <WhatsAppIcon className="h-4 w-4 text-emerald-500" />
                   Falar no WhatsApp
                 </ButtonLink>
               </div>
