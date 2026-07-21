@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -170,24 +169,6 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                       key={post.slug}
                       className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-md shadow-slate-900/5 transition-shadow duration-300 hover:shadow-lg hover:shadow-slate-900/10"
                     >
-                      <Link
-                        href={`/blog/${post.slug}`}
-                        aria-label={`Ler artigo ${post.title}`}
-                        className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
-                      >
-                        {post.featured_image ? (
-                          <Image
-                            src={post.featured_image}
-                            alt={post.title}
-                            width={960}
-                            height={456}
-                            className="aspect-video w-full object-cover object-top"
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          />
-                        ) : (
-                          <div className="aspect-video w-full bg-brand-500/10" />
-                        )}
-                      </Link>
                       <div className="flex flex-1 flex-col p-6">
                         <h2 className="text-lg font-semibold text-slate-900">
                           {post.title}
