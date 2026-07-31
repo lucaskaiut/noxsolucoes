@@ -23,7 +23,7 @@ export function buildJsonLdGraph() {
         foundingDate: String(site.foundingYear),
         logo: {
           "@type": "ImageObject",
-          url: `${site.url}/icon.svg`,
+          url: `${site.url}/images/logo-minimalista.png`,
         },
         address: {
           "@type": "PostalAddress",

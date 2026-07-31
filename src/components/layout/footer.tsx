@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "@/components/layout/logo";
 import { Container } from "@/components/ui/container";
 import { MailIcon, PhoneIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { servicePages } from "@/lib/service-pages";
@@ -12,14 +13,7 @@ export function Footer() {
       <Container className="py-14">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold text-white">
-                N
-              </span>
-              <span className="text-base font-bold text-slate-900">
-                {site.name}
-              </span>
-            </div>
+            <Logo />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-600">
               Desenvolvimento de software sob medida, aplicativos, integrações
               e inteligência artificial para empresas que querem crescer.

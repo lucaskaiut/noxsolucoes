@@ -1,31 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import { Logo } from "@/components/layout/logo";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { CloseIcon, MenuIcon } from "@/components/ui/icons";
-import { links, nav, site } from "@/lib/site";
-
-function Logo() {
-  return (
-    <Link
-      href="/"
-      className="flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
-      aria-label={`${site.name} — voltar ao início`}
-    >
-      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold text-white">
-        N
-      </span>
-      <span className="text-base font-bold tracking-tight text-slate-900">
-        Nox
-        <span className="ml-1.5 hidden text-sm font-medium text-slate-500 sm:inline">
-          Soluções em Tecnologia
-        </span>
-      </span>
-    </Link>
-  );
-}
+import { links, nav } from "@/lib/site";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -33,7 +13,7 @@ export function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-white/50 shadow-sm shadow-slate-900/5 backdrop-blur-xl">
       <Container className="flex h-16 items-center justify-between">
-        <Logo />
+        <Logo priority />
 
         <nav aria-label="Navegação principal" className="hidden lg:block">
           <ul className="flex items-center gap-7">
