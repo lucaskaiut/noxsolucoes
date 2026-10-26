@@ -5,12 +5,17 @@ import { site } from "@/lib/site";
 type LogoProps = {
   className?: string;
   priority?: boolean;
+  href?: string;
 };
 
-export function Logo({ className = "h-8 w-auto", priority = false }: LogoProps) {
+export function Logo({
+  className = "h-8 w-auto",
+  priority = false,
+  href = "/",
+}: LogoProps) {
   return (
     <Link
-      href="/"
+      href={href}
       className="inline-flex items-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
       aria-label={`${site.name} — voltar ao início`}
     >

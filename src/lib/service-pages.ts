@@ -18,94 +18,6 @@ export interface ServicePage {
 
 export const servicePages: ServicePage[] = [
   {
-    slug: "desenvolvimento-de-sistemas",
-    icon: "code",
-    navLabel: "Desenvolvimento de Sistemas",
-    metaTitle:
-      "Desenvolvimento de Sistemas Web Sob Medida | ERP, CRM e SaaS",
-    metaDescription:
-      "Empresa de desenvolvimento de sistemas em Curitiba. Criação de software sob medida: ERPs, CRMs e plataformas SaaS com arquitetura escalável. Solicite um orçamento.",
-    keywords: [
-      "desenvolvimento de sistemas",
-      "empresa desenvolvimento de sistemas curitiba",
-      "criação de software sob medida",
-      "desenvolvimento de ERP",
-      "desenvolvimento de CRM",
-      "desenvolvimento de SaaS",
-      "sistema web sob medida",
-      "fábrica de software",
-    ],
-    headline: "Desenvolvimento de sistemas web sob medida",
-    subheadline:
-      "ERPs, CRMs e plataformas SaaS projetados para o seu processo, com arquitetura escalável, segurança e performance desde o primeiro dia.",
-    intro: [
-      "A Nox Soluções em Tecnologia é uma empresa de desenvolvimento de sistemas em Curitiba que atende clientes em todo o Brasil. Criamos software sob medida que se adapta ao processo da sua empresa — e não o contrário.",
-      "Do levantamento de requisitos à implantação, você acompanha cada etapa com entregas frequentes e comunicação direta com quem desenvolve. O resultado é um sistema que elimina planilhas, integra áreas e dá visibilidade real da operação.",
-    ],
-    deliverables: [
-      "ERPs sob medida para gestão financeira, vendas, estoque e operação",
-      "CRMs para funil de vendas, atendimento e relacionamento com clientes",
-      "Plataformas SaaS multi-tenant prontas para escalar",
-      "Portais, painéis administrativos e dashboards gerenciais",
-      "Migração e modernização de sistemas legados",
-    ],
-    benefits: [
-      {
-        title: "Sob medida de verdade",
-        description:
-          "Cada tela, fluxo e regra de negócio é construída para o seu processo, sem adaptações forçadas a software genérico.",
-      },
-      {
-        title: "Arquitetura escalável",
-        description:
-          "Sistemas preparados para crescer com a sua empresa, suportando mais usuários e novas funcionalidades sem retrabalho.",
-      },
-      {
-        title: "Dados integrados",
-        description:
-          "Integração entre setores e sistemas externos, eliminando retrabalho e dando visibilidade completa da operação.",
-      },
-      {
-        title: "Evolução contínua",
-        description:
-          "Suporte próximo e roadmap de melhorias para o sistema evoluir junto com o negócio.",
-      },
-    ],
-    technologies: [
-      "Laravel",
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Node.js",
-      "MySQL",
-      "PostgreSQL",
-      "Docker",
-      "AWS",
-    ],
-    faqs: [
-      {
-        question: "Quanto custa desenvolver um sistema sob medida?",
-        answer:
-          "O investimento depende do escopo e da complexidade. Após uma reunião de entendimento gratuita, entregamos uma proposta detalhada com valores e prazos. É possível começar por um MVP enxuto e evoluir por etapas.",
-      },
-      {
-        question: "Quanto tempo leva para desenvolver um ERP ou CRM?",
-        answer:
-          "MVPs costumam levar de 4 a 8 semanas. Sistemas completos variam de 3 a 6 meses, com entregas incrementais — você começa a usar módulos antes da conclusão total.",
-      },
-      {
-        question: "O sistema fica hospedado onde?",
-        answer:
-          "Hospedamos em nuvem (AWS ou provedor de sua preferência), com backups, monitoramento e segurança configurados. O código e os dados são seus.",
-      },
-      {
-        question: "Vocês migram dados do meu sistema atual?",
-        answer:
-          "Sim. Planejamos a migração de dados de planilhas ou sistemas legados como parte da implantação, garantindo integridade e continuidade da operação.",
-      },
-    ],
-  },
-  {
     slug: "aplicativos-mobile",
     icon: "smartphone",
     navLabel: "Aplicativos Mobile",
@@ -448,3 +360,14 @@ export const servicePages: ServicePage[] = [
 export function getServicePage(slug: string): ServicePage | undefined {
   return servicePages.find((page) => page.slug === slug);
 }
+
+export const serviceLinks = [
+  {
+    label: "Desenvolvimento de Sistemas",
+    href: "/desenvolvimento-de-sistemas",
+  },
+  ...servicePages.map((page) => ({
+    label: page.navLabel,
+    href: `/${page.slug}`,
+  })),
+];

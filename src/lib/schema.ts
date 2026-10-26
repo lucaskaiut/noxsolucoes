@@ -198,6 +198,63 @@ export function buildServicePageJsonLd(page: ServicePage) {
   };
 }
 
+export function buildServiceLandingJsonLd(input: {
+  path: string;
+  name: string;
+  description: string;
+  breadcrumbLabel: string;
+}) {
+  const pageUrl = `${site.url}${input.path}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}/#webpage`,
+        url: pageUrl,
+        name: input.name,
+        description: input.description,
+        isPartOf: { "@id": websiteId },
+        about: { "@id": organizationId },
+        inLanguage: "pt-BR",
+        breadcrumb: { "@id": `${pageUrl}/#breadcrumb` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}/#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: site.url,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: input.breadcrumbLabel,
+            item: pageUrl,
+          },
+        ],
+      },
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}/#service`,
+        name: input.name,
+        description: input.description,
+        url: pageUrl,
+        serviceType: input.name,
+        provider: { "@id": organizationId },
+        areaServed: {
+          "@type": "Country",
+          name: "Brasil",
+        },
+      },
+    ],
+  };
+}
+
 export function buildCasesListJsonLd(cases: CaseStudy[]) {
   const pageUrl = `${site.url}/cases`;
 

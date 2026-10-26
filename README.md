@@ -75,6 +75,19 @@ public/
 - HTML semântico (`header`, `nav`, `main`, `section`, `article`, `footer`) com `h1` único
 - Página 100% estática (SSG) para máxima performance
 
+## Landing page de campanha
+
+A rota `/desenvolvimento-de-sistemas` é uma landing page de conversão para campanhas de Google Ads focada em desenvolvimento de sistemas sob medida. Ela usa o mesmo layout, tokens e componentes do site, com uma variante simplificada do cabeçalho (`<Header variant="campaign" />`).
+
+- Conteúdo: `src/lib/system-development-landing.ts`
+- Conversão: botões de WhatsApp (`links.whatsapp`), com o evento `generate_lead` disparado no clique.
+- Não há formulário próprio na página. O contato acontece diretamente pelo WhatsApp.
+- A rota entra automaticamente no `sitemap.xml` por meio da lista `serviceLinks` em `src/lib/service-pages.ts`.
+
+Para usar a ação como conversão no Google Ads, importe o evento `generate_lead` do GA4 ou configure uma tag do Google Ads com um ID de conversão real (não incluído no repositório).
+
+O projeto não possui uma solução de consentimento (CMP) própria. Os providers de analytics existentes são habilitados por variáveis de ambiente; antes de enviar tráfego pago, valide a base legal e as exigências de consentimento aplicáveis.
+
 ## Acessibilidade
 
 - Navegação por teclado com estados de foco visíveis

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/layout/logo";
 import { Container } from "@/components/ui/container";
 import { MailIcon, PhoneIcon, WhatsAppIcon } from "@/components/ui/icons";
-import { servicePages } from "@/lib/service-pages";
+import { serviceLinks } from "@/lib/service-pages";
 import { links, nav, site } from "@/lib/site";
 
 export function Footer() {
@@ -25,13 +25,13 @@ export function Footer() {
               Serviços
             </h2>
             <ul className="mt-4 space-y-2">
-              {servicePages.map((page) => (
-                <li key={page.slug}>
+              {serviceLinks.map((service) => (
+                <li key={service.href}>
                   <Link
-                    href={`/${page.slug}`}
+                    href={service.href}
                     className="text-sm text-slate-600 transition-colors hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
                   >
-                    {page.navLabel}
+                    {service.label}
                   </Link>
                 </li>
               ))}
