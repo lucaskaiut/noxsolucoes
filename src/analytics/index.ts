@@ -3,15 +3,20 @@ import { analyticsConfig } from "./config";
 import { AnalyticsEvent } from "./events";
 import { ClarityProvider } from "./providers/clarity-provider";
 import { Ga4Provider } from "./providers/ga4-provider";
+import { GoogleAdsProvider } from "./providers/google-ads-provider";
 import { LinkedInProvider } from "./providers/linkedin-provider";
 import { MetaPixelProvider } from "./providers/meta-pixel-provider";
 
 function createAnalytics(): AnalyticsManager {
   const manager = new AnalyticsManager();
-  const { ga4, metaPixel, linkedIn, clarity } = analyticsConfig;
+  const { ga4, googleAds, metaPixel, linkedIn, clarity } = analyticsConfig;
 
   if (ga4.enabled && ga4.measurementId) {
     manager.register(new Ga4Provider(ga4.measurementId));
+  }
+
+  if (googleAds.enabled && googleAds.conversionId) {
+    manager.register(new GoogleAdsProvider(googleAds.conversionId, googleAds.labels));
   }
 
   if (metaPixel.enabled && metaPixel.pixelId) {
@@ -35,6 +40,9 @@ function createAnalytics(): AnalyticsManager {
 }
 
 export const analytics = createAnalytics();
+
+/** Banner de cookies só aparece quando há alguma tag de terceiros ativa. */
+export const hasTrackingProviders = analytics.providerCount > 0;
 
 export { AnalyticsEvent } from "./events";
 export type { AnalyticsPayload, AnalyticsProvider } from "./contracts/analytics-provider";

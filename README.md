@@ -84,9 +84,28 @@ A rota `/desenvolvimento-de-sistemas` é uma landing page de conversão para cam
 - Não há formulário próprio na página. O contato acontece diretamente pelo WhatsApp.
 - A rota entra automaticamente no `sitemap.xml` por meio da lista `serviceLinks` em `src/lib/service-pages.ts`.
 
-Para usar a ação como conversão no Google Ads, importe o evento `generate_lead` do GA4 ou configure uma tag do Google Ads com um ID de conversão real (não incluído no repositório).
+### Google Ads e atribuição de leads
 
-O projeto não possui uma solução de consentimento (CMP) própria. Os providers de analytics existentes são habilitados por variáveis de ambiente; antes de enviar tráfego pago, valide a base legal e as exigências de consentimento aplicáveis.
+- **Conversões por canal** (`src/analytics/providers/google-ads-provider.ts`): cliques em
+  WhatsApp, `tel:` e `mailto:` disparam a conversão do Google Ads correspondente. O canal é
+  derivado do `href` pelo `AnalyticsTracker`, então funciona em qualquer página/botão.
+  Variáveis: `NEXT_PUBLIC_ANALYTICS_GOOGLE_ADS`, `NEXT_PUBLIC_GOOGLE_ADS_ID` e
+  `NEXT_PUBLIC_GOOGLE_ADS_LABEL_{WHATSAPP,PHONE,EMAIL}` (valores reais em `.env`).
+- **Consent Mode v2** (`src/analytics/consent.ts`, `providers/gtag.ts`): tudo começa
+  `denied`; o banner (`components/analytics/consent-banner.tsx`) só aparece quando há algum
+  provider ativo e grava a escolha em `localStorage`. GA4 e Google Ads compartilham um único
+  `gtag.js`. Com consentimento negado, `url_passthrough`/`ads_data_redaction` mantêm a
+  medição modelada sem cookies.
+- **Lead com GCLID** (`src/analytics/attribution.ts`, `src/app/api/leads/route.ts`): se a
+  sessão chegou com `gclid`/`gbraid`/`wbraid`, o clique no WhatsApp acrescenta um código
+  (`código NX-7K4P2Q`) ao texto da mensagem e registra o lead no CMS
+  (`POST {CMS_API_URL}/api/leads`, token `CMS_LEADS_TOKEN` com `lead.create`, ou
+  `CMS_API_TOKEN`). Visitas orgânicas não são afetadas. Falha no CMS nunca bloqueia a ida ao
+  WhatsApp. No CMS, o lead é marcado como qualificado pelo código e exportado em CSV para o
+  upload de conversões offline do Google Ads.
+
+**Pendente (LGPD):** o site não tem página de Política de Privacidade. Recomenda-se publicá-la
+(cookies, Google Ads, registro do código de atendimento) e linká-la no banner.
 
 ## Acessibilidade
 

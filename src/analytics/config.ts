@@ -8,6 +8,15 @@ export const analyticsConfig = {
     enabled: flag(process.env.NEXT_PUBLIC_ANALYTICS_GA4),
     measurementId: process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID ?? "",
   },
+  googleAds: {
+    enabled: flag(process.env.NEXT_PUBLIC_ANALYTICS_GOOGLE_ADS),
+    conversionId: process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ?? "",
+    labels: {
+      whatsapp: process.env.NEXT_PUBLIC_GOOGLE_ADS_LABEL_WHATSAPP ?? "",
+      phone: process.env.NEXT_PUBLIC_GOOGLE_ADS_LABEL_PHONE ?? "",
+      email: process.env.NEXT_PUBLIC_GOOGLE_ADS_LABEL_EMAIL ?? "",
+    },
+  },
   metaPixel: {
     enabled: flag(process.env.NEXT_PUBLIC_ANALYTICS_META_PIXEL),
     pixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "",

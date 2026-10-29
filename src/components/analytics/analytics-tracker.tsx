@@ -3,10 +3,56 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { analytics, AnalyticsEvent, type AnalyticsPayload } from "@/analytics";
+import {
+  appendRefToWhatsappHref,
+  generateLeadRef,
+  loadAttribution,
+  parseAttribution,
+  storeAttribution,
+} from "@/analytics/attribution";
+import { getConsent } from "@/analytics/consent";
 
 interface TrackedLink {
   event: AnalyticsEvent;
   payload: AnalyticsPayload;
+}
+
+function channelFromHref(href: string): string | undefined {
+  if (href.startsWith("mailto:")) return "email";
+  if (href.startsWith("tel:")) return "phone";
+  if (href.includes("wa.me/") || href.includes("api.whatsapp.com")) return "whatsapp";
+  return undefined;
+}
+
+/**
+ * Sessão vinda de anúncio: põe um código na mensagem do WhatsApp e registra o
+ * lead (código + GCLID) para a conversão offline. Sem clique pago, não faz nada.
+ */
+function registerWhatsappLead(anchor: HTMLAnchorElement, path: string): string | undefined {
+  const attribution = loadAttribution();
+  if (!attribution) return undefined;
+  // Um código por sessão: cliques repetidos atualizam o mesmo lead no CMS.
+  const ref = attribution.lead_ref ?? generateLeadRef();
+  if (!attribution.lead_ref) storeAttribution({ ...attribution, lead_ref: ref });
+  anchor.dataset.originalHref ??= anchor.href;
+  anchor.href = appendRefToWhatsappHref(anchor.dataset.originalHref, ref);
+  const body = JSON.stringify({
+    ...attribution,
+    ref,
+    channel: "whatsapp",
+    click_path: path,
+    consent: getConsent() ?? "unknown",
+  });
+  const blob = new Blob([body], { type: "application/json" });
+  if (!navigator.sendBeacon?.("/api/leads", blob)) {
+    void fetch("/api/leads", {
+      method: "POST",
+      body,
+      keepalive: true,
+      headers: { "Content-Type": "application/json" },
+    }).catch(() => undefined);
+  }
+  return ref;
 }
 
 function resolveExplicitEvent(anchor: HTMLAnchorElement): TrackedLink | null {
@@ -54,6 +100,8 @@ export function AnalyticsTracker() {
 
   useEffect(() => {
     if (!pathname) return;
+    const attribution = parseAttribution(window.location.search, pathname);
+    if (attribution) storeAttribution(attribution);
     analytics.track(AnalyticsEvent.PAGE_VIEW, { path: pathname });
   }, [pathname]);
 
@@ -76,10 +124,14 @@ export function AnalyticsTracker() {
       if (!(anchor instanceof HTMLAnchorElement)) return;
       const tracked = resolveExplicitEvent(anchor) ?? resolveLinkEvent(anchor);
       if (!tracked) return;
-      analytics.track(tracked.event, {
-        ...tracked.payload,
-        path: window.location.pathname,
-      });
+      const path = window.location.pathname;
+      const payload: AnalyticsPayload = { ...tracked.payload, path };
+      payload.channel ??= channelFromHref(anchor.getAttribute("href") ?? "");
+      if (payload.channel === "whatsapp") {
+        const ref = registerWhatsappLead(anchor, path);
+        if (ref) payload.lead_ref = ref;
+      }
+      analytics.track(tracked.event, payload);
     }
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);

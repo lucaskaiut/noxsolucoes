@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import { AnalyticsTracker } from "@/components/analytics/analytics-tracker";
+import { ConsentBanner } from "@/components/analytics/consent-banner";
 import { site } from "@/lib/site";
 
 const geistSans = Geist({
@@ -99,6 +100,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col bg-ice-50 font-sans text-slate-600">
         <AnalyticsTracker />
         {children}
+        <ConsentBanner />
       </body>
     </html>
   );

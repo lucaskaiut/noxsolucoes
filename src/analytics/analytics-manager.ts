@@ -26,6 +26,10 @@ export class AnalyticsManager {
   private readonly recentEvents = new Map<string, number>();
   private initialized = false;
 
+  get providerCount(): number {
+    return this.providers.length;
+  }
+
   register(provider: AnalyticsProvider): void {
     this.providers.push(provider);
   }
