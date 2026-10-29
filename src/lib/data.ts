@@ -230,6 +230,15 @@ export const cases: CaseItem[] = [
     slug: "vigia",
   },
   {
+    title: "EYWA Terapias",
+    category: "Marketplace",
+    description:
+      "Plataforma de atendimento online com terapeutas holísticos, com sessões imediatas ou agendadas por chat e vídeo e loja integrada.",
+    image: "/images/eywa.png",
+    technologies: ["Next.js", "React", "TypeScript", "Laravel", "WebRTC"],
+    slug: "eywa",
+  },
+  {
     title: "Atena",
     category: "Plataforma SaaS",
     description:
