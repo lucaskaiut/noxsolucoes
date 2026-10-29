@@ -65,6 +65,54 @@ export const caseStudies: CaseStudy[] = [
     publishedAt: "2026-10-29",
   },
   {
+    slug: "eywa",
+    title: "EYWA Terapias",
+    tagline: "Marketplace de Atendimento Online com Terapeutas Holísticos",
+    category: "Marketplace · Plataforma Web",
+    shortDescription:
+      "Plataforma que conecta pessoas a terapeutas holísticos verificados, com atendimento imediato ou agendado por chat e vídeo, pagamento online e loja de produtos integrada.",
+    description:
+      "A EYWA Terapias é uma plataforma desenvolvida pela Nox Soluções em Tecnologia para conectar pessoas a terapeutas holísticos, como especialistas em tarot terapêutico, reiki, astrologia e constelação familiar. O cliente encontra o profissional por especialidade, vê quem está online naquele momento e escolhe entre iniciar uma sessão imediata ou agendar um horário na agenda do terapeuta. Os atendimentos acontecem dentro da própria plataforma, por chat ou videochamada, com pagamento online antes da sessão. Cada terapeuta tem um perfil completo com especialidades, preços, disponibilidade e avaliações de quem já foi atendido, e a plataforma ainda conta com uma loja de produtos com controle de estoque e carrinho de compras.",
+    challenge:
+      "Terapeutas holísticos costumam depender de redes sociais e conversas no WhatsApp para divulgar o trabalho, combinar horários e receber pagamentos. Para quem procura atendimento, é difícil saber em quem confiar, comparar profissionais e conseguir uma sessão no momento em que precisa. A EYWA precisava de uma plataforma que transmitisse acolhimento e segurança, reunisse profissionais selecionados e resolvesse de ponta a ponta a jornada de encontrar, pagar e realizar o atendimento.",
+    solution:
+      "A Nox construiu um marketplace com vitrine pública otimizada, busca por especialidade e filtros de disponibilidade, perfis detalhados dos terapeutas e dois modelos de atendimento: imediato, com profissionais online em tempo real, e agendado, com agenda de horários livres por dia. As sessões acontecem em salas privadas de chat e videochamada dentro da plataforma, sem gravação, e o pagamento é processado online antes do atendimento. O painel administrativo gerencia profissionais, agendas, atendimentos, avaliações, pagamentos e a loja de produtos.",
+    results: [
+      "Jornada completa na plataforma: encontrar o terapeuta, pagar e ser atendido",
+      "Atendimento imediato com status de profissionais online em tempo real",
+      "Agenda online com horários livres por dia para sessões marcadas",
+      "Sessões por chat e videochamada em salas privadas, sem gravação",
+      "Perfis com especialidades, preços e avaliações verificadas de clientes",
+      "Loja de produtos integrada, com estoque e carrinho de compras",
+    ],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Laravel",
+      "Laravel Reverb",
+      "WebRTC",
+      "Asaas",
+    ],
+    coverImage: "/images/eywa.png",
+    gallery: [
+      { src: "/images/eywa-profissionais.png", caption: "Busca de terapeutas com filtros por especialidade e disponibilidade" },
+      { src: "/images/eywa-perfil.png", caption: "Perfil do terapeuta com preços, especialidades e atendimento imediato" },
+      { src: "/images/eywa-agenda.png", caption: "Agenda com horários livres e modelos de atendimento por chat ou vídeo" },
+      { src: "/images/eywa-loja.png", caption: "Loja de produtos com controle de estoque e carrinho" },
+    ],
+    keywords: [
+      "marketplace de terapeutas",
+      "plataforma de atendimento online",
+      "terapias holísticas online",
+      "agendamento de sessões online",
+      "plataforma de videochamada",
+      "desenvolvimento de marketplace",
+      "sistema para terapeutas",
+    ],
+    publishedAt: "2026-10-29",
+  },
+  {
     slug: "nox-agenda",
     title: "Nox Agenda",
     tagline: "Plataforma SaaS de Agendamentos",
