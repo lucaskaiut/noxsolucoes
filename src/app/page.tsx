@@ -6,12 +6,12 @@ import { Cases } from "@/components/sections/cases";
 import { Differentials } from "@/components/sections/differentials";
 import { Faq } from "@/components/sections/faq";
 import { FinalCta } from "@/components/sections/final-cta";
+import { GoogleReviews } from "@/components/sections/google-reviews";
 import { Hero } from "@/components/sections/hero";
 import { Process } from "@/components/sections/process";
 import { Services } from "@/components/sections/services";
 import { Stats } from "@/components/sections/stats";
 import { Technologies } from "@/components/sections/technologies";
-// import { Testimonials } from "@/components/sections/testimonials";
 
 export default function HomePage() {
   return (
@@ -32,7 +32,7 @@ export default function HomePage() {
         <Process />
         <Technologies />
         <Cases />
-        {/* <Testimonials /> */}
+        <GoogleReviews />
         <BlogPosts />
         <Faq />
         <FinalCta />

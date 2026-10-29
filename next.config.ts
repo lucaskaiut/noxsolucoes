@@ -14,6 +14,11 @@ const remotePatterns: RemotePattern[] = [
     protocol: "https",
     hostname: "placehold.co",
   },
+  {
+    // Fotos dos autores das avaliações do Google
+    protocol: "https",
+    hostname: "lh3.googleusercontent.com",
+  },
 ];
 
 if (cmsHostname) {

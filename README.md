@@ -104,6 +104,15 @@ A rota `/desenvolvimento-de-sistemas` é uma landing page de conversão para cam
   WhatsApp. No CMS, o lead é marcado como qualificado pelo código e exportado em CSV para o
   upload de conversões offline do Google Ads.
 
+### Avaliações do Google
+
+A seção "Avaliações" (home e `/desenvolvimento-de-sistemas`) busca nota, total e até 5
+avaliações do Perfil da Empresa via Places API (New) no servidor, com cache de 24h
+(`src/modules/google-reviews/`). Variáveis: `GOOGLE_PLACES_API_KEY` (restrita à Places API)
+e `GOOGLE_PLACE_ID`. Sem as variáveis ou com erro na API, a seção não aparece. Pelas
+políticas do Google, as avaliações não são salvas, autor/link/atribuição são exibidos e
+não há marcação `AggregateRating` (avaliações próprias não são elegíveis).
+
 **Pendente (LGPD):** o site não tem página de Política de Privacidade. Recomenda-se publicá-la
 (cookies, Google Ads, registro do código de atendimento) e linká-la no banner.
 

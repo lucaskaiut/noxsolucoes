@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/layout/footer";
+import { GoogleReviews } from "@/components/sections/google-reviews";
 import { Header } from "@/components/layout/header";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
@@ -318,6 +319,8 @@ export default function SystemDevelopmentPage() {
             </div>
           </Container>
         </section>
+
+        <GoogleReviews />
 
         <section aria-labelledby="cta-heading" className="py-16 sm:py-20">
           <Container>
