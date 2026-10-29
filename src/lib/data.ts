@@ -221,13 +221,13 @@ export interface CaseItem {
 
 export const cases: CaseItem[] = [
   {
-    title: "WebRaster",
+    title: "Vigia",
     category: "Plataforma SaaS",
     description:
       "Plataforma para empresas de rastreamento veicular com monitoramento em tempo real, ordens de serviço, financeiro e CRM com IA.",
-    image: "/images/webraster.png",
+    image: "/images/vigia.png",
     technologies: ["React", "TypeScript", "Laravel", "Traccar", "Google Maps"],
-    slug: "webraster",
+    slug: "vigia",
   },
   {
     title: "Atena",

@@ -27,6 +27,11 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns,
   },
+  async redirects() {
+    return [
+      { source: "/cases/webraster", destination: "/cases/vigia", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

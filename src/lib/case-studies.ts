@@ -17,14 +17,14 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "webraster",
-    title: "WebRaster",
+    slug: "vigia",
+    title: "Vigia",
     tagline: "Plataforma SaaS para Empresas de Rastreamento Veicular",
     category: "SaaS · Rastreamento Veicular",
     shortDescription:
       "Plataforma multiempresa para empresas de rastreamento: monitoramento da frota em tempo real no mapa, geocercas, ordens de serviço, financeiro recorrente e CRM com atendimento por WhatsApp e IA.",
     description:
-      "O WebRaster é uma plataforma SaaS desenvolvida pela Nox Soluções em Tecnologia para empresas de rastreamento veicular. Em um único sistema, a rastreadora acompanha a frota dos clientes em tempo real no mapa, recebe os sinais dos equipamentos GPS, define geocercas e pontos de interesse, dispara alertas e controla todo o ciclo operacional: cadastro de clientes, veículos, motoristas, equipamentos e chips, contratos, estoque, ordens de serviço de instalação e manutenção, checklists e comissões. O módulo financeiro acompanha receita recorrente, cobranças e inadimplência, e o CRM organiza o funil comercial com atendimento pelo WhatsApp apoiado por inteligência artificial. A plataforma é multiempresa: cada rastreadora opera com sua marca, seus usuários e perfis de acesso.",
+      "O Vigia é uma plataforma SaaS desenvolvida pela Nox Soluções em Tecnologia para empresas de rastreamento veicular. Em um único sistema, a rastreadora acompanha a frota dos clientes em tempo real no mapa, recebe os sinais dos equipamentos GPS, define geocercas e pontos de interesse, dispara alertas e controla todo o ciclo operacional: cadastro de clientes, veículos, motoristas, equipamentos e chips, contratos, estoque, ordens de serviço de instalação e manutenção, checklists e comissões. O módulo financeiro acompanha receita recorrente, cobranças e inadimplência, e o CRM organiza o funil comercial com atendimento pelo WhatsApp apoiado por inteligência artificial. A plataforma é multiempresa: cada rastreadora opera com sua marca, seus usuários e perfis de acesso.",
     challenge:
       "Empresas de rastreamento costumam operar com várias ferramentas desconectadas: um software de rastreamento para o mapa, planilhas para estoque de equipamentos e chips, outro sistema para cobrança e conversas soltas no WhatsApp para vendas e suporte. Isso gera retrabalho, falta de visão sobre veículos offline, equipamentos parados em estoque e clientes inadimplentes, além de dificultar o crescimento da operação.",
     solution:
@@ -49,14 +49,9 @@ export const caseStudies: CaseStudy[] = [
       "Evolution API",
       "OpenAI",
     ],
-    coverImage: "/images/webraster.png",
+    coverImage: "/images/vigia.png",
     gallery: [
-      { src: "/images/webraster-dashboard.png", caption: "Dashboard de monitoramento com a situação da frota e do estoque" },
-      { src: "/images/webraster-financeiro.png", caption: "Dashboard financeiro com MRR, ARR, receita e inadimplência" },
-      { src: "/images/webraster-geocercas.png", caption: "Cadastro de geocercas para monitorar áreas da operação" },
-      { src: "/images/webraster-eventos-geocerca.png", caption: "Histórico de entradas e saídas das geocercas" },
-      { src: "/images/webraster-ordens-servico.png", caption: "Ordens de serviço de instalação, manutenção e retirada" },
-      { src: "/images/webraster-crm-kanban.png", caption: "CRM com funil de leads em Kanban e atendimento com IA" },
+      { src: "/images/vigia-crm-kanban.png", caption: "CRM com funil de leads em Kanban e atendimento com IA" },
     ],
     keywords: [
       "software para empresa de rastreamento",

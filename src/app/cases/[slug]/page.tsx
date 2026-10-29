@@ -215,7 +215,9 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               >
                 Telas do sistema
               </h2>
-              <ul className="mt-8 grid gap-6 sm:grid-cols-2">
+              <ul
+                className={`mt-8 grid gap-6 ${caseStudy.gallery.length > 1 ? "sm:grid-cols-2" : ""}`}
+              >
                 {caseStudy.gallery.map((item) => (
                   <li key={item.src}>
                     <figure className="overflow-hidden rounded-2xl bg-white p-2 shadow-md shadow-slate-900/5">
@@ -225,7 +227,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
                         width={1920}
                         height={1200}
                         className="w-full rounded-xl"
-                        sizes="(max-width: 640px) 100vw, 50vw"
+                        sizes={caseStudy.gallery!.length > 1 ? "(max-width: 640px) 100vw, 50vw" : "(max-width: 1024px) 100vw, 1024px"}
                       />
                       <figcaption className="px-2 pt-3 pb-1 text-sm text-slate-600">
                         {item.caption}
