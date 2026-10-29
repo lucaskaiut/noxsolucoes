@@ -122,6 +122,8 @@ Todo o conteúdo de cases vive em `src/lib/case-studies.ts`. Para publicar um no
 1. Adicione a imagem de capa em `public/images/` (screenshot 1918×912 ou proporção próxima).
 2. Adicione um novo objeto `CaseStudy` ao array `caseStudies` em `src/lib/case-studies.ts`, preenchendo slug, título, tagline, categoria, descrições, desafio, solução, resultados, tecnologias, keywords e `publishedAt`.
 
+Opcional: preencha `gallery` (`[{ src, caption }]`, imagens 1920×1200) para exibir a seção "Telas do sistema" na página do case.
+
 Nada mais é necessário. Automaticamente o novo case:
 
 - aparece na **listagem** `/cases` e ganha página própria em `/cases/<slug>` (via `generateStaticParams`);

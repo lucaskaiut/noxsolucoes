@@ -10,12 +10,65 @@ export interface CaseStudy {
   results: string[];
   technologies: string[];
   coverImage: string;
-  gallery?: string[];
+  gallery?: Array<{ src: string; caption: string }>;
   keywords: string[];
   publishedAt: string;
 }
 
 export const caseStudies: CaseStudy[] = [
+  {
+    slug: "webraster",
+    title: "WebRaster",
+    tagline: "Plataforma SaaS para Empresas de Rastreamento Veicular",
+    category: "SaaS · Rastreamento Veicular",
+    shortDescription:
+      "Plataforma multiempresa para empresas de rastreamento: monitoramento da frota em tempo real no mapa, geocercas, ordens de serviço, financeiro recorrente e CRM com atendimento por WhatsApp e IA.",
+    description:
+      "O WebRaster é uma plataforma SaaS desenvolvida pela Nox Soluções em Tecnologia para empresas de rastreamento veicular. Em um único sistema, a rastreadora acompanha a frota dos clientes em tempo real no mapa, recebe os sinais dos equipamentos GPS, define geocercas e pontos de interesse, dispara alertas e controla todo o ciclo operacional: cadastro de clientes, veículos, motoristas, equipamentos e chips, contratos, estoque, ordens de serviço de instalação e manutenção, checklists e comissões. O módulo financeiro acompanha receita recorrente, cobranças e inadimplência, e o CRM organiza o funil comercial com atendimento pelo WhatsApp apoiado por inteligência artificial. A plataforma é multiempresa: cada rastreadora opera com sua marca, seus usuários e perfis de acesso.",
+    challenge:
+      "Empresas de rastreamento costumam operar com várias ferramentas desconectadas: um software de rastreamento para o mapa, planilhas para estoque de equipamentos e chips, outro sistema para cobrança e conversas soltas no WhatsApp para vendas e suporte. Isso gera retrabalho, falta de visão sobre veículos offline, equipamentos parados em estoque e clientes inadimplentes, além de dificultar o crescimento da operação.",
+    solution:
+      "A Nox construiu uma plataforma única que integra o servidor de rastreamento (Traccar) a um painel web em tempo real, com mapa da frota, status de sinal de cada veículo, geocercas com histórico de entradas e saídas e alertas. Sobre essa base, foram desenvolvidos os módulos de gestão da rastreadora: cadastros, contratos, estoque, ordens de serviço com Kanban e agenda, checklists, comissões, relatórios e auditoria. O financeiro integra cobrança recorrente e indicadores como MRR, ARR e inadimplência, e o CRM centraliza leads e conversas de WhatsApp com um assistente de IA.",
+    results: [
+      "Frota de todos os clientes monitorada em tempo real em um único painel",
+      "Visão imediata de veículos online, offline e sem sinal, e de equipamentos e chips em estoque",
+      "Ordens de serviço de instalação e manutenção organizadas em lista, Kanban e agenda",
+      "Indicadores financeiros de receita recorrente e inadimplência sempre atualizados",
+      "Vendas e atendimento pelo WhatsApp centralizados no CRM, com apoio de IA",
+      "Operação multiempresa: novas rastreadoras entram sem custo de desenvolvimento",
+    ],
+    technologies: [
+      "React",
+      "TypeScript",
+      "Laravel",
+      "Laravel Reverb",
+      "MySQL",
+      "Redis",
+      "Traccar",
+      "Google Maps",
+      "Evolution API",
+      "OpenAI",
+    ],
+    coverImage: "/images/webraster.png",
+    gallery: [
+      { src: "/images/webraster-dashboard.png", caption: "Dashboard de monitoramento com a situação da frota e do estoque" },
+      { src: "/images/webraster-financeiro.png", caption: "Dashboard financeiro com MRR, ARR, receita e inadimplência" },
+      { src: "/images/webraster-geocercas.png", caption: "Cadastro de geocercas para monitorar áreas da operação" },
+      { src: "/images/webraster-eventos-geocerca.png", caption: "Histórico de entradas e saídas das geocercas" },
+      { src: "/images/webraster-ordens-servico.png", caption: "Ordens de serviço de instalação, manutenção e retirada" },
+      { src: "/images/webraster-crm-kanban.png", caption: "CRM com funil de leads em Kanban e atendimento com IA" },
+    ],
+    keywords: [
+      "software para empresa de rastreamento",
+      "sistema de rastreamento veicular",
+      "plataforma de monitoramento de frota",
+      "SaaS de rastreamento",
+      "gestão de rastreadora",
+      "rastreamento em tempo real",
+      "geocercas",
+    ],
+    publishedAt: "2026-10-29",
+  },
   {
     slug: "nox-agenda",
     title: "Nox Agenda",

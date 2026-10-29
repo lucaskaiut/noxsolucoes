@@ -206,6 +206,38 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
           </Container>
         </section>
 
+        {caseStudy.gallery?.length ? (
+          <section aria-labelledby="telas-heading" className="pt-16 sm:pt-20">
+            <Container>
+              <h2
+                id="telas-heading"
+                className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl"
+              >
+                Telas do sistema
+              </h2>
+              <ul className="mt-8 grid gap-6 sm:grid-cols-2">
+                {caseStudy.gallery.map((item) => (
+                  <li key={item.src}>
+                    <figure className="overflow-hidden rounded-2xl bg-white p-2 shadow-md shadow-slate-900/5">
+                      <Image
+                        src={item.src}
+                        alt={`${caseStudy.title}: ${item.caption}`}
+                        width={1920}
+                        height={1200}
+                        className="w-full rounded-xl"
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                      />
+                      <figcaption className="px-2 pt-3 pb-1 text-sm text-slate-600">
+                        {item.caption}
+                      </figcaption>
+                    </figure>
+                  </li>
+                ))}
+              </ul>
+            </Container>
+          </section>
+        ) : null}
+
         <section aria-labelledby="stack-case-heading" className="py-16 sm:py-20">
           <Container>
             <h2
