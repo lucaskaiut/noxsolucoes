@@ -14,7 +14,7 @@ type GoogleConsentState = Record<
   ConsentChoice
 >;
 
-const listeners = new Set<(choice: ConsentChoice) => void>();
+const listeners = new Set<(choice: ConsentChoice | null) => void>();
 
 export function googleConsentState(choice: ConsentChoice | null): GoogleConsentState {
   const value = choice ?? "denied";
@@ -47,7 +47,19 @@ export function setConsent(choice: ConsentChoice): void {
   for (const listener of listeners) listener(choice);
 }
 
-export function onConsentChange(listener: (choice: ConsentChoice) => void): () => void {
+/** Apaga a escolha salva: as tags voltam a "negado" e o banner reaparece. */
+export function resetConsent(): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.removeItem(CONSENT_STORAGE_KEY);
+  } catch {
+    // Armazenamento bloqueado: não havia escolha persistida.
+  }
+  window.gtag?.("consent", "update", googleConsentState(null));
+  for (const listener of listeners) listener(null);
+}
+
+export function onConsentChange(listener: (choice: ConsentChoice | null) => void): () => void {
   listeners.add(listener);
   return () => listeners.delete(listener);
 }

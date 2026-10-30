@@ -1,7 +1,7 @@
 export const site = {
   name: "Nox Soluções em Tecnologia",
   shortName: "Nox",
-  url: "https://noxtecnologias.com.br",
+  url: "https://www.noxtecnologias.com.br",
   email: "contato@noxtecnologias.com.br",
   phoneDisplay: "(41) 98829-7008",
   phoneE164: "+5541988297008",

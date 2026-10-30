@@ -97,6 +97,13 @@ export function Footer() {
         <div className="mt-12 pt-6 text-center">
           <p className="text-xs text-slate-500">
             © {year} {site.name}. Todos os direitos reservados.
+            {" · "}
+            <Link
+              href="/politica-de-privacidade"
+              className="underline-offset-2 transition-colors hover:text-slate-900 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
+            >
+              Política de privacidade
+            </Link>
           </p>
         </div>
       </Container>

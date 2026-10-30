@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { hasTrackingProviders } from "@/analytics";
 import {
@@ -31,7 +32,13 @@ export function ConsentBanner() {
     >
       <p className="text-sm leading-relaxed text-slate-600">
         Usamos cookies para medir o desempenho do site e dos nossos anúncios.
-        Você pode aceitar ou recusar; o site funciona normalmente nos dois casos.
+        Você pode aceitar ou recusar; o site funciona normalmente nos dois casos.{" "}
+        <Link
+          href="/politica-de-privacidade"
+          className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-700"
+        >
+          Política de privacidade
+        </Link>
       </p>
       <div className="mt-4 flex shrink-0 gap-3 sm:mt-0">
         <button

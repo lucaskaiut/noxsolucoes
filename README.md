@@ -113,8 +113,10 @@ e `GOOGLE_PLACE_ID`. Sem as variáveis ou com erro na API, a seção não aparec
 políticas do Google, as avaliações não são salvas, autor/link/atribuição são exibidos e
 não há marcação `AggregateRating` (avaliações próprias não são elegíveis).
 
-**Pendente (LGPD):** o site não tem página de Política de Privacidade. Recomenda-se publicá-la
-(cookies, Google Ads, registro do código de atendimento) e linká-la no banner.
+**Privacidade (LGPD):** `/politica-de-privacidade` descreve cookies, Google Ads e o registro do
+código de atendimento; é linkada no banner e no rodapé e tem botão para reabrir a escolha de
+cookies (`resetConsent`). O domínio canônico é `https://www.noxtecnologias.com.br` (`site.url`),
+porque a versão sem `www` responde 308.
 
 ## Acessibilidade
 

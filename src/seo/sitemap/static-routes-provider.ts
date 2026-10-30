@@ -10,6 +10,7 @@ export class StaticRoutesProvider implements SitemapRoutesProvider {
         changefreq: "monthly",
         priority: 0.8,
       })),
+      { url: "/politica-de-privacidade", changefreq: "yearly", priority: 0.2 },
     ]);
   }
 }
