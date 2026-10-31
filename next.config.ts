@@ -37,6 +37,12 @@ const nextConfig: NextConfig = {
       { source: "/cases/webraster", destination: "/cases/vigia", permanent: true },
     ];
   },
+  async rewrites() {
+    return [
+      // Protótipo navegável do HabitaFlow (HTML estático em public/habitaflow)
+      { source: "/habitaflow", destination: "/habitaflow/index.html" },
+    ];
+  },
 };
 
 export default nextConfig;

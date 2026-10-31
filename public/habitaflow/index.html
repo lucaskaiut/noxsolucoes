@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HabitaFlow — Protótipo navegável | Nox Soluções em Tecnologias</title>
+<meta name="description" content="Protótipo navegável do HabitaFlow, plataforma SaaS modular para licenciamento e regularização de empreendimentos habitacionais, proposta pela Nox Soluções em Tecnologias." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="/icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #f6f8fc; --surface: #ffffff; --surface-2: #eef2f8; --surface-3: #dce6f2;
+  --fg: #0f172a; --muted: #5b6576; --subtle: #94a3b8;
+  --primary: #7c3aed; --primary-hover: #6d28d9; --primary-soft: #f3eefe; --primary-fg: #ffffff;
+  --danger: #dc2626; --danger-soft: #fef2f2; --success: #059669; --success-soft: #ecfdf5;
+  --warning: #b45309; --warning-soft: #fffbeb; --info: #0369a1; --info-soft: #f0f9ff;
+  --ring: rgb(124 58 237 / .45); --overlay: rgb(15 18 25 / .45);
+  --shadow-card: 0 1px 2px rgb(16 24 40 / .05), 0 2px 8px rgb(16 24 40 / .04);
+  --shadow-raised: 0 2px 4px rgb(16 24 40 / .05), 0 8px 20px rgb(16 24 40 / .08);
+  --shadow-pop: 0 8px 16px -4px rgb(16 24 40 / .1), 0 20px 48px -8px rgb(16 24 40 / .18);
+  --map-land: #eef2f8; --map-zone: #e3e9f3; --map-road: #ffffff; --map-water: #cfe3f7; --map-green: #dcefe2;
+}
+.dark {
+  --bg: #0f0d17; --surface: #17151f; --surface-2: #221f2c; --surface-3: #2d2a38;
+  --fg: #f2f1f6; --muted: #a39eb2; --subtle: #6f6a7e;
+  --primary: #8b5cf6; --primary-hover: #a78bfa; --primary-soft: rgb(139 92 246 / .16); --primary-fg: #ffffff;
+  --danger: #ef4444; --danger-soft: rgb(239 68 68 / .13); --success: #34d399; --success-soft: rgb(52 211 153 / .12);
+  --warning: #fbbf24; --warning-soft: rgb(251 191 36 / .12); --info: #38bdf8; --info-soft: rgb(56 189 248 / .12);
+  --ring: rgb(139 92 246 / .55); --overlay: rgb(0 0 0 / .6);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / .5); --shadow-raised: 0 2px 6px rgb(0 0 0 / .45), 0 10px 24px rgb(0 0 0 / .35);
+  --shadow-pop: 0 12px 32px rgb(0 0 0 / .6);
+  --map-land: #1b1925; --map-zone: #23202f; --map-road: #2f2b3c; --map-water: #1c2a3d; --map-green: #1c2b24;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; }
+body { background: var(--bg); color: var(--fg); font-family: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 15px; -webkit-font-smoothing: antialiased; }
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+*:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: 6px; }
+::selection { background: var(--primary); color: var(--primary-fg); }
+svg.i { width: 18px; height: 18px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+svg.i.sm { width: 14px; height: 14px; } svg.i.lg { width: 22px; height: 22px; }
+
+/* Banner do protótipo */
+.proto-banner { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; background: #2e1065; color: #ede9fe; font-size: 12.5px; padding: 7px 16px; text-align: center; }
+.proto-banner strong { color: #fff; font-weight: 600; }
+.proto-banner a { color: #c4b5fd; text-decoration: underline; text-underline-offset: 2px; }
+
+/* Layout */
+.app { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+.sidebar { width: 256px; flex-shrink: 0; background: var(--surface); display: flex; flex-direction: column; box-shadow: var(--shadow-card); z-index: 20; }
+.sidebar-head { padding: 20px 16px 8px; }
+.brand { display: flex; align-items: center; gap: 10px; padding: 0 4px; }
+.brand-mark { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-card); }
+.brand-name { font-size: 14px; font-weight: 600; line-height: 1.2; }
+.brand-sub { font-size: 12px; color: var(--muted); }
+.nav { flex: 1; overflow-y: auto; padding: 16px 12px; display: flex; flex-direction: column; gap: 22px; }
+.nav-label { padding: 0 12px 8px; font-size: 11px; font-weight: 600; letter-spacing: .06em; color: var(--subtle); text-transform: uppercase; }
+.nav-item { display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px; font-size: 14px; color: var(--muted); transition: background .15s, color .15s; }
+.nav-item:hover { background: var(--surface-2); color: var(--fg); }
+.nav-item.active { background: var(--primary-soft); color: var(--primary); font-weight: 500; }
+.nav-item .count { margin-left: auto; font-size: 11px; font-weight: 600; background: var(--danger-soft); color: var(--danger); border-radius: 999px; padding: 1px 7px; }
+.sidebar-foot { padding: 12px 16px 16px; border-top: 1px solid var(--surface-2); display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.sidebar-foot img { height: 18px; width: auto; }
+.sidebar-foot .logo-dark, .dark .sidebar-foot .logo-light { display: none; } .dark .sidebar-foot .logo-dark { display: inline; }
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; overflow-y: auto; }
+.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 12px; height: 60px; flex-shrink: 0; background: var(--bg); padding: 0 32px; }
+.content { width: 100%; padding: 8px 40px 48px; }
+.overlay { position: fixed; inset: 0; background: var(--overlay); z-index: 40; display: none; }
+.icon-btn { width: 36px; height: 36px; border-radius: 8px; border: 0; background: transparent; color: var(--muted); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; position: relative; }
+.icon-btn:hover { background: var(--surface-2); color: var(--fg); }
+.icon-btn .dot { position: absolute; top: 8px; right: 9px; width: 7px; height: 7px; border-radius: 50%; background: var(--danger); box-shadow: 0 0 0 2px var(--bg); }
+.menu-btn { display: none; }
+.search { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; border-radius: 8px; background: var(--surface); box-shadow: var(--shadow-card); color: var(--subtle); width: 300px; font-size: 13.5px; }
+.search input { border: 0; outline: 0; background: transparent; width: 100%; }
+.ml-auto { margin-left: auto; }
+.user { display: flex; align-items: center; gap: 10px; padding: 6px; border-radius: 8px; }
+.user-name { font-size: 13px; font-weight: 500; line-height: 1.2; } .user-role { font-size: 12px; color: var(--muted); }
+.avatar { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--primary-soft); color: var(--primary); font-weight: 600; width: 32px; height: 32px; font-size: 12px; flex-shrink: 0; }
+.avatar.sm { width: 26px; height: 26px; font-size: 10.5px; }
+.persona { display: flex; background: var(--surface-2); padding: 3px; border-radius: 10px; gap: 2px; }
+.persona button { border: 0; background: transparent; border-radius: 8px; padding: 6px 10px; font-size: 12.5px; font-weight: 500; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.persona button.on { background: var(--surface); color: var(--fg); box-shadow: var(--shadow-raised); }
+.persona-label { font-size: 12px; color: var(--subtle); white-space: nowrap; }
+
+/* Page */
+.page { display: flex; flex-direction: column; gap: 24px; animation: fade .25s ease-out; }
+@keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.page-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.page-head h1 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
+.page-head p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+.crumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.crumb a:hover { color: var(--fg); }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.grid { display: grid; gap: 16px; }
+.g-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .g-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } .g-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.g-main { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); }
+.g-wf { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+.card { background: var(--surface); border-radius: 12px; box-shadow: var(--shadow-card); min-width: 0; }
+.card.hover { transition: box-shadow .15s; cursor: pointer; } .card.hover:hover { box-shadow: var(--shadow-raised); }
+.card-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 20px 20px 0; }
+.card-head h3 { margin: 0; font-size: 15px; font-weight: 600; } .card-head p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.card-body { padding: 20px; }
+.stat { display: flex; align-items: center; gap: 16px; }
+.stat-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.stat-label { font-size: 13px; color: var(--muted); } .stat-value { font-size: 24px; font-weight: 600; letter-spacing: -.02em; line-height: 1.25; }
+.stat-delta { font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 3px; }
+.soft-primary { background: var(--primary-soft); color: var(--primary); } .soft-success { background: var(--success-soft); color: var(--success); }
+.soft-warning { background: var(--warning-soft); color: var(--warning); } .soft-danger { background: var(--danger-soft); color: var(--danger); }
+.soft-info { background: var(--info-soft); color: var(--info); } .soft-neutral { background: var(--surface-2); color: var(--muted); }
+.t-success { color: var(--success); } .t-danger { color: var(--danger); } .t-warning { color: var(--warning); } .t-muted { color: var(--muted); } .t-primary { color: var(--primary); }
+.badge { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+.badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .8; }
+.badge.plain::before { display: none; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 8px; border: 0; font-size: 14px; font-weight: 500; cursor: pointer; transition: background .15s; white-space: nowrap; user-select: none; }
+.btn.sm { height: 32px; padding: 0 12px; font-size: 13px; }
+.btn.primary { background: var(--primary); color: var(--primary-fg); box-shadow: var(--shadow-card); } .btn.primary:hover { background: var(--primary-hover); }
+.btn.secondary { background: var(--surface-2); color: var(--fg); } .btn.secondary:hover { background: var(--surface-3); }
+.btn.ghost { background: transparent; color: var(--muted); } .btn.ghost:hover { background: var(--surface-2); color: var(--fg); }
+.btn.success { background: var(--success); color: #fff; }
+.btn[disabled] { opacity: .6; pointer-events: none; }
+.seg { display: inline-flex; background: var(--surface-2); padding: 4px; border-radius: 12px; gap: 2px; flex-wrap: wrap; }
+.seg button { border: 0; background: transparent; border-radius: 8px; padding: 7px 14px; font-size: 13.5px; font-weight: 500; color: var(--muted); cursor: pointer; }
+.seg button.on { background: var(--surface); color: var(--fg); box-shadow: var(--shadow-raised); }
+.seg button .n { font-size: 11.5px; color: var(--subtle); margin-left: 4px; }
+
+/* Table */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+thead tr { background: color-mix(in srgb, var(--surface-2) 60%, transparent); text-align: left; font-size: 11.5px; letter-spacing: .04em; color: var(--muted); text-transform: uppercase; }
+th { padding: 12px 20px; font-weight: 500; white-space: nowrap; }
+td { padding: 13px 20px; vertical-align: middle; box-shadow: inset 0 1px 0 var(--surface-2); }
+tbody tr { transition: background .12s; } tbody tr:hover { background: color-mix(in srgb, var(--surface-2) 45%, transparent); }
+tr.click { cursor: pointer; }
+.cell-title { font-weight: 500; } .cell-sub { font-size: 12.5px; color: var(--muted); margin-top: 1px; }
+.progress { height: 6px; border-radius: 999px; background: var(--surface-2); overflow: hidden; min-width: 80px; }
+.progress > span { display: block; height: 100%; border-radius: 999px; background: var(--primary); }
+
+/* Charts */
+.bars { display: flex; align-items: flex-end; gap: 14px; height: 190px; padding-top: 10px; }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; min-width: 0; }
+.bar { width: 100%; max-width: 46px; border-radius: 8px 8px 4px 4px; background: linear-gradient(180deg, #a78bfa, #7c3aed); position: relative; transition: height .6s cubic-bezier(.22, 1, .36, 1); }
+.bar span { position: absolute; top: -20px; left: 0; right: 0; text-align: center; font-size: 12px; font-weight: 600; color: var(--fg); }
+.bar-label { font-size: 11.5px; color: var(--muted); text-align: center; line-height: 1.25; height: 30px; }
+.hbar { display: grid; grid-template-columns: 150px 1fr 54px; align-items: center; gap: 12px; font-size: 13px; padding: 7px 0; }
+.hbar-track { height: 10px; background: var(--surface-2); border-radius: 999px; position: relative; }
+.hbar-fill { position: absolute; inset: 0 auto 0 0; border-radius: 999px; }
+.hbar-mark { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--fg); opacity: .55; border-radius: 2px; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+
+/* Lists */
+.list { display: flex; flex-direction: column; }
+.list-item { display: flex; gap: 12px; align-items: flex-start; padding: 13px 20px; box-shadow: inset 0 1px 0 var(--surface-2); }
+.list-item:first-child { box-shadow: none; }
+.li-icon { width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.li-title { font-size: 14px; font-weight: 500; } .li-sub { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 8px; background: var(--surface-2); font-size: 12.5px; color: var(--fg); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Stepper */
+.stepper { display: flex; gap: 0; overflow-x: auto; padding: 4px 0; }
+.step { flex: 1; min-width: 120px; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; gap: 8px; }
+.step::before { content: ''; position: absolute; top: 15px; left: calc(-50% + 18px); right: calc(50% + 18px); height: 2px; background: var(--surface-3); }
+.step:first-child::before { display: none; }
+.step.done::before, .step.current::before { background: var(--primary); }
+.step-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--surface-2); color: var(--subtle); font-size: 13px; font-weight: 600; z-index: 1; }
+.step.done .step-dot { background: var(--primary); color: #fff; }
+.step.current .step-dot { background: var(--surface); color: var(--primary); box-shadow: 0 0 0 2px var(--primary), 0 0 0 6px var(--primary-soft); }
+.step-name { font-size: 12.5px; font-weight: 500; } .step-meta { font-size: 11.5px; color: var(--muted); margin-top: -4px; }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 26px; }
+.timeline::before { content: ''; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px; background: var(--surface-2); }
+.tl-item { position: relative; padding: 0 0 18px; }
+.tl-item::before { content: ''; position: absolute; left: -22px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--surface); box-shadow: 0 0 0 2px var(--tl, var(--primary)); }
+.tl-head { font-size: 14px; } .tl-head b { font-weight: 600; }
+.tl-meta { font-size: 12px; color: var(--muted); margin-top: 3px; font-variant-numeric: tabular-nums; }
+
+/* Forms */
+.field { display: flex; flex-direction: column; gap: 6px; } .field label { font-size: 13px; font-weight: 500; }
+.input, .select, .textarea { height: 40px; border-radius: 8px; border: 0; background: var(--surface-2); padding: 0 12px; font-size: 14px; outline: 0; width: 100%; }
+.textarea { height: auto; padding: 10px 12px; resize: vertical; min-height: 70px; }
+.input:focus, .select:focus, .textarea:focus { box-shadow: 0 0 0 2px var(--ring); }
+.switch { width: 38px; height: 22px; border-radius: 999px; background: var(--surface-3); position: relative; cursor: pointer; border: 0; flex-shrink: 0; transition: background .15s; }
+.switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / .2); transition: transform .15s; }
+.switch.on { background: var(--primary); } .switch.on::after { transform: translateX(16px); }
+.row { display: flex; align-items: center; gap: 10px; } .between { justify-content: space-between; } .wrap { flex-wrap: wrap; }
+.stack { display: flex; flex-direction: column; gap: 16px; } .stack-sm { display: flex; flex-direction: column; gap: 8px; }
+.muted { color: var(--muted); } .small { font-size: 13px; } .xs { font-size: 12px; } .fw6 { font-weight: 600; } .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
+.divider { height: 1px; background: var(--surface-2); margin: 4px 0; }
+.alert { display: flex; gap: 12px; border-radius: 12px; padding: 14px 16px; font-size: 13.5px; }
+.alert b { display: block; margin-bottom: 2px; }
+
+/* Workflow builder */
+.wf-stage { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 12px; background: var(--surface); box-shadow: var(--shadow-card); cursor: pointer; border: 2px solid transparent; transition: border-color .15s, box-shadow .15s; }
+.wf-stage:hover { box-shadow: var(--shadow-raised); }
+.wf-stage.sel { border-color: var(--primary); }
+.wf-num { width: 28px; height: 28px; border-radius: 8px; background: var(--primary-soft); color: var(--primary); font-weight: 600; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.wf-conn { width: 2px; height: 16px; background: var(--surface-3); margin-left: 29px; }
+.rule { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 10px; background: var(--surface-2); font-size: 13px; }
+.rule code { font-family: ui-monospace, Menlo, monospace; font-size: 12px; background: var(--surface); padding: 1px 6px; border-radius: 5px; }
+
+/* Checklist */
+.drop { border: 2px dashed var(--surface-3); border-radius: 12px; padding: 22px; text-align: center; color: var(--muted); font-size: 13.5px; }
+.file { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 10px; background: var(--surface-2); }
+.file-ic { width: 38px; height: 44px; border-radius: 6px; background: var(--danger-soft); color: var(--danger); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+.check-item { display: flex; gap: 12px; align-items: flex-start; padding: 13px 20px; box-shadow: inset 0 1px 0 var(--surface-2); animation: fade .3s ease-out both; }
+.scan { height: 6px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.scan span { display: block; height: 100%; width: 0; background: var(--primary); border-radius: 999px; transition: width 1.6s ease-in-out; }
+.ai-card { background: linear-gradient(160deg, color-mix(in srgb, var(--primary) 9%, var(--surface)), var(--surface) 60%); }
+
+/* Map */
+.map { width: 100%; height: auto; display: block; border-radius: 12px; }
+.pin { cursor: pointer; transition: transform .15s; transform-box: fill-box; transform-origin: center bottom; }
+.pin:hover { transform: scale(1.15); }
+
+/* Code */
+pre.code { margin: 0; background: #1e1b2e; color: #e9e5f5; border-radius: 10px; padding: 14px 16px; font-size: 12.5px; line-height: 1.6; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+pre.code .k { color: #c4b5fd; } pre.code .s { color: #86efac; } pre.code .c { color: #8b85a3; }
+
+/* Assistant */
+.fab { position: fixed; right: 24px; bottom: 24px; z-index: 35; height: 48px; padding: 0 18px 0 14px; border-radius: 999px; border: 0; background: var(--primary); color: #fff; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; font-size: 14px; box-shadow: var(--shadow-pop); cursor: pointer; }
+.fab:hover { background: var(--primary-hover); }
+.assistant { position: fixed; right: 24px; bottom: 84px; width: 380px; max-width: calc(100vw - 32px); height: 520px; max-height: calc(100dvh - 140px); z-index: 45; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; animation: fade .2s ease-out; }
+.assistant.open { display: flex; }
+.as-head { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--surface-2); }
+.as-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.msg { max-width: 88%; padding: 10px 13px; border-radius: 14px; font-size: 13.5px; line-height: 1.5; }
+.msg.bot { background: var(--surface-2); border-bottom-left-radius: 4px; }
+.msg.me { align-self: flex-end; background: var(--primary); color: #fff; border-bottom-right-radius: 4px; }
+.msg ul { margin: 6px 0 0; padding-left: 18px; } .msg li { margin: 2px 0; }
+.as-sugg { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 10px; }
+.as-sugg button { border: 0; background: var(--primary-soft); color: var(--primary); border-radius: 999px; padding: 6px 11px; font-size: 12.5px; cursor: pointer; text-align: left; }
+.as-input { display: flex; gap: 8px; padding: 12px 16px 16px; }
+.typing span { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--subtle); margin-right: 3px; animation: blink 1s infinite; }
+.typing span:nth-child(2) { animation-delay: .15s; } .typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes blink { 0%, 100% { opacity: .3; } 50% { opacity: 1; } }
+
+/* Toast */
+.toasts { position: fixed; top: 48px; right: 24px; z-index: 60; display: flex; flex-direction: column; gap: 8px; }
+.toast { display: flex; gap: 10px; align-items: flex-start; background: var(--surface); box-shadow: var(--shadow-pop); border-radius: 12px; padding: 12px 14px; font-size: 13.5px; min-width: 260px; max-width: 360px; animation: fade .2s ease-out; }
+
+/* Responsive */
+@media (max-width: 1200px) { .g-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .g-main, .g-wf { grid-template-columns: 1fr; } .search { width: 220px; } }
+@media (max-width: 1024px) {
+  .sidebar { position: fixed; top: 0; bottom: 0; left: 0; z-index: 50; transform: translateX(-100%); transition: transform .2s; box-shadow: var(--shadow-pop); }
+  body.nav-open .sidebar { transform: none; } body.nav-open .overlay { display: block; }
+  .menu-btn { display: inline-flex; } .topbar { padding: 0 16px; } .content { padding: 8px 16px 96px; }
+  .search { display: none; } .g-3, .g-2 { grid-template-columns: 1fr; } .persona-label { display: none; }
+}
+@media (max-width: 640px) {
+  .g-4 { grid-template-columns: 1fr; } .user-text { display: none; } .hbar { grid-template-columns: 100px 1fr 44px; }
+  .fab span:last-child { display: none; } .fab { padding: 0 14px; } .user, .bell { display: none; } .topbar { gap: 6px; } .persona { min-width: 0; } th, td { padding-left: 14px; padding-right: 14px; }
+  .persona button { padding: 6px 8px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+</style>
+</head>
+<body>
+<div class="proto-banner">
+  <span><strong>HabitaFlow · Protótipo navegável</strong> — dados fictícios, para fins de demonstração da proposta ao Hub de Moradia B2G.</span>
+  <span>Desenvolvido por <a href="/" target="_blank" rel="noopener">Nox Soluções em Tecnologias</a></span>
+</div>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="brand">
+        <span class="brand-mark" data-icon="layers"></span>
+        <span><span class="brand-name">HabitaFlow</span><span class="brand-sub" style="display:block">Hub de Moradia · Piloto</span></span>
+      </div>
+    </div>
+    <nav class="nav" id="nav" aria-label="Menu principal"></nav>
+    <div class="sidebar-foot"><span>por</span><img class="logo-light" src="/images/logo-horizontal-fundo-claro.png" alt="Nox Soluções em Tecnologias" /><img class="logo-dark" src="/images/logo-horizontal-fundo-escuro.png" alt="Nox Soluções em Tecnologias" /></div>
+  </aside>
+  <div class="overlay" id="overlay" data-action="close-nav"></div>
+
+  <div class="main" id="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" data-action="open-nav" aria-label="Abrir menu"><span data-icon="menu"></span></button>
+      <label class="search"><span data-icon="search" data-cls="sm"></span><input id="globalSearch" placeholder="Buscar empreendimento, documento ou processo…" /></label>
+      <div class="ml-auto row" style="gap:10px">
+        <span class="persona-label">Visualizar como</span>
+        <div class="persona" id="persona"></div>
+        <button class="icon-btn bell" data-action="toast-notif" aria-label="Notificações"><span data-icon="bell"></span><span class="dot"></span></button>
+        <button class="icon-btn" data-action="theme" aria-label="Alternar tema"><span id="themeIcon" data-icon="moon"></span></button>
+        <div class="user"><span class="avatar" id="userAvatar"></span><span class="user-text"><span class="user-name" id="userName" style="display:block"></span><span class="user-role" id="userRole" style="display:block"></span></span></div>
+      </div>
+    </header>
+    <main class="content" id="view"></main>
+  </div>
+</div>
+
+<button class="fab" data-action="assistant"><span data-icon="sparkles"></span><span>Assistente IA</span></button>
+<section class="assistant" id="assistant" aria-label="Assistente HabitaFlow">
+  <div class="as-head">
+    <span class="stat-icon soft-primary" style="width:34px;height:34px;border-radius:10px" data-icon="sparkles"></span>
+    <div><div class="fw6 small">Assistente HabitaFlow</div><div class="xs muted">IA assistiva · a decisão é sempre do agente competente</div></div>
+    <button class="icon-btn ml-auto" data-action="assistant" aria-label="Fechar"><span data-icon="x"></span></button>
+  </div>
+  <div class="as-body" id="asBody"></div>
+  <div class="as-sugg" id="asSugg"></div>
+  <form class="as-input" id="asForm"><input class="input" id="asInput" placeholder="Pergunte sobre processos, prazos ou pendências…" autocomplete="off" /><button class="btn primary" style="width:44px;padding:0" aria-label="Enviar"><span data-icon="send"></span></button></form>
+</section>
+<div class="toasts" id="toasts"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Ícones (lucide) ---------- */
+  var ICONS = {
+    dashboard: '<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
+    building: '<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/>',
+    map: '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
+    checks: '<path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/>',
+    home: '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    workflow: '<rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/>',
+    plug: '<path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>',
+    scroll: '<path d="M15 12h-5"/><path d="M15 8h-5"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/>',
+    menu: '<path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
+    moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+    bell: '<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>',
+    search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+    sparkles: '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>',
+    alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+    check: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+    xcircle: '<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/>',
+    clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+    file: '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>',
+    upload: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/>',
+    download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>',
+    chevron: '<path d="m9 18 6-6-6-6"/>',
+    x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+    shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+    users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+    send: '<path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/>',
+    message: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+    down: '<path d="M16 17h6v-6"/><path d="m22 17-8.5-8.5-5 5L2 7"/>',
+    folder: '<path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/>',
+    code: '<path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>',
+    zap: '<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',
+    layers: '<path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/>',
+    edit: '<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>',
+    calendar: '<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/>',
+    eye: '<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/>',
+    lock: '<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+    cube: '<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
+    sign: '<path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"/>'
+  };
+  function ic(name, cls) { return '<svg class="i ' + (cls || '') + '" viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[name] || '') + '</svg>'; }
+  function hydrateIcons(root) {
+    (root || document).querySelectorAll('[data-icon]').forEach(function (el) { el.innerHTML = ic(el.getAttribute('data-icon'), el.getAttribute('data-cls')); });
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function initials(n) { return n.split(' ').filter(Boolean).slice(0, 2).map(function (p) { return p[0]; }).join('').toUpperCase(); }
+
+  /* ---------- Dados fictícios ---------- */
+  var STAGES = ['Consulta prévia', 'Aprovação do projeto', 'Licença ambiental', 'Alvará de construção', 'Habite-se', 'Registro em cartório'];
+  var STATUS = {
+    no_prazo: { label: 'No prazo', cls: 'soft-success' },
+    em_analise: { label: 'Em análise', cls: 'soft-primary' },
+    pendente: { label: 'Com pendência', cls: 'soft-warning' },
+    atrasado: { label: 'Prazo excedido', cls: 'soft-danger' },
+    concluido: { label: 'Concluído', cls: 'soft-neutral' }
+  };
+  var EMPS = [
+    { id: 'EMP-0142', nome: 'Residencial Jardim das Araucárias', prop: 'Incorporadora Alvorada', tipo: 'Loteamento + HIS', un: 320, stage: 2, status: 'pendente', prazo: 'Vence em 3 dias', orgao: 'Órgão ambiental', rt: 'Eng. Marcos Lima', prog: 42, x: 250, y: 150, pend: 3 },
+    { id: 'EMP-0138', nome: 'Condomínio Vila Serena', prop: 'Construtora Horizonte', tipo: 'Condomínio vertical', un: 192, stage: 1, status: 'em_analise', prazo: '12 dias restantes', orgao: 'Secretaria de Urbanismo', rt: 'Arq. Paula Nogueira', prog: 28, x: 470, y: 120, pend: 1 },
+    { id: 'EMP-0131', nome: 'Residencial Bosque Azul', prop: 'Habitar Empreendimentos', tipo: 'HIS · Faixa 1', un: 480, stage: 3, status: 'no_prazo', prazo: '21 dias restantes', orgao: 'Secretaria de Urbanismo', rt: 'Eng. Ricardo Alves', prog: 61, x: 610, y: 260, pend: 0 },
+    { id: 'EMP-0127', nome: 'Parque das Águas', prop: 'Incorporadora Alvorada', tipo: 'Loteamento', un: 260, stage: 4, status: 'atrasado', prazo: 'Excedido há 6 dias', orgao: 'Corpo de Bombeiros', rt: 'Eng. Marcos Lima', prog: 78, x: 180, y: 330, pend: 2 },
+    { id: 'EMP-0119', nome: 'Morada do Sol', prop: 'Construtora Horizonte', tipo: 'Reurb-S · Regularização', un: 150, stage: 5, status: 'no_prazo', prazo: '9 dias restantes', orgao: 'Registro de imóveis', rt: 'Arq. Paula Nogueira', prog: 90, x: 400, y: 380, pend: 0 },
+    { id: 'EMP-0112', nome: 'Jardim Primavera', prop: 'Construtora Pinheiral', tipo: 'Condomínio horizontal', un: 96, stage: 0, status: 'em_analise', prazo: '18 dias restantes', orgao: 'Secretaria de Urbanismo', rt: 'Eng. Bruno Teixeira', prog: 10, x: 610, y: 410, pend: 1 },
+    { id: 'EMP-0109', nome: 'Vivendas do Vale', prop: 'Habitar Empreendimentos', tipo: 'HIS · Faixa 2', un: 288, stage: 2, status: 'atrasado', prazo: 'Excedido há 2 dias', orgao: 'Concessionária de saneamento', rt: 'Eng. Ricardo Alves', prog: 40, x: 330, y: 250, pend: 2 },
+    { id: 'EMP-0104', nome: 'Residencial Recanto Verde', prop: 'Habitar Empreendimentos', tipo: 'HIS · Faixa 2', un: 224, stage: 6, status: 'concluido', prazo: 'Concluído em 02/10/2026', orgao: '—', rt: 'Eng. Bruno Teixeira', prog: 100, x: 560, y: 180, pend: 0 }
+  ];
+  var DOCS = [
+    { nome: 'Matrícula atualizada do imóvel', orgao: 'Registro de imóveis', ver: 'v2', val: '19/11/2026', st: ['Vence em 19 dias', 'soft-warning'] },
+    { nome: 'Projeto urbanístico (prancha geral)', orgao: 'Secretaria de Urbanismo', ver: 'v4', val: '—', st: ['Aprovado', 'soft-success'] },
+    { nome: 'ART do responsável técnico', orgao: 'Conselho profissional', ver: 'v1', val: '—', st: ['Válido', 'soft-success'] },
+    { nome: 'Licença Prévia (LP)', orgao: 'Órgão ambiental', ver: 'v1', val: '15/12/2026', st: ['Válido', 'soft-success'] },
+    { nome: 'Estudo de drenagem pluvial', orgao: 'Órgão ambiental', ver: '—', val: '—', st: ['Pendente', 'soft-danger'] },
+    { nome: 'Viabilidade de água e esgoto', orgao: 'Concessionária de saneamento', ver: 'v2', val: '28/02/2027', st: ['Em análise', 'soft-primary'] },
+    { nome: 'Viabilidade de energia elétrica', orgao: 'Concessionária de energia', ver: 'v1', val: '10/01/2027', st: ['Válido', 'soft-success'] },
+    { nome: 'Certidão negativa de débitos municipais', orgao: 'Prefeitura', ver: 'v3', val: '28/10/2026', st: ['Vencido', 'soft-danger'] }
+  ];
+  var AUDIT = [
+    ['31/10/2026 10:42', 'Carlos Mendes', 'Município', 'Registrou exigência', 'Estudo de drenagem pluvial — condicionante nº 4 da LP', '189.2.xx.14', 'warning'],
+    ['31/10/2026 09:15', 'Checklist inteligente', 'Sistema', 'Verificação automática', 'Licença Prévia v1 — 2 divergências, 1 alerta', '—', 'primary'],
+    ['30/10/2026 17:03', 'Juliana Costa', 'Incorporadora', 'Enviou documento', 'Licença Prévia (LP) v1 · SHA-256 9f2c…a71e', '177.4.xx.201', 'primary'],
+    ['29/10/2026 11:20', 'Sistema', 'Sistema', 'Alerta de vencimento', 'Certidão negativa de débitos municipais vence em 0 dias', '—', 'danger'],
+    ['24/10/2026 14:48', 'Arq. Fernanda Rocha', 'Município', 'Aprovou etapa', 'Aprovação do projeto concluída · parecer nº 2026/311', '189.2.xx.14', 'success'],
+    ['22/10/2026 08:31', 'Ana Ribeiro', 'CAIXA', 'Consultou dossiê', 'Visualização do dossiê completo', '10.12.xx.3', 'neutral'],
+    ['18/10/2026 16:10', 'Juliana Costa', 'Incorporadora', 'Nova versão', 'Projeto urbanístico v3 → v4 (ajuste de recuos)', '177.4.xx.201', 'primary']
+  ];
+  var WF = [
+    { nome: 'Consulta prévia', orgao: 'Secretaria de Urbanismo', prazo: 15, docs: ['Matrícula atualizada', 'Croqui de localização', 'Requerimento padrão'], rules: [['Zona do lote', 'ZR-3', 'aplicar parâmetros do plano diretor (CA 1,5 · TO 60%)']] },
+    { nome: 'Aprovação do projeto', orgao: 'Secretaria de Urbanismo', prazo: 30, docs: ['Projeto urbanístico', 'Memorial descritivo', 'ART/RRT', 'Quadro de áreas'], rules: [['Área construída', '> 5.000 m²', 'exigir Estudo de Impacto de Vizinhança (EIV)'], ['Unidades HIS', '≥ 50%', 'aplicar rito prioritário (prazo reduzido para 20 dias)']] },
+    { nome: 'Licença ambiental', orgao: 'Órgão ambiental', prazo: 45, docs: ['Licença Prévia (LP)', 'Estudo de drenagem', 'Inventário florestal'], rules: [['APP no lote', '= sim', 'exigir anuência do órgão ambiental estadual'], ['Supressão vegetal', '> 0 m²', 'exigir autorização de supressão']] },
+    { nome: 'Alvará de construção', orgao: 'Secretaria de Urbanismo', prazo: 20, docs: ['Projeto aprovado', 'Licença de Instalação', 'Viabilidades de concessionárias'], rules: [['Documentos com validade', '< 30 dias', 'alertar proponente e bloquear envio']] },
+    { nome: 'Habite-se', orgao: 'Secretaria de Urbanismo + Bombeiros', prazo: 30, docs: ['Vistoria do Corpo de Bombeiros', 'Ligações definitivas', 'Laudo de conclusão'], rules: [] },
+    { nome: 'Registro em cartório', orgao: 'Registro de imóveis', prazo: 30, docs: ['Habite-se', 'CND de obra', 'Instituição de condomínio'], rules: [] }
+  ];
+  var PERSONAS = {
+    caixa: { label: 'CAIXA', name: 'Ana Ribeiro', role: 'Gestora · Hub de Moradia', home: 'painel' },
+    municipio: { label: 'Município', name: 'Carlos Mendes', role: 'Analista · Sec. de Urbanismo', home: 'checklist' },
+    proponente: { label: 'Incorporadora', name: 'Juliana Costa', role: 'Incorporadora Alvorada', home: 'portal' }
+  };
+
+  /* ---------- Estado ---------- */
+  var state = { persona: 'caixa', filter: 'todos', q: '', tab: 'docs', wfSel: 2, check: 'idle', assistantOpen: false };
+  try { if (localStorage.getItem('hf-theme') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {}
+
+  /* ---------- Componentes ---------- */
+  function badge(label, cls, plain) { return '<span class="badge ' + cls + (plain ? ' plain' : '') + '">' + esc(label) + '</span>'; }
+  function statusBadge(s) { return badge(STATUS[s].label, STATUS[s].cls); }
+  function stat(label, value, icon, cls, delta) {
+    return '<div class="card"><div class="card-body stat"><span class="stat-icon ' + cls + '">' + ic(icon, 'lg') + '</span><div style="min-width:0"><div class="stat-label">' + label + '</div><div class="stat-value">' + value + '</div>' + (delta || '') + '</div></div></div>';
+  }
+  function cardHead(title, desc, actions) { return '<div class="card-head"><div><h3>' + title + '</h3>' + (desc ? '<p>' + desc + '</p>' : '') + '</div>' + (actions ? '<div class="actions">' + actions + '</div>' : '') + '</div>'; }
+  function pageHead(title, desc, actions, crumb) {
+    return '<header>' + (crumb || '') + '<div class="page-head"><div><h1>' + title + '</h1>' + (desc ? '<p>' + desc + '</p>' : '') + '</div>' + (actions ? '<div class="actions">' + actions + '</div>' : '') + '</div></header>';
+  }
+  function empById(id) { return EMPS.filter(function (e) { return e.id === id; })[0] || EMPS[0]; }
+
+  /* ---------- Views ---------- */
+  function viewPainel() {
+    var counts = STAGES.map(function (_, i) { return [5, 4, 6, 4, 3, 2][i]; });
+    var max = Math.max.apply(null, counts);
+    var bars = counts.map(function (c, i) {
+      return '<div class="bar-col"><div class="bar" style="height:' + Math.round(c / max * 140) + 'px"><span>' + c + '</span></div><div class="bar-label">' + STAGES[i] + '</div></div>';
+    }).join('');
+    var orgs = [['Secretaria de Urbanismo', 26, 30], ['Órgão ambiental', 52, 45], ['Concessionárias', 21, 30], ['Corpo de Bombeiros', 34, 30], ['Registro de imóveis', 14, 30]];
+    var hb = orgs.map(function (o) {
+      var over = o[1] > o[2];
+      return '<div class="hbar"><span class="small" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + o[0] + '</span><div class="hbar-track"><div class="hbar-fill" style="width:' + Math.min(100, o[1] / 60 * 100) + '%;background:' + (over ? 'var(--danger)' : 'var(--primary)') + '"></div><div class="hbar-mark" style="left:' + (o[2] / 60 * 100) + '%" title="Prazo de referência"></div></div><span class="small fw6 ' + (over ? 't-danger' : '') + '" style="text-align:right">' + o[1] + ' d</span></div>';
+    }).join('');
+    var attention = EMPS.filter(function (e) { return e.status === 'atrasado' || e.status === 'pendente'; }).map(function (e) {
+      return '<tr class="click" data-go="empreendimento/' + e.id + '"><td><div class="cell-title">' + e.nome + '</div><div class="cell-sub">' + e.id + ' · ' + e.prop + '</div></td><td class="small">' + STAGES[e.stage] + '<div class="cell-sub">' + e.orgao + '</div></td><td>' + statusBadge(e.status) + '</td><td class="small ' + (e.status === 'atrasado' ? 't-danger' : 't-warning') + ' fw6" style="white-space:nowrap">' + e.prazo + '</td></tr>';
+    }).join('');
+    var expiring = [['Certidão negativa de débitos municipais', 'Jardim das Araucárias', 'Vencido', 'soft-danger'], ['Matrícula atualizada do imóvel', 'Jardim das Araucárias', '19 dias', 'soft-warning'], ['Licença de Instalação', 'Bosque Azul', '24 dias', 'soft-warning'], ['AVCB provisório', 'Parque das Águas', '27 dias', 'soft-warning']];
+    var exp = expiring.map(function (d) {
+      return '<div class="list-item"><span class="li-icon ' + d[3] + '">' + ic('file', 'sm') + '</span><div style="min-width:0;flex:1"><div class="li-title">' + d[0] + '</div><div class="li-sub">' + d[1] + '</div></div>' + badge(d[2], d[3], true) + '</div>';
+    }).join('');
+    return '<div class="page">' +
+      pageHead('Olá, ' + PERSONAS[state.persona].name.split(' ')[0], 'Visão consolidada da jornada de licenciamento e regularização do piloto · atualizado agora', '<button class="btn secondary sm" data-toast="Relatório gerencial exportado (PDF e CSV).">' + ic('download', 'sm') + 'Exportar relatório</button><button class="btn primary sm" data-go="empreendimentos">' + ic('building', 'sm') + 'Ver empreendimentos</button>') +
+      '<div class="grid g-4">' +
+        stat('Empreendimentos em tramitação', '24', 'building', 'soft-primary', '<span class="stat-delta t-muted">7.840 unidades habitacionais</span>') +
+        stat('Pendências abertas', '37', 'alert', 'soft-warning', '<span class="stat-delta t-danger">12 críticas · 5 com prazo excedido</span>') +
+        stat('Tempo médio de tramitação', '41 dias', 'clock', 'soft-info', '<span class="stat-delta t-success">' + ic('down', 'sm') + '18% vs. linha de base</span>') +
+        stat('Exigências reabertas (retrabalho)', '14%', 'checks', 'soft-success', '<span class="stat-delta t-success">' + ic('down', 'sm') + '9 p.p. desde a implantação</span>') +
+      '</div>' +
+      '<div class="grid g-main">' +
+        '<div class="card">' + cardHead('Empreendimentos por etapa', 'Distribuição atual no fluxo do município piloto') + '<div class="card-body"><div class="bars">' + bars + '</div></div></div>' +
+        '<div class="card">' + cardHead('Tempo médio por órgão', 'Dias em análise · traço = prazo de referência') + '<div class="card-body">' + hb + '<div class="legend" style="margin-top:12px"><span><i style="background:var(--primary)"></i>Dentro do prazo</span><span><i style="background:var(--danger)"></i>Acima do prazo</span></div></div></div>' +
+      '</div>' +
+      '<div class="grid g-main">' +
+        '<div class="card">' + cardHead('Atenção necessária', 'Processos com pendência ou prazo excedido', '<button class="btn ghost sm" data-go="empreendimentos">Ver todos ' + ic('chevron', 'sm') + '</button>') + '<div class="card-body" style="padding:16px 0 0"><div class="table-wrap"><table><thead><tr><th>Empreendimento</th><th>Etapa / órgão</th><th>Status</th><th>Prazo</th></tr></thead><tbody>' + attention + '</tbody></table></div></div></div>' +
+        '<div class="card">' + cardHead('Documentos a vencer', 'Próximos 30 dias') + '<div class="list" style="padding-top:12px">' + exp + '</div></div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function empRows() {
+    var q = state.q.toLowerCase();
+    var rows = EMPS.filter(function (e) {
+      var f = state.filter === 'todos' || (state.filter === 'pendencia' && e.status === 'pendente') || (state.filter === 'atrasado' && e.status === 'atrasado') || (state.filter === 'prazo' && (e.status === 'no_prazo' || e.status === 'em_analise'));
+      return f && (!q || (e.nome + ' ' + e.id + ' ' + e.prop).toLowerCase().indexOf(q) >= 0);
+    });
+    if (!rows.length) return '<tr><td colspan="6" style="text-align:center;padding:40px" class="muted">Nenhum empreendimento encontrado.</td></tr>';
+    return rows.map(function (e) {
+      return '<tr class="click" data-go="empreendimento/' + e.id + '"><td><div class="cell-title">' + e.nome + '</div><div class="cell-sub">' + e.id + ' · ' + e.tipo + ' · ' + e.un + ' un.</div></td><td class="small">' + e.prop + '<div class="cell-sub">' + e.rt + '</div></td><td class="small">' + (e.stage < 6 ? STAGES[e.stage] : 'Concluído') + '<div class="progress" style="margin-top:6px"><span style="width:' + e.prog + '%"></span></div></td><td>' + statusBadge(e.status) + '</td><td class="small" style="white-space:nowrap">' + e.prazo + '</td><td class="t-muted">' + ic('chevron', 'sm') + '</td></tr>';
+    }).join('');
+  }
+  function viewEmpreendimentos() {
+    var c = { todos: EMPS.length, pendencia: 0, atrasado: 0, prazo: 0 };
+    EMPS.forEach(function (e) { if (e.status === 'pendente') c.pendencia++; if (e.status === 'atrasado') c.atrasado++; if (e.status === 'no_prazo' || e.status === 'em_analise') c.prazo++; });
+    var opts = [['todos', 'Todos'], ['prazo', 'No prazo'], ['pendencia', 'Com pendência'], ['atrasado', 'Prazo excedido']];
+    var seg = '<div class="seg" id="empFilter">' + opts.map(function (o) { return '<button data-filter="' + o[0] + '" class="' + (state.filter === o[0] ? 'on' : '') + '">' + o[1] + '<span class="n">' + c[o[0]] + '</span></button>'; }).join('') + '</div>';
+    return '<div class="page">' +
+      pageHead('Empreendimentos', 'Dossiês digitais do município piloto · cada empreendimento reúne documentos, etapas, responsáveis e histórico', '<button class="btn primary sm" data-toast="Assistente de cadastro aberto: o proponente informa matrícula e tipologia e o workflow do município é aplicado automaticamente.">' + ic('plus', 'sm') + 'Novo empreendimento</button>') +
+      '<div class="row between wrap">' + seg + '<label class="search" style="display:flex;width:280px"><span>' + ic('search', 'sm') + '</span><input id="empSearch" placeholder="Filtrar por nome, código ou proponente" value="' + esc(state.q) + '" /></label></div>' +
+      '<div class="card" style="overflow:hidden"><div class="table-wrap"><table><thead><tr><th>Empreendimento</th><th>Proponente / RT</th><th>Etapa atual</th><th>Status</th><th>Prazo</th><th></th></tr></thead><tbody id="empBody">' + empRows() + '</tbody></table></div></div>' +
+    '</div>';
+  }
+
+  function viewEmpreendimento(id) {
+    var e = empById(id);
+    var steps = STAGES.map(function (s, i) {
+      var cls = i < e.stage ? 'done' : (i === e.stage ? 'current' : '');
+      var meta = i < e.stage ? 'Concluída' : (i === e.stage ? e.prazo : 'Aguardando');
+      return '<div class="step ' + cls + '"><span class="step-dot">' + (i < e.stage ? ic('check', 'sm') : (i + 1)) + '</span><span class="step-name">' + s + '</span><span class="step-meta">' + meta + '</span></div>';
+    }).join('');
+    var tabs = [['docs', 'Documentos'], ['pend', 'Pendências'], ['hist', 'Histórico e auditoria'], ['dados', 'Dados do empreendimento']];
+    var seg = '<div class="seg">' + tabs.map(function (t) { return '<button data-tab="' + t[0] + '" class="' + (state.tab === t[0] ? 'on' : '') + '">' + t[1] + (t[0] === 'pend' ? '<span class="n">3</span>' : '') + '</button>'; }).join('') + '</div>';
+    var body;
+    if (state.tab === 'docs') {
+      body = '<div class="card" style="overflow:hidden"><div class="table-wrap"><table><thead><tr><th>Documento</th><th>Órgão</th><th>Versão</th><th>Validade</th><th>Situação</th><th></th></tr></thead><tbody>' +
+        DOCS.map(function (d) { return '<tr><td><div class="row" style="gap:10px"><span class="li-icon soft-neutral" style="width:30px;height:30px">' + ic('file', 'sm') + '</span><span class="cell-title">' + d.nome + '</span></div></td><td class="small">' + d.orgao + '</td><td class="small mono">' + d.ver + '</td><td class="small">' + d.val + '</td><td>' + badge(d.st[0], d.st[1]) + '</td><td><button class="btn ghost sm" data-toast="Pré-visualização do documento com histórico de versões e assinatura digital.">' + ic('eye', 'sm') + '</button></td></tr>'; }).join('') +
+        '</tbody></table></div></div>';
+    } else if (state.tab === 'pend') {
+      var pends = [
+        ['Estudo de drenagem pluvial não apresentado', 'Condicionante nº 4 da Licença Prévia. Exigência registrada pelo município em 31/10/2026.', 'Incorporadora Alvorada', 'Prazo: 07/11/2026', 'soft-danger', 'alert'],
+        ['Certidão negativa de débitos municipais vencida', 'Validade expirou em 28/10/2026. Emissão de nova certidão necessária para seguir ao alvará.', 'Incorporadora Alvorada', 'Prazo: 03/11/2026', 'soft-danger', 'clock'],
+        ['Divergência de área entre LP e matrícula', 'Checklist inteligente identificou 48.250 m² na LP × 48.520 m² na matrícula. Aguardando manifestação do RT.', 'Eng. Marcos Lima', 'Prazo: 10/11/2026', 'soft-warning', 'checks']
+      ];
+      body = '<div class="card"><div class="list">' + pends.map(function (p) { return '<div class="list-item"><span class="li-icon ' + p[4] + '">' + ic(p[5], 'sm') + '</span><div style="flex:1;min-width:0"><div class="li-title">' + p[0] + '</div><div class="li-sub">' + p[1] + '</div><div class="row wrap" style="margin-top:8px;gap:8px"><span class="chip">' + ic('users', 'sm') + p[2] + '</span><span class="chip">' + ic('calendar', 'sm') + p[3] + '</span></div></div><button class="btn secondary sm" data-toast="Mensagem enviada ao responsável, com registro na trilha de auditoria.">' + ic('message', 'sm') + 'Cobrar</button></div>'; }).join('') + '</div></div>';
+    } else if (state.tab === 'hist') {
+      var colors = { primary: 'var(--primary)', success: 'var(--success)', warning: 'var(--warning)', danger: 'var(--danger)', neutral: 'var(--subtle)' };
+      body = '<div class="card"><div class="card-body"><div class="alert soft-primary" style="margin-bottom:18px">' + ic('lock') + '<div><b>Trilha de auditoria imutável</b>Cada ação registra usuário, perfil, data/hora, IP e objeto afetado. Retenção mínima de 12 meses e exportação para auditoria.</div></div><div class="timeline">' +
+        AUDIT.map(function (a) { return '<div class="tl-item" style="--tl:' + colors[a[6]] + '"><div class="tl-head"><b>' + a[1] + '</b> <span class="muted">(' + a[2] + ')</span> · ' + a[3] + '</div><div class="small" style="margin-top:2px">' + a[4] + '</div><div class="tl-meta">' + a[0] + ' · IP ' + a[5] + '</div></div>'; }).join('') +
+        '</div></div></div>';
+    } else {
+      var kv = [['Código', e.id], ['Tipologia', e.tipo], ['Unidades habitacionais', e.un], ['Proponente', e.prop], ['Responsável técnico', e.rt], ['Município', 'Município piloto (exemplo)'], ['Zoneamento', 'ZR-3 · Zona Residencial 3'], ['Área do terreno', '48.520 m² (matrícula)'], ['Modelo BIM/IFC', 'Não exigido no piloto · upload opcional']];
+      body = '<div class="grid g-2"><div class="card"><div class="card-body"><div class="stack-sm">' + kv.map(function (k) { return '<div class="row between" style="padding:6px 0;box-shadow:inset 0 -1px 0 var(--surface-2)"><span class="small muted">' + k[0] + '</span><span class="small fw6" style="text-align:right">' + k[1] + '</span></div>'; }).join('') + '</div></div></div><div class="card">' + cardHead('Localização', 'Georreferenciamento do lote') + '<div class="card-body">' + miniMap(e) + '</div></div></div>';
+    }
+    return '<div class="page">' +
+      pageHead(e.nome, e.id + ' · ' + e.tipo + ' · ' + e.un + ' unidades · ' + e.prop,
+        '<button class="btn secondary sm" data-toast="Dossiê completo exportado em PDF com hash de integridade.">' + ic('download', 'sm') + 'Exportar dossiê</button><button class="btn primary sm" data-go="checklist">' + ic('checks', 'sm') + 'Analisar documento</button>',
+        '<nav class="crumb"><a href="#/empreendimentos">Empreendimentos</a>' + ic('chevron', 'sm') + '<span>' + e.id + '</span></nav>') +
+      '<div class="card"><div class="card-body"><div class="row between wrap" style="margin-bottom:18px"><div class="row wrap" style="gap:8px">' + statusBadge(e.status) + badge('Etapa: ' + (e.stage < 6 ? STAGES[e.stage] : 'Concluído'), 'soft-neutral', true) + badge('Órgão atual: ' + e.orgao, 'soft-neutral', true) + '</div><span class="small muted">' + e.prog + '% da jornada concluída</span></div><div class="stepper">' + steps + '</div></div></div>' +
+      seg + body +
+    '</div>';
+  }
+
+  function mapSvg(list, w, h, small) {
+    var pins = list.map(function (e) {
+      var col = { no_prazo: '#059669', em_analise: '#7c3aed', pendente: '#d97706', atrasado: '#dc2626', concluido: '#64748b' }[e.status];
+      var x = e.x, y = e.y;
+      return '<g class="pin" data-go="empreendimento/' + e.id + '"><title>' + esc(e.nome) + ' — ' + STATUS[e.status].label + '</title><path d="M' + x + ' ' + y + 'c-9-12-14-19-14-26a14 14 0 0 1 28 0c0 7-5 14-14 26z" fill="' + col + '" stroke="#fff" stroke-width="2"/><circle cx="' + x + '" cy="' + (y - 26) + '" r="5" fill="#fff"/>' + (small ? '' : '<text x="' + (x + 18) + '" y="' + (y - 22) + '" font-size="12" font-weight="600" fill="var(--fg)" style="paint-order:stroke;stroke:var(--map-land);stroke-width:4px">' + esc(e.nome.replace('Residencial ', '').replace('Condomínio ', '')) + '</text>') + '</g>';
+    }).join('');
+    return '<svg class="map" viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Mapa do município piloto com empreendimentos">' +
+      '<rect width="' + w + '" height="' + h + '" fill="var(--map-land)"/>' +
+      '<path d="M0 300 C 160 270, 260 360, 420 330 S 700 250, 800 290 L800 330 C 690 300, 560 380, 420 370 S 150 320, 0 345Z" fill="var(--map-water)"/>' +
+      '<rect x="60" y="40" width="150" height="90" rx="10" fill="var(--map-green)"/><rect x="600" y="40" width="140" height="70" rx="10" fill="var(--map-zone)"/><rect x="520" y="200" width="170" height="110" rx="10" fill="var(--map-zone)"/><rect x="230" y="190" width="160" height="90" rx="10" fill="var(--map-zone)"/><rect x="560" y="370" width="190" height="90" rx="10" fill="var(--map-green)"/>' +
+      '<g stroke="var(--map-road)" stroke-width="10" fill="none" stroke-linecap="round"><path d="M0 170 H800"/><path d="M420 0 V500"/><path d="M120 0 L260 500"/><path d="M800 120 L520 500"/></g>' +
+      '<g stroke="var(--map-road)" stroke-width="4" fill="none"><path d="M0 440 H800"/><path d="M0 70 H800"/><path d="M650 0 V500"/><path d="M300 0 V170"/></g>' +
+      pins + '</svg>';
+  }
+  function miniMap(e) { return mapSvg([e], 800, 500, false); }
+  function viewMapa() {
+    var legend = Object.keys(STATUS).map(function (k) { var col = { no_prazo: '#059669', em_analise: '#7c3aed', pendente: '#d97706', atrasado: '#dc2626', concluido: '#64748b' }[k]; return '<span><i style="background:' + col + '"></i>' + STATUS[k].label + '</span>'; }).join('');
+    var side = EMPS.map(function (e) { return '<div class="list-item click" data-go="empreendimento/' + e.id + '" style="cursor:pointer"><span class="li-icon ' + STATUS[e.status].cls + '">' + ic('map', 'sm') + '</span><div style="flex:1;min-width:0"><div class="li-title">' + e.nome + '</div><div class="li-sub">' + e.un + ' un. · ' + (e.stage < 6 ? STAGES[e.stage] : 'Concluído') + '</div></div></div>'; }).join('');
+    return '<div class="page">' + pageHead('Mapa de empreendimentos', 'Georreferenciamento dos empreendimentos do piloto, com camadas de zoneamento e restrições ambientais', '<button class="btn secondary sm" data-toast="Camadas disponíveis: zoneamento, APP, áreas de risco e redes de infraestrutura (SIG municipal).">' + ic('layers', 'sm') + 'Camadas</button>') +
+      '<div class="grid g-main"><div class="card"><div class="card-body">' + mapSvg(EMPS, 800, 500, false) + '<div class="legend" style="margin-top:14px">' + legend + '</div></div></div><div class="card">' + cardHead('Empreendimentos', EMPS.length + ' no piloto · clique para abrir o dossiê') + '<div class="list" style="padding-top:12px;max-height:520px;overflow:auto">' + side + '</div></div></div></div>';
+  }
+
+  var CHECKS = [
+    ['ok', 'Documento íntegro, legível e assinado digitalmente (ICP-Brasil)', 'Assinatura válida · hash registrado na trilha de auditoria'],
+    ['ok', 'Número do processo e identificação do empreendimento conferem com o dossiê', 'Processo nº 2026/0458 · EMP-0142'],
+    ['ok', 'Responsável técnico com ART vinculada ao empreendimento', 'Eng. Marcos Lima · ART válida'],
+    ['warn', 'Validade de 45 dias: vence antes da previsão de emissão do alvará', 'Previsão de alvará em 52 dias pelo histórico do órgão · recomendar acompanhamento'],
+    ['fail', 'Área do terreno divergente da matrícula', '48.250 m² na LP × 48.520 m² na matrícula (diferença de 270 m²)'],
+    ['fail', 'Condicionante nº 4 (estudo de drenagem pluvial) sem comprovação anexada', 'Exigida pela matriz de documentos do município para a etapa "Licença ambiental"']
+  ];
+  function viewChecklist() {
+    var results = '';
+    if (state.check === 'done') {
+      var icons = { ok: ['check', 'soft-success'], warn: ['alert', 'soft-warning'], fail: ['xcircle', 'soft-danger'] };
+      results = '<div class="card">' + cardHead('Resultado da verificação', '6 regras aplicadas · matriz de exigências do município piloto, etapa "Licença ambiental"', badge('2 divergências', 'soft-danger') + badge('1 alerta', 'soft-warning')) + '<div class="list" style="padding-top:12px">' +
+        CHECKS.map(function (c, i) { return '<div class="check-item" style="animation-delay:' + (i * 90) + 'ms"><span class="li-icon ' + icons[c[0]][1] + '">' + ic(icons[c[0]][0], 'sm') + '</span><div><div class="li-title">' + c[1] + '</div><div class="li-sub">' + c[2] + '</div></div></div>'; }).join('') + '</div></div>';
+    }
+    var scan = state.check === 'running' ? '<div class="stack-sm" style="margin-top:14px"><div class="row between xs muted"><span>Extraindo dados e aplicando regras do município…</span><span>OCR · regras · validade</span></div><div class="scan"><span id="scanBar"></span></div></div>' : '';
+    var ai = state.check === 'done' ? '<div class="card ai-card">' + cardHead('<span class="row" style="gap:8px">' + ic('sparkles', 'sm') + 'Sugestão do assistente</span>', 'IA assistiva · não substitui a análise técnica') + '<div class="card-body stack"><p class="small" style="margin:0;line-height:1.6">O documento está apto quanto à forma, mas <b>não deve avançar</b> sem duas correções: retificação da área (ou justificativa do RT) e apresentação do estudo de drenagem. Sugiro registrar <b>uma única exigência consolidada</b>, evitando idas e vindas.</p><div class="rule">' + ic('message', 'sm') + '<div><b class="small">Minuta de exigência</b><div class="xs muted" style="margin-top:4px;line-height:1.55">“Solicita-se: (1) esclarecimento ou retificação da área do terreno, que diverge entre a LP (48.250 m²) e a matrícula (48.520 m²); (2) apresentação do estudo de drenagem pluvial, conforme condicionante nº 4. Prazo: 7 dias.”</div></div></div><div class="actions"><button class="btn primary sm" data-toast="Exigência registrada e enviada ao proponente. Prazo de 7 dias iniciado.">' + ic('send', 'sm') + 'Registrar exigência</button><button class="btn secondary sm" data-toast="Minuta aberta para edição pelo analista.">' + ic('edit', 'sm') + 'Editar minuta</button></div><p class="xs muted" style="margin:0">A decisão sobre a exigência é do analista do órgão competente. O sistema apenas organiza e sugere.</p></div></div>' :
+      '<div class="card">' + cardHead('Como funciona', '') + '<div class="card-body stack-sm small muted" style="line-height:1.6"><div class="row" style="align-items:flex-start">' + ic('file', 'sm') + '<span>O documento enviado é lido (OCR) e seus dados são extraídos.</span></div><div class="row" style="align-items:flex-start">' + ic('workflow', 'sm') + '<span>As regras configuradas pelo município para a etapa são aplicadas automaticamente.</span></div><div class="row" style="align-items:flex-start">' + ic('checks', 'sm') + '<span>Os dados são cruzados com o dossiê: matrícula, projeto, validades e condicionantes.</span></div><div class="row" style="align-items:flex-start">' + ic('sparkles', 'sm') + '<span>A IA sugere uma exigência consolidada, sempre revisada pelo analista.</span></div></div></div>';
+    return '<div class="page">' + pageHead('Checklist inteligente', 'Verificação automática de completude, validade e conformidade antes da análise técnica', '', '<nav class="crumb"><a href="#/empreendimento/EMP-0142">EMP-0142 · Jardim das Araucárias</a>' + ic('chevron', 'sm') + '<span>Licença ambiental</span></nav>') +
+      '<div class="grid g-main"><div class="stack"><div class="card">' + cardHead('Documento recebido', 'Enviado por Juliana Costa (Incorporadora Alvorada) em 30/10/2026 17:03') + '<div class="card-body"><div class="file"><span class="file-ic">PDF</span><div style="flex:1;min-width:0"><div class="li-title">Licenca_Previa_LP_2026-0458.pdf</div><div class="li-sub">2,4 MB · 14 páginas · assinado digitalmente</div></div>' + (state.check === 'done' ? badge('Verificado', 'soft-success') : '<button class="btn primary sm" data-action="run-check"' + (state.check === 'running' ? ' disabled' : '') + '>' + ic('sparkles', 'sm') + (state.check === 'running' ? 'Verificando…' : 'Executar verificação') + '</button>') + '</div>' + scan + '</div></div>' + results + '</div><div class="stack">' + ai + '</div></div></div>';
+  }
+
+  function viewWorkflows() {
+    var list = WF.map(function (s, i) {
+      return (i ? '<div class="wf-conn"></div>' : '') + '<div class="wf-stage ' + (state.wfSel === i ? 'sel' : '') + '" data-wf="' + i + '"><span class="wf-num">' + (i + 1) + '</span><div style="flex:1;min-width:0"><div class="row between wrap"><span class="li-title">' + s.nome + '</span><span class="xs muted">' + s.prazo + ' dias</span></div><div class="li-sub">' + s.orgao + ' · ' + s.docs.length + ' documentos · ' + s.rules.length + (s.rules.length === 1 ? ' regra' : ' regras') + '</div></div></div>';
+    }).join('');
+    var s = WF[state.wfSel];
+    var detail = '<div class="card">' + cardHead('Etapa ' + (state.wfSel + 1) + ': ' + s.nome, 'Configuração sem código · vale apenas para este município') + '<div class="card-body stack">' +
+      '<div class="grid g-2"><div class="field"><label>Órgão responsável</label><input class="input" value="' + esc(s.orgao) + '" /></div><div class="field"><label>Prazo de referência (dias)</label><input class="input" type="number" value="' + s.prazo + '" /></div></div>' +
+      '<div class="field"><label>Documentos exigidos</label><div class="chips">' + s.docs.map(function (d) { return '<span class="chip">' + ic('file', 'sm') + esc(d) + '</span>'; }).join('') + '<button class="chip" style="border:0;cursor:pointer;color:var(--primary);background:var(--primary-soft)" data-toast="Catálogo de documentos aberto: selecione e defina validade e obrigatoriedade.">' + ic('plus', 'sm') + 'Adicionar</button></div></div>' +
+      '<div class="field"><label>Regras condicionais</label><div class="stack-sm">' + (s.rules.length ? s.rules.map(function (r) { return '<div class="rule">' + ic('zap', 'sm') + '<span>Se <code>' + esc(r[0]) + '</code> <code>' + esc(r[1]) + '</code> → ' + esc(r[2]) + '</span></div>'; }).join('') : '<div class="small muted">Nenhuma regra condicional nesta etapa.</div>') + '<button class="btn secondary sm" style="align-self:flex-start" data-toast="Editor de regras: condição, operador e ação, sem programação.">' + ic('plus', 'sm') + 'Nova regra</button></div></div>' +
+      '<div class="divider"></div>' +
+      '<div class="row between"><div><div class="small fw6">Alertar proponente sobre documentos a vencer</div><div class="xs muted">Notificação 30, 15 e 5 dias antes do vencimento</div></div><button class="switch on" data-action="switch" aria-label="Alternar"></button></div>' +
+      '<div class="row between"><div><div class="small fw6">Permitir envio de modelo BIM/IFC</div><div class="xs muted">Opcional no piloto, sem bloquear quem não usa BIM</div></div><button class="switch" data-action="switch" aria-label="Alternar"></button></div>' +
+      '</div></div>';
+    return '<div class="page">' + pageHead('Workflows do município', 'Cada município configura etapas, órgãos, prazos, documentos e regras de acordo com o plano diretor e o código de obras', '<span class="xs muted">Versão 2 publicada em 14/10/2026</span><button class="btn secondary sm" data-toast="Versão em rascunho. Processos em andamento continuam na versão vigente.">' + ic('plus', 'sm') + 'Nova etapa</button><button class="btn primary sm" data-toast="Versão 3 publicada. Mudança registrada na trilha de auditoria.">Publicar versão 3</button>') +
+      '<div class="row wrap" style="gap:8px"><span class="chip">' + ic('building', 'sm') + 'Município piloto (exemplo)</span><span class="chip">' + ic('workflow', 'sm') + 'Fluxo: Licenciamento de empreendimento habitacional</span><span class="chip">' + ic('clock', 'sm') + 'Prazo total de referência: ' + WF.reduce(function (a, b) { return a + b.prazo; }, 0) + ' dias</span></div>' +
+      '<div class="grid g-wf"><div>' + list + '</div>' + detail + '</div></div>';
+  }
+
+  function viewPortal() {
+    var e = EMPS[0];
+    var todo = [
+      ['Enviar estudo de drenagem pluvial', 'Exigido pelo município · condicionante nº 4 da LP', 'Até 07/11/2026', 'soft-danger', true],
+      ['Renovar certidão negativa de débitos municipais', 'Venceu em 28/10/2026', 'Até 03/11/2026', 'soft-danger', true],
+      ['Esclarecer divergência de área (LP × matrícula)', 'Responsável: Eng. Marcos Lima (RT)', 'Até 10/11/2026', 'soft-warning', false],
+      ['Atualizar matrícula do imóvel', 'Vence em 19 dias · antes da emissão do alvará', 'Até 19/11/2026', 'soft-neutral', false]
+    ];
+    var msgs = [['Carlos Mendes', 'Município', 'Registrei a exigência do estudo de drenagem. Assim que anexar, a análise segue em até 5 dias úteis.', 'há 2 horas'], ['Juliana Costa', 'Você', 'Certo! O estudo está com o projetista, enviaremos até quarta-feira.', 'há 1 hora']];
+    return '<div class="page">' + pageHead('Olá, Juliana', 'Acompanhe seus empreendimentos e saiba exatamente o que falta para avançar') +
+      '<div class="card hover" data-go="empreendimento/' + e.id + '"><div class="card-body"><div class="row between wrap"><div><div class="li-title" style="font-size:16px">' + e.nome + '</div><div class="li-sub">' + e.id + ' · ' + e.tipo + ' · ' + e.un + ' unidades</div></div><div class="row" style="gap:8px">' + statusBadge(e.status) + '<span class="small muted">Etapa 3 de 6 · ' + STAGES[e.stage] + '</span></div></div><div class="progress" style="margin-top:16px;height:8px"><span style="width:' + e.prog + '%"></span></div><div class="row between xs muted" style="margin-top:8px"><span>Previsão de conclusão: março/2027</span><span>' + e.prog + '% concluído</span></div></div></div>' +
+      '<div class="grid g-main"><div class="card">' + cardHead('O que falta para avançar', '4 itens · 2 bloqueiam a próxima etapa') + '<div class="list" style="padding-top:12px">' +
+        todo.map(function (t) { return '<div class="list-item"><span class="li-icon ' + t[3] + '">' + ic(t[4] ? 'alert' : 'clock', 'sm') + '</span><div style="flex:1;min-width:0"><div class="li-title">' + t[0] + (t[4] ? ' ' + badge('Bloqueia etapa', 'soft-danger', true) : '') + '</div><div class="li-sub">' + t[1] + ' · <b>' + t[2] + '</b></div></div><button class="btn ' + (t[4] ? 'primary' : 'secondary') + ' sm" data-toast="Envio aberto: o checklist inteligente valida o arquivo antes de chegar ao órgão.">' + ic('upload', 'sm') + 'Enviar</button></div>'; }).join('') +
+      '</div></div><div class="card">' + cardHead('Conversa com o município', 'Interação registrada no dossiê') + '<div class="card-body stack-sm">' +
+        msgs.map(function (m) { return '<div class="row" style="align-items:flex-start;gap:10px"><span class="avatar sm">' + initials(m[0]) + '</span><div style="flex:1"><div class="small"><b>' + m[0] + '</b> <span class="muted xs">' + m[1] + ' · ' + m[3] + '</span></div><div class="small" style="margin-top:2px;line-height:1.5">' + m[2] + '</div></div></div>'; }).join('') +
+        '<div class="row" style="margin-top:8px"><input class="input" placeholder="Escreva uma mensagem…" /><button class="btn primary sm" data-toast="Mensagem enviada e registrada no histórico do empreendimento.">' + ic('send', 'sm') + '</button></div></div></div></div></div>';
+  }
+
+  function viewIntegracoes() {
+    var mods = [
+      ['lock', 'SSO corporativo CAIXA', 'Login único (OIDC/SAML) integrado ao AD da CAIXA', 'Mês 4 do piloto', 'soft-warning'],
+      ['code', 'API REST HabitaFlow v1', 'Processos, documentos, pendências e eventos · OpenAPI', 'Ativo', 'soft-success'],
+      ['zap', 'Webhooks', 'Notificações de mudança de status para sistemas externos', 'Ativo', 'soft-success'],
+      ['sign', 'Assinatura digital ICP-Brasil', 'Validação de assinaturas em documentos recebidos', 'Ativo', 'soft-success'],
+      ['map', 'SIG municipal', 'Camadas de zoneamento, APP e infraestrutura', 'Planejado', 'soft-neutral'],
+      ['folder', 'Registro de imóveis (e-protocolo)', 'Consulta de matrícula e protocolo eletrônico', 'Planejado', 'soft-neutral'],
+      ['cube', 'Validador BIM/IFC (módulo de parceiro)', 'Conferência automática de modelos IFC · evolução', 'Evolução', 'soft-primary'],
+      ['users', 'Módulos de GovTechs parceiras', 'Qualquer módulo externo pode se conectar pela API', 'Aberto', 'soft-primary']
+    ];
+    var hooks = [['processo.etapa_alterada', '2.418', '99,9%'], ['documento.recebido', '6.102', '100%'], ['pendencia.criada', '931', '99,8%'], ['documento.vencendo', '384', '100%']];
+    return '<div class="page">' + pageHead('Integrações e APIs', 'Espinha dorsal aberta do Hub de Moradia: sistemas da CAIXA, dos municípios e de GovTechs parceiras conectados por API', '<button class="btn secondary sm" data-toast="Documentação OpenAPI aberta em nova aba (ambiente de homologação).">' + ic('code', 'sm') + 'Documentação da API</button><button class="btn primary sm" data-toast="Token criado com escopos mínimos. Exibido uma única vez.">' + ic('plus', 'sm') + 'Novo token</button>') +
+      '<div class="grid g-4">' + mods.map(function (m) { return '<div class="card"><div class="card-body stack-sm"><div class="row between"><span class="stat-icon soft-primary" style="width:38px;height:38px;border-radius:10px">' + ic(m[0]) + '</span>' + badge(m[3], m[4]) + '</div><div class="li-title" style="margin-top:6px">' + m[1] + '</div><div class="li-sub">' + m[2] + '</div></div></div>'; }).join('') + '</div>' +
+      '<div class="grid g-2"><div class="card">' + cardHead('Exemplo de chamada', 'Consulta do status consolidado de um empreendimento') + '<div class="card-body"><pre class="code"><span class="k">GET</span> /api/v1/empreendimentos/EMP-0142\n<span class="c">Authorization: Bearer ••••••••  (escopo: processos:read)</span>\n\n{\n  <span class="s">"id"</span>: <span class="s">"EMP-0142"</span>,\n  <span class="s">"etapa_atual"</span>: <span class="s">"licenca_ambiental"</span>,\n  <span class="s">"status"</span>: <span class="s">"com_pendencia"</span>,\n  <span class="s">"pendencias_abertas"</span>: 3,\n  <span class="s">"prazo_etapa"</span>: <span class="s">"2026-11-03"</span>,\n  <span class="s">"documentos"</span>: { <span class="s">"validos"</span>: 5, <span class="s">"vencidos"</span>: 1 }\n}</pre></div></div>' +
+      '<div class="card">' + cardHead('Webhooks · últimos 30 dias', 'Entregas por evento') + '<div class="card-body" style="padding:16px 0 0"><table><thead><tr><th>Evento</th><th>Entregas</th><th>Sucesso</th></tr></thead><tbody>' + hooks.map(function (h) { return '<tr><td class="mono">' + h[0] + '</td><td class="small">' + h[1] + '</td><td>' + badge(h[2], 'soft-success', true) + '</td></tr>'; }).join('') + '</tbody></table></div></div></div></div>';
+  }
+
+  function viewAuditoria() {
+    var colors = { primary: 'soft-primary', success: 'soft-success', warning: 'soft-warning', danger: 'soft-danger', neutral: 'soft-neutral' };
+    return '<div class="page">' + pageHead('Auditoria', 'Registro imutável de todas as ações na plataforma · retenção mínima de 12 meses · aderente à LGPD e ao Anexo VI', '<button class="btn secondary sm" data-toast="Trilha exportada (CSV assinado com hash de integridade).">' + ic('download', 'sm') + 'Exportar trilha</button>') +
+      '<div class="grid g-4">' + stat('Eventos registrados (30 dias)', '18.402', 'scroll', 'soft-primary') + stat('Usuários ativos', '68', 'users', 'soft-info') + stat('Acessos privilegiados', '7', 'shield', 'soft-warning', '<span class="stat-delta t-muted">todos com MFA</span>') + stat('Tentativas bloqueadas', '23', 'lock', 'soft-danger') + '</div>' +
+      '<div class="card" style="overflow:hidden"><div class="table-wrap"><table><thead><tr><th>Data/hora</th><th>Usuário</th><th>Perfil</th><th>Ação</th><th>Objeto</th><th>IP</th></tr></thead><tbody>' +
+      AUDIT.map(function (a) { return '<tr><td class="small mono" style="white-space:nowrap">' + a[0] + '</td><td class="small fw6" style="white-space:nowrap">' + a[1] + '</td><td>' + badge(a[2], 'soft-neutral', true) + '</td><td>' + badge(a[3], colors[a[6]], true) + '</td><td class="small">' + a[4] + '</td><td class="small mono">' + a[5] + '</td></tr>'; }).join('') +
+      '</tbody></table></div></div></div>';
+  }
+
+  /* ---------- Navegação ---------- */
+  var NAV = [
+    ['Acompanhamento', [['painel', 'Painel', 'dashboard'], ['empreendimentos', 'Empreendimentos', 'building', 5], ['mapa', 'Mapa', 'map']]],
+    ['Análise', [['checklist', 'Checklist inteligente', 'checks']]],
+    ['Proponente', [['portal', 'Minha jornada', 'home']]],
+    ['Configuração', [['workflows', 'Workflows do município', 'workflow'], ['integracoes', 'Integrações e APIs', 'plug'], ['auditoria', 'Auditoria', 'scroll']]]
+  ];
+  function route() { var h = location.hash.replace(/^#\/?/, ''); return h || PERSONAS[state.persona].home; }
+  function renderNav(r) {
+    var base = r.split('/')[0]; if (base === 'empreendimento') base = 'empreendimentos';
+    document.getElementById('nav').innerHTML = NAV.map(function (g) {
+      return '<div><div class="nav-label">' + g[0] + '</div><div style="display:flex;flex-direction:column;gap:2px">' + g[1].map(function (it) {
+        return '<a class="nav-item' + (base === it[0] ? ' active' : '') + '" href="#/' + it[0] + '">' + ic(it[2]) + '<span>' + it[1] + '</span>' + (it[3] ? '<span class="count">' + it[3] + '</span>' : '') + '</a>';
+      }).join('') + '</div></div>';
+    }).join('');
+  }
+  function renderTop() {
+    var p = PERSONAS[state.persona];
+    document.getElementById('persona').innerHTML = Object.keys(PERSONAS).map(function (k) { return '<button data-persona="' + k + '" class="' + (state.persona === k ? 'on' : '') + '">' + PERSONAS[k].label + '</button>'; }).join('');
+    document.getElementById('userAvatar').textContent = initials(p.name);
+    document.getElementById('userName').textContent = p.name;
+    document.getElementById('userRole').textContent = p.role;
+    var dark = document.documentElement.classList.contains('dark');
+    document.getElementById('themeIcon').innerHTML = ic(dark ? 'sun' : 'moon');
+  }
+  function render() {
+    var r = route(); var parts = r.split('/');
+    var html;
+    switch (parts[0]) {
+      case 'painel': html = viewPainel(); break;
+      case 'empreendimentos': html = viewEmpreendimentos(); break;
+      case 'empreendimento': html = viewEmpreendimento(parts[1]); break;
+      case 'mapa': html = viewMapa(); break;
+      case 'checklist': html = viewChecklist(); break;
+      case 'workflows': html = viewWorkflows(); break;
+      case 'portal': html = viewPortal(); break;
+      case 'integracoes': html = viewIntegracoes(); break;
+      case 'auditoria': html = viewAuditoria(); break;
+      default: html = viewPainel();
+    }
+    document.getElementById('view').innerHTML = html;
+    renderNav(r); renderTop();
+    document.body.classList.remove('nav-open');
+  }
+  function go(path) { if (location.hash === '#/' + path) render(); else location.hash = '#/' + path; document.getElementById('main').scrollTop = 0; }
+
+  function toast(msg) {
+    var el = document.createElement('div'); el.className = 'toast';
+    el.innerHTML = '<span class="li-icon soft-success" style="width:26px;height:26px">' + ic('check', 'sm') + '</span><span style="line-height:1.45">' + esc(msg) + '<span class="xs muted" style="display:block;margin-top:2px">Ação simulada no protótipo</span></span>';
+    document.getElementById('toasts').appendChild(el);
+    setTimeout(function () { el.style.transition = 'opacity .3s'; el.style.opacity = '0'; setTimeout(function () { el.remove(); }, 300); }, 3600);
+  }
+
+  /* ---------- Assistente ---------- */
+  var QA = [
+    ['Quais processos estão com prazo crítico?', function () {
+      var l = EMPS.filter(function (e) { return e.status === 'atrasado' || e.status === 'pendente'; });
+      return 'Encontrei <b>' + l.length + ' processos</b> que precisam de atenção:<ul>' + l.map(function (e) { return '<li><b>' + e.nome + '</b>: ' + STAGES[e.stage] + ', ' + e.prazo.toLowerCase() + ' (' + e.orgao + ')</li>'; }).join('') + '</ul>Quer que eu prepare uma cobrança consolidada aos responsáveis?';
+    }],
+    ['Por que o Jardim das Araucárias está parado?', function () { return 'O <b>EMP-0142</b> está na etapa <b>Licença ambiental</b> com 3 pendências:<ul><li>Estudo de drenagem não apresentado (bloqueia a etapa)</li><li>Certidão municipal vencida em 28/10</li><li>Divergência de 270 m² entre LP e matrícula</li></ul>As duas primeiras são da incorporadora. A terceira depende do RT, Eng. Marcos Lima.'; }],
+    ['Qual órgão mais impacta o prazo?', function () { return 'No piloto, o <b>órgão ambiental</b> tem média de <b>52 dias</b> por análise, contra 45 de referência. <b>64% dos retornos</b> dessa etapa são por documentação incompleta, que o checklist inteligente pode antecipar ao proponente.'; }],
+    ['Resuma os indicadores do mês', function () { return '<b>Outubro/2026</b> (dados fictícios):<ul><li>24 empreendimentos em tramitação (7.840 unidades)</li><li>Tempo médio de tramitação: 41 dias (−18%)</li><li>Exigências reabertas: 14% (−9 p.p.)</li><li>37 pendências abertas, 12 críticas</li></ul>'; }]
+  ];
+  function asAdd(html, who) { var b = document.getElementById('asBody'); var m = document.createElement('div'); m.className = 'msg ' + who; m.innerHTML = html; b.appendChild(m); b.scrollTop = b.scrollHeight; return m; }
+  function asAsk(text) {
+    asAdd(esc(text), 'me');
+    var t = asAdd('<span class="typing"><span></span><span></span><span></span></span>', 'bot');
+    var found = QA.filter(function (q) { return q[0] === text; })[0];
+    setTimeout(function () {
+      t.innerHTML = found ? found[1]() : 'Neste protótipo, respondo às perguntas sugeridas abaixo. Na solução, o assistente consulta os dados do piloto respeitando o perfil de acesso de quem pergunta.';
+      document.getElementById('asBody').scrollTop = 1e6;
+    }, 750);
+  }
+  function asInit() {
+    asAdd('Olá! Sou o assistente do HabitaFlow. Posso resumir processos, apontar gargalos e sugerir próximos passos. As decisões continuam com os órgãos competentes.', 'bot');
+    document.getElementById('asSugg').innerHTML = QA.map(function (q) { return '<button data-ask="' + esc(q[0]) + '">' + esc(q[0]) + '</button>'; }).join('');
+  }
+
+  /* ---------- Eventos ---------- */
+  document.addEventListener('click', function (ev) {
+    var t = ev.target.closest('[data-go],[data-action],[data-toast],[data-persona],[data-filter],[data-tab],[data-wf],[data-ask]');
+    if (!t) return;
+    if (t.hasAttribute('data-toast')) { ev.stopPropagation(); toast(t.getAttribute('data-toast')); return; }
+    if (t.hasAttribute('data-go')) { go(t.getAttribute('data-go')); return; }
+    if (t.hasAttribute('data-persona')) { state.persona = t.getAttribute('data-persona'); go(PERSONAS[state.persona].home); return; }
+    if (t.hasAttribute('data-filter')) { state.filter = t.getAttribute('data-filter'); render(); return; }
+    if (t.hasAttribute('data-tab')) { state.tab = t.getAttribute('data-tab'); render(); return; }
+    if (t.hasAttribute('data-wf')) { state.wfSel = +t.getAttribute('data-wf'); render(); return; }
+    if (t.hasAttribute('data-ask')) { asAsk(t.getAttribute('data-ask')); return; }
+    var a = t.getAttribute('data-action');
+    if (a === 'open-nav') document.body.classList.add('nav-open');
+    if (a === 'close-nav') document.body.classList.remove('nav-open');
+    if (a === 'switch') t.classList.toggle('on');
+    if (a === 'toast-notif') toast('3 novas notificações: 1 exigência registrada, 1 documento vencido e 1 etapa aprovada.');
+    if (a === 'theme') {
+      var d = document.documentElement.classList.toggle('dark');
+      try { localStorage.setItem('hf-theme', d ? 'dark' : 'light'); } catch (e) {}
+      renderTop();
+    }
+    if (a === 'assistant') { state.assistantOpen = !state.assistantOpen; document.getElementById('assistant').classList.toggle('open', state.assistantOpen); }
+    if (a === 'run-check') {
+      state.check = 'running'; render();
+      requestAnimationFrame(function () { requestAnimationFrame(function () { var s = document.getElementById('scanBar'); if (s) s.style.width = '100%'; }); });
+      setTimeout(function () { state.check = 'done'; if (route() === 'checklist') render(); }, 1800);
+    }
+  });
+  document.addEventListener('input', function (ev) {
+    if (ev.target.id === 'empSearch') { state.q = ev.target.value; document.getElementById('empBody').innerHTML = empRows(); }
+  });
+  document.getElementById('globalSearch').addEventListener('keydown', function (ev) {
+    if (ev.key === 'Enter') { state.q = ev.target.value; state.filter = 'todos'; go('empreendimentos'); }
+  });
+  document.getElementById('asForm').addEventListener('submit', function (ev) {
+    ev.preventDefault(); var i = document.getElementById('asInput'); if (!i.value.trim()) return; asAsk(i.value.trim()); i.value = '';
+  });
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') { document.body.classList.remove('nav-open'); state.assistantOpen = false; document.getElementById('assistant').classList.remove('open'); } });
+  window.addEventListener('hashchange', function () { if (route() !== 'checklist' && state.check === 'running') state.check = 'idle'; render(); });
+
+  hydrateIcons(document);
+  asInit();
+  render();
+})();
+</script>
+</body>
+</html>
